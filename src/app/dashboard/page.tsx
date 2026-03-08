@@ -6,7 +6,7 @@ import { supabase } from '@/lib/supabase'
 import OnboardingModal from '@/components/OnboardingModal'
 import type { User } from '@supabase/supabase-js'
 
-const ADMIN_EMAIL = 'untilnpl@gmail.com'
+const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL ?? ''
 
 const STATUS: Record<string, { label: string; color: string }> = {
   in_progress: { label: 'In Progress', color: 'bg-[#0071e3]/15 text-[#0071e3]' },
@@ -181,7 +181,7 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                       )}
                       {client.project && (
                         <span className={`rounded-full px-3 py-1 text-xs font-medium ${STATUS[client.project.status]?.color ?? STATUS.in_progress.color}`}>
-                          {STATUS[client.project.status]?.label ?? client.project.status}
+                          {STATUS[client.project.status]?.label ?? client.project.status.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}
                         </span>
                       )}
                       <svg
@@ -228,7 +228,7 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                           <dt className="text-[#1d1d1f]/45 w-28 shrink-0">Status</dt>
                           <dd>
                             <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS[selectedProject.status]?.color ?? STATUS.in_progress.color}`}>
-                              {STATUS[selectedProject.status]?.label ?? selectedProject.status}
+                              {STATUS[selectedProject.status]?.label ?? selectedProject.status.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}
                             </span>
                           </dd>
                         </div>
@@ -279,7 +279,6 @@ export default function Dashboard() {
 
   const [msgSubmitted, setMsgSubmitted] = useState(false)
   const [msgSending, setMsgSending]     = useState(false)
-  const [pendingMsg, setPendingMsg]     = useState(false)
   const msgFormRef = useRef<HTMLFormElement>(null)
 
   const [mtgDate, setMtgDate]         = useState('')
@@ -289,7 +288,6 @@ export default function Dashboard() {
   const [mtgNotes, setMtgNotes]       = useState('')
   const [mtgSubmitted, setMtgSubmitted] = useState(false)
   const [mtgSending, setMtgSending]   = useState(false)
-  const [pendingMtg, setPendingMtg]   = useState(false)
   const mtgFormRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
@@ -414,7 +412,7 @@ export default function Dashboard() {
                 <div className="flex items-start justify-between gap-4">
                   <h2 className="text-lg font-semibold tracking-tight">{project.name}</h2>
                   <span className={`shrink-0 rounded-full px-3 py-1 text-xs font-medium ${STATUS[project.status]?.color ?? STATUS.in_progress.color}`}>
-                    {STATUS[project.status]?.label ?? project.status}
+                    {STATUS[project.status]?.label ?? project.status.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}
                   </span>
                 </div>
                 {project.description && (
@@ -463,13 +461,6 @@ export default function Dashboard() {
         {tab === 'Messages' && (
           <GlassCard>
             <h2 className="mb-4 text-base font-semibold tracking-tight">Send a message</h2>
-            <iframe title="msg-iframe" name="msg_iframe" className="hidden"
-              onLoad={() => {
-                if (!pendingMsg) return
-                setPendingMsg(false); setMsgSending(false); setMsgSubmitted(true)
-                msgFormRef.current?.reset()
-              }}
-            />
             {msgSubmitted ? (
               <div className="rounded-2xl border border-[#0071e3]/20 bg-[#0071e3]/8 p-5 text-center">
                 <p className="text-sm font-semibold">Message sent!</p>
@@ -477,15 +468,23 @@ export default function Dashboard() {
                 <button onClick={() => setMsgSubmitted(false)} className="mt-3 text-xs text-[#0071e3]">Send another</button>
               </div>
             ) : (
-              <form ref={msgFormRef} action="https://formsubmit.co/untilnpl@gmail.com" method="POST"
-                target="msg_iframe" className="grid gap-4"
-                onSubmit={() => { setMsgSending(true); setPendingMsg(true) }}
+              <form ref={msgFormRef} className="grid gap-4"
+                onSubmit={async (e) => {
+                  e.preventDefault()
+                  setMsgSending(true)
+                  await fetch('/api/message', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      clientEmail: user?.email ?? '',
+                      message: (new FormData(e.currentTarget)).get('message') as string,
+                    }),
+                  })
+                  setMsgSending(false)
+                  setMsgSubmitted(true)
+                  msgFormRef.current?.reset()
+                }}
               >
-                <input type="hidden" name="_subject" value={`Message from client: ${user?.email}`} />
-                <input type="hidden" name="_template" value="table" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="client_email" value={user?.email ?? ''} />
-                <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
                 <label className="grid gap-1 text-sm">
                   <span className="font-medium text-[#1d1d1f]/75">Message</span>
                   <textarea required name="message" rows={5} className={TEXTAREA} placeholder="Ask a question or share an update…" />
@@ -504,14 +503,6 @@ export default function Dashboard() {
         {tab === 'Meetings' && (
           <GlassCard>
             <h2 className="mb-5 text-base font-semibold tracking-tight">Book a meeting</h2>
-            <iframe title="mtg-iframe" name="mtg_iframe" className="hidden"
-              onLoad={() => {
-                if (!pendingMtg) return
-                setPendingMtg(false); setMtgSending(false); setMtgSubmitted(true)
-                mtgFormRef.current?.reset()
-                setMtgDate(''); setMtgTime(''); setMtgPlatform('Zoom'); setMtgTopic('Development'); setMtgNotes('')
-              }}
-            />
             {mtgSubmitted ? (
               <div className="rounded-2xl border border-[#0071e3]/20 bg-[#0071e3]/8 p-5 text-center">
                 <p className="text-sm font-semibold">Meeting request sent!</p>
@@ -519,15 +510,28 @@ export default function Dashboard() {
                 <button onClick={() => setMtgSubmitted(false)} className="mt-3 text-xs text-[#0071e3]">Book another</button>
               </div>
             ) : (
-              <form ref={mtgFormRef} action="https://formsubmit.co/untilnpl@gmail.com" method="POST"
-                target="mtg_iframe" className="grid gap-5"
-                onSubmit={() => { setMtgSending(true); setPendingMtg(true) }}
+              <form ref={mtgFormRef} className="grid gap-5"
+                onSubmit={async (e) => {
+                  e.preventDefault()
+                  setMtgSending(true)
+                  await fetch('/api/meeting', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                      clientEmail: user?.email ?? '',
+                      date: mtgDate,
+                      time: mtgTime,
+                      platform: mtgPlatform,
+                      topic: mtgTopic,
+                      notes: mtgNotes,
+                    }),
+                  })
+                  setMtgSending(false)
+                  setMtgSubmitted(true)
+                  mtgFormRef.current?.reset()
+                  setMtgDate(''); setMtgTime(''); setMtgPlatform('Zoom'); setMtgTopic('Development'); setMtgNotes('')
+                }}
               >
-                <input type="hidden" name="_subject" value={`Meeting request from: ${user?.email}`} />
-                <input type="hidden" name="_template" value="table" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="hidden" name="client_email" value={user?.email ?? ''} />
-                <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
 
                 <div className="grid gap-3 sm:grid-cols-2">
                   <label className="grid gap-1 text-sm">
@@ -556,7 +560,6 @@ export default function Dashboard() {
                 <div className="grid gap-1 text-sm">
                   <span className="font-medium text-[#1d1d1f]/75">Where / how</span>
                   <PillGroup options={['Zoom', 'WhatsApp']} value={mtgPlatform} onChange={setMtgPlatform} name="platform" />
-                  <input type="hidden" name="platform" value={mtgPlatform} />
                 </div>
 
                 <div className="grid gap-1 text-sm">
