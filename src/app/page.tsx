@@ -1,15 +1,58 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import heroImage from '../../public/Photos/hero.jpeg'
 
+type FieldErrors = {
+  name?: string[]
+  email?: string[]
+  message?: string[]
+}
 
 export default function Home() {
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [pendingSubmit, setPendingSubmit] = useState(false)
-  const formRef = useRef<HTMLFormElement>(null)
+  const [errors, setErrors] = useState<FieldErrors>({})
+  const [serverError, setServerError] = useState('')
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setSubmitting(true)
+    setErrors({})
+    setServerError('')
+
+    const data = new FormData(e.currentTarget)
+    const body = {
+      name:    data.get('name') as string,
+      email:   data.get('email') as string,
+      message: data.get('message') as string,
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+
+      if (res.ok) {
+        setSubmitted(true)
+        ;(e.target as HTMLFormElement).reset()
+      } else if (res.status === 400) {
+        const json = await res.json()
+        setErrors(json.errors ?? {})
+      } else {
+        const json = await res.json()
+        setServerError(json.error ?? 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setServerError('Network error. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <div>
@@ -17,7 +60,7 @@ export default function Home() {
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
             <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-              Professional Websites that support mission work around the world. 
+              Professional Websites that support mission work around the world.
             </h1>
             <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[#1d1d1f]/75 sm:text-lg">
               American-standard development at unbeatable prices.
@@ -44,15 +87,14 @@ export default function Home() {
               <div className="absolute -inset-4 -z-10 rounded-[28px] bg-[#0071e3]/10 blur-2xl" />
               <div className="glass overflow-hidden rounded-3xl">
                 <Image
-                  src="/Photos/hero.jpeg"
+                  src={heroImage}
                   alt="Photo"
-                  width={960}
-                  height={1280}
-                  quality={95}
+                  quality={75}
+                  placeholder="blur"
                   className="w-full object-cover"
                   priority
                   fetchPriority="high"
-                  sizes="(max-width: 1024px) 100vw, 500px"
+                  sizes="(max-width: 1024px) 100vw, 400px"
                 />
               </div>
               <div className="mt-4 text-center">
@@ -191,72 +233,76 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="glass mx-auto mt-10 max-w-2xl rounded-3xl p-6">
-            <iframe
-              title="contact-submit"
-              name="contact_iframe"
-              className="hidden"
-              onLoad={() => {
-                if (!pendingSubmit) return
-                setPendingSubmit(false)
-                setSubmitting(false)
-                setSubmitted(true)
-                formRef.current?.reset()
-              }}
-            />
+          <div className="glass mx-auto mt-10 max-w-2xl rounded-3xl p-6" style={{ maxWidth: '100%', overflowWrap: 'break-word' }}>
             {submitted ? (
               <div className="py-6 text-center">
-                <p className="text-sm font-semibold tracking-tight">Message queued.</p>
+                <p className="text-sm font-semibold tracking-tight">Message sent!</p>
                 <p className="mt-2 text-sm text-[#1d1d1f]/70">
-                  Thanks—I&apos;ll reply as soon as I can. If you don&apos;t see it, check spam.
+                  Thanks—I&apos;ll reply as soon as I can.
                 </p>
+                <button onClick={() => setSubmitted(false)} className="mt-3 text-xs text-[#0071e3]">Send another</button>
               </div>
             ) : (
-              <form
-                className="grid gap-4"
-                ref={formRef}
-                action="https://formsubmit.co/untilnpl@gmail.com"
-                method="POST"
-                target="contact_iframe"
-                onSubmit={() => { setSubmitting(true); setPendingSubmit(true) }}
-              >
-                <input type="hidden" name="_subject" value="New Kingdom Sites inquiry" />
-                <input type="hidden" name="_template" value="table" />
-                <input type="hidden" name="_captcha" value="false" />
-                <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
+              <form className="grid gap-4" onSubmit={handleSubmit} style={{ maxWidth: '100%' }}>
 
                 <div className="grid gap-2 sm:grid-cols-2">
                   <label className="grid gap-1 text-sm">
                     <span className="font-medium text-[#1d1d1f]/80">Name</span>
                     <input
-                      required name="name"
-                      className="h-11 rounded-2xl border border-white/30 bg-white/20 px-4 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
+                      required
+                      name="name"
+                      type="text"
                       placeholder="Your name"
+                      maxLength={100}
+                      className="h-11 rounded-2xl border border-white/30 bg-white/20 px-4 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
+                      style={{ maxWidth: '100%', overflowWrap: 'break-word' }}
                     />
+                    {errors.name && (
+                      <span className="text-xs text-red-500">{errors.name[0]}</span>
+                    )}
                   </label>
                   <label className="grid gap-1 text-sm">
                     <span className="font-medium text-[#1d1d1f]/80">Email</span>
                     <input
-                      required name="email" type="email"
-                      className="h-11 rounded-2xl border border-white/30 bg-white/20 px-4 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
+                      required
+                      name="email"
+                      type="email"
                       placeholder="you@example.com"
+                      maxLength={255}
+                      className="h-11 rounded-2xl border border-white/30 bg-white/20 px-4 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
+                      style={{ maxWidth: '100%', overflowWrap: 'break-word' }}
                     />
+                    {errors.email && (
+                      <span className="text-xs text-red-500">{errors.email[0]}</span>
+                    )}
                   </label>
                 </div>
 
                 <label className="grid gap-1 text-sm">
                   <span className="font-medium text-[#1d1d1f]/80">What do you need built?</span>
                   <textarea
-                    required name="message" rows={4}
-                    className="resize-none rounded-2xl border border-white/30 bg-white/20 px-4 py-3 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
+                    required
+                    name="message"
+                    rows={4}
                     placeholder="One-page landing, multi-page site, redesign, etc."
+                    maxLength={2000}
+                    className="resize-none rounded-2xl border border-white/30 bg-white/20 px-4 py-3 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
+                    style={{ maxWidth: '100%', overflowWrap: 'break-word' }}
                   />
+                  {errors.message && (
+                    <span className="text-xs text-red-500">{errors.message[0]}</span>
+                  )}
                 </label>
+
+                {serverError && (
+                  <p className="text-xs text-red-500">{serverError}</p>
+                )}
 
                 <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <p className="text-xs text-[#1d1d1f]/55">I&apos;ll reply as soon as possible.</p>
                   <button
-                    type="submit" disabled={submitting}
+                    type="submit"
+                    disabled={submitting}
                     className="inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:border-[#0071e3] hover:bg-[#f5f5f7] hover:text-[#0071e3] disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {submitting ? 'Sending…' : 'Send'}

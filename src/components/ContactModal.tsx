@@ -1,15 +1,58 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 
 const TOPICS = ['Website / App', 'More info on South Asia', 'Other']
 
+type FieldErrors = {
+  name?: string[]
+  email?: string[]
+  message?: string[]
+}
+
 export default function ContactModal({ onClose }: { onClose: () => void }) {
-  const [topic, setTopic]           = useState(TOPICS[0])
+  const [topic, setTopic]         = useState(TOPICS[0])
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted]   = useState(false)
-  const [pending, setPending]       = useState(false)
-  const formRef   = useRef<HTMLFormElement>(null)
+  const [errors, setErrors]         = useState<FieldErrors>({})
+  const [serverError, setServerError] = useState('')
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setSubmitting(true)
+    setErrors({})
+    setServerError('')
+
+    const data = new FormData(e.currentTarget)
+    const body = {
+      name:    data.get('name') as string,
+      email:   data.get('email') as string,
+      message: data.get('message') as string,
+      topic,
+    }
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+
+      if (res.ok) {
+        setSubmitted(true)
+      } else if (res.status === 400) {
+        const json = await res.json()
+        setErrors(json.errors ?? {})
+      } else {
+        const json = await res.json()
+        setServerError(json.error ?? 'Something went wrong. Please try again.')
+      }
+    } catch {
+      setServerError('Network error. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
 
   return (
     <div
@@ -40,14 +83,6 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
         </div>
 
         <div className="overflow-y-auto overscroll-contain px-6 py-5">
-          <iframe name="contact_modal_iframe" title="contact-modal" className="hidden"
-            onLoad={() => {
-              if (!pending) return
-              setPending(false); setSubmitting(false); setSubmitted(true)
-              formRef.current?.reset()
-            }}
-          />
-
           {submitted ? (
             <div className="rounded-xl border border-[#0071e3]/30 bg-[#0071e3]/15 p-5 text-center">
               <p className="text-sm font-semibold text-white">Message sent!</p>
@@ -55,19 +90,7 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
               <button onClick={() => setSubmitted(false)} className="mt-3 text-xs text-[#0071e3]">Send another</button>
             </div>
           ) : (
-            <form
-              ref={formRef}
-              action="https://formsubmit.co/untilnpl@gmail.com"
-              method="POST"
-              target="contact_modal_iframe"
-              className="grid gap-4"
-              onSubmit={() => { setSubmitting(true); setPending(true) }}
-            >
-              <input type="hidden" name="_subject" value={`New inquiry: ${topic}`} />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
-              <input type="hidden" name="topic" value={topic} />
+            <form onSubmit={handleSubmit} className="grid gap-4" style={{ maxWidth: '100%' }}>
 
               <div className="grid gap-1.5">
                 <span className="text-xs font-medium uppercase tracking-widest text-white/40">Topic</span>
@@ -89,23 +112,61 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
 
               <label className="grid gap-1.5">
                 <span className="text-xs font-medium uppercase tracking-widest text-white/40">Name</span>
-                <input required name="name" type="text" placeholder="Your name" autoComplete="name"
-                  className="h-11 rounded-xl border border-white/10 bg-white/8 px-4 text-sm text-white outline-none placeholder:text-white/25 transition focus:border-[#0071e3]/60 focus:bg-white/12" />
+                <input
+                  required
+                  name="name"
+                  type="text"
+                  placeholder="Your name"
+                  autoComplete="name"
+                  maxLength={100}
+                  className="h-11 rounded-xl border border-white/10 bg-white/8 px-4 text-sm text-white outline-none placeholder:text-white/25 transition focus:border-[#0071e3]/60 focus:bg-white/12"
+                  style={{ maxWidth: '100%', overflowWrap: 'break-word' }}
+                />
+                {errors.name && (
+                  <span className="text-xs text-red-400">{errors.name[0]}</span>
+                )}
               </label>
 
               <label className="grid gap-1.5">
                 <span className="text-xs font-medium uppercase tracking-widest text-white/40">Email</span>
-                <input required name="email" type="email" placeholder="you@example.com" autoComplete="email"
-                  className="h-11 rounded-xl border border-white/10 bg-white/8 px-4 text-sm text-white outline-none placeholder:text-white/25 transition focus:border-[#0071e3]/60 focus:bg-white/12" />
+                <input
+                  required
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                  maxLength={255}
+                  className="h-11 rounded-xl border border-white/10 bg-white/8 px-4 text-sm text-white outline-none placeholder:text-white/25 transition focus:border-[#0071e3]/60 focus:bg-white/12"
+                  style={{ maxWidth: '100%', overflowWrap: 'break-word' }}
+                />
+                {errors.email && (
+                  <span className="text-xs text-red-400">{errors.email[0]}</span>
+                )}
               </label>
 
               <label className="grid gap-1.5">
                 <span className="text-xs font-medium uppercase tracking-widest text-white/40">Message</span>
-                <textarea required name="message" rows={3} placeholder="Tell us a bit more…"
-                  className="resize-none rounded-xl border border-white/10 bg-white/8 px-4 py-3 text-sm text-white outline-none placeholder:text-white/25 transition focus:border-[#0071e3]/60 focus:bg-white/12" />
+                <textarea
+                  required
+                  name="message"
+                  rows={3}
+                  placeholder="Tell us a bit more…"
+                  maxLength={2000}
+                  className="resize-none rounded-xl border border-white/10 bg-white/8 px-4 py-3 text-sm text-white outline-none placeholder:text-white/25 transition focus:border-[#0071e3]/60 focus:bg-white/12"
+                  style={{ maxWidth: '100%', overflowWrap: 'break-word' }}
+                />
+                {errors.message && (
+                  <span className="text-xs text-red-400">{errors.message[0]}</span>
+                )}
               </label>
 
-              <button type="submit" disabled={submitting}
+              {serverError && (
+                <p className="text-xs text-red-400">{serverError}</p>
+              )}
+
+              <button
+                type="submit"
+                disabled={submitting}
                 className="h-11 rounded-xl bg-[#0071e3] text-sm font-semibold text-white transition hover:bg-[#0071e3]/90 disabled:opacity-50"
               >
                 {submitting ? 'Sending…' : 'Send message'}
