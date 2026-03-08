@@ -773,7 +773,7 @@ export default function Dashboard() {
 
             <div className="rounded-2xl border border-black/8 bg-white/60 p-5">
               <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40 mb-1">Monthly</p>
-              <p className="text-lg font-semibold tracking-tight mb-0.5">$50/mo — Care Plan</p>
+              <p className="text-lg font-semibold tracking-tight mb-0.5">$50/mo — Hosting & Maintenance</p>
               <p className="text-sm text-[#1d1d1f]/55 mb-4">Unlimited updates. Cancel any time. First month free.</p>
               <a
                 href="https://paypal.me/thomasklein690/50"
