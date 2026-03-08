@@ -92,11 +92,26 @@ type ProjectRow = {
   created_at: string
 }
 
+const STATUSES = [
+  { value: 'in_progress', label: 'In Progress' },
+  { value: 'review',      label: 'In Review'   },
+  { value: 'complete',    label: 'Complete'     },
+]
+
 function AdminView({ onSignOut }: { onSignOut: () => void }) {
   const [clients, setClients]   = useState<ClientRow[]>([])
   const [loading, setLoading]   = useState(true)
   const [selected, setSelected] = useState<ClientRow | null>(null)
   const [selectedProject, setSelectedProject] = useState<ProjectRow | null>(null)
+
+  // Project form state
+  const [showForm, setShowForm]       = useState(false)
+  const [projName, setProjName]       = useState('')
+  const [projStatus, setProjStatus]   = useState('in_progress')
+  const [projDesc, setProjDesc]       = useState('')
+  const [projDrive, setProjDrive]     = useState('')
+  const [projSaving, setProjSaving]   = useState(false)
+  const [projError, setProjError]     = useState('')
 
   useEffect(() => {
     async function load() {
@@ -121,9 +136,54 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
   }, {})
 
   const handleSelect = (client: ClientRow) => {
-    if (selected?.id === client.id) { setSelected(null); setSelectedProject(null); return }
+    if (selected?.id === client.id) { setSelected(null); setSelectedProject(null); setShowForm(false); return }
     setSelected(client)
     setSelectedProject(client.project)
+    setShowForm(false)
+  }
+
+  const openForm = (proj: ProjectRow | null) => {
+    setProjName(proj?.name ?? '')
+    setProjStatus(proj?.status ?? 'in_progress')
+    setProjDesc(proj?.description ?? '')
+    setProjDrive(proj?.drive_link ?? '')
+    setProjError('')
+    setShowForm(true)
+  }
+
+  const saveProject = async () => {
+    if (!selected || !projName.trim()) { setProjError('Project name is required.'); return }
+    setProjSaving(true)
+    setProjError('')
+
+    const payload = {
+      name:         projName.trim(),
+      status:       projStatus,
+      description:  projDesc.trim() || null,
+      drive_link:   projDrive.trim() || null,
+      client_email: selected.email,
+    }
+
+    const { error } = selectedProject
+      ? await supabase.from('projects').update(payload).eq('client_email', selected.email)
+      : await supabase.from('projects').insert(payload)
+
+    setProjSaving(false)
+    if (error) { setProjError(error.message); return }
+
+    // Update local state
+    const updated: ProjectRow = {
+      name:        payload.name,
+      status:      payload.status,
+      description: payload.description ?? undefined,
+      drive_link:  payload.drive_link  ?? undefined,
+      created_at:  selectedProject?.created_at ?? new Date().toISOString(),
+    }
+    setSelectedProject(updated)
+    setClients(prev => prev.map(c =>
+      c.id === selected.id ? { ...c, project: updated } : c
+    ))
+    setShowForm(false)
   }
 
   return (
@@ -217,9 +277,77 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                     </dl>
                   </GlassCard>
 
-                  {selectedProject ? (
-                    <GlassCard>
-                      <h3 className="mb-3 text-sm font-semibold text-[#1d1d1f]/70">Project</h3>
+                  <GlassCard>
+                    <div className="mb-3 flex items-center justify-between">
+                      <h3 className="text-sm font-semibold text-[#1d1d1f]/70">Project</h3>
+                      {!showForm && (
+                        <button
+                          onClick={() => openForm(selectedProject)}
+                          className="rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-medium text-[#1d1d1f]/60 transition hover:bg-white/35"
+                        >
+                          {selectedProject ? 'Edit' : 'Set up project'}
+                        </button>
+                      )}
+                    </div>
+
+                    {showForm ? (
+                      <div className="grid gap-3">
+                        <label className="grid gap-1 text-sm">
+                          <span className="font-medium text-[#1d1d1f]/70">Project name *</span>
+                          <input
+                            type="text" value={projName} onChange={e => setProjName(e.target.value)}
+                            placeholder="Grace Community Church Website" maxLength={150}
+                            className={INPUT}
+                          />
+                        </label>
+
+                        <label className="grid gap-1 text-sm">
+                          <span className="font-medium text-[#1d1d1f]/70">Status</span>
+                          <select
+                            value={projStatus} onChange={e => setProjStatus(e.target.value)}
+                            className="h-12 w-full appearance-none rounded-3xl border border-white/30 bg-white/20 px-5 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
+                            style={{ backgroundImage: CHEVRON, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1.25rem center' }}
+                          >
+                            {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+                          </select>
+                        </label>
+
+                        <label className="grid gap-1 text-sm">
+                          <span className="font-medium text-[#1d1d1f]/70">Notes <span className="font-normal text-[#1d1d1f]/40">(optional)</span></span>
+                          <textarea
+                            rows={3} value={projDesc} onChange={e => setProjDesc(e.target.value)}
+                            placeholder="Brief description of the project scope…" maxLength={1000}
+                            className={TEXTAREA}
+                          />
+                        </label>
+
+                        <label className="grid gap-1 text-sm">
+                          <span className="font-medium text-[#1d1d1f]/70">Google Drive link <span className="font-normal text-[#1d1d1f]/40">(optional)</span></span>
+                          <input
+                            type="url" value={projDrive} onChange={e => setProjDrive(e.target.value)}
+                            placeholder="https://drive.google.com/drive/folders/…" maxLength={500}
+                            className={INPUT}
+                          />
+                        </label>
+
+                        {projError && <p className="text-xs text-red-500">{projError}</p>}
+
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => setShowForm(false)}
+                            className="h-10 flex-1 rounded-full border border-white/30 bg-white/20 text-sm font-medium text-[#1d1d1f]/60 transition hover:bg-white/35"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={saveProject} disabled={projSaving}
+                            className="h-10 flex-1 rounded-full bg-[#0071e3] text-sm font-semibold text-white shadow-sm transition hover:brightness-95 disabled:opacity-60"
+                          >
+                            {projSaving ? 'Saving…' : selectedProject ? 'Save changes' : 'Create project'}
+                          </button>
+                        </div>
+                      </div>
+                    ) : selectedProject ? (
                       <dl className="grid gap-2 text-sm">
                         <div className="flex gap-2">
                           <dt className="text-[#1d1d1f]/45 w-28 shrink-0">Name</dt>
@@ -229,7 +357,7 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                           <dt className="text-[#1d1d1f]/45 w-28 shrink-0">Status</dt>
                           <dd>
                             <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS[selectedProject.status]?.color ?? STATUS.in_progress.color}`}>
-                              {STATUS[selectedProject.status]?.label ?? selectedProject.status.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}
+                              {STATUS[selectedProject.status]?.label ?? selectedProject.status}
                             </span>
                           </dd>
                         </div>
@@ -242,9 +370,7 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                         {selectedProject.drive_link && (
                           <div className="flex gap-2">
                             <dt className="text-[#1d1d1f]/45 w-28 shrink-0">Drive</dt>
-                            <dd>
-                              <a href={selectedProject.drive_link} target="_blank" rel="noopener noreferrer" className="text-[#0071e3] underline text-xs">Open folder</a>
-                            </dd>
+                            <dd><a href={selectedProject.drive_link} target="_blank" rel="noopener noreferrer" className="text-[#0071e3] underline text-xs">Open folder</a></dd>
                           </div>
                         )}
                         <div className="flex gap-2">
@@ -252,12 +378,10 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                           <dd>{new Date(selectedProject.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</dd>
                         </div>
                       </dl>
-                    </GlassCard>
-                  ) : (
-                    <GlassCard>
-                      <p className="text-sm text-[#1d1d1f]/45 text-center py-2">No project row yet.</p>
-                    </GlassCard>
-                  )}
+                    ) : (
+                      <p className="text-sm text-[#1d1d1f]/45 py-1">No project yet — click "Set up project" to create one.</p>
+                    )}
+                  </GlassCard>
                 </div>
               )}
             </div>
