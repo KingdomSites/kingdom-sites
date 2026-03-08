@@ -493,7 +493,7 @@ export default function Dashboard() {
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`flex flex-col items-center justify-center gap-2 rounded-3xl py-5 text-xs font-medium transition ${tab === t ? 'text-[#0071e3]' : 'text-[#1d1d1f]/55'}`}
+              className={`flex flex-col items-center justify-center gap-2 rounded-3xl py-5 text-xs font-medium transition ${t === 'Intake' ? 'col-span-2' : ''} ${tab === t ? 'text-[#0071e3]' : 'text-[#1d1d1f]/55'}`}
               style={{
                 background: tab === t ? 'rgba(0,113,227,0.10)' : 'rgba(255,255,255,0.18)',
                 backdropFilter: 'blur(32px) saturate(180%)',

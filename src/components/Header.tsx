@@ -67,7 +67,8 @@ export default function Header() {
     return () => subscription.unsubscribe()
   }, [])
 
-  const isActive = (path: string) => pathname === path
+  const isActive    = (path: string) => pathname === path
+  const onDashboard = pathname === '/dashboard'
 
   const textColor    = darkBg ? 'text-white'     : 'text-[#1d1d1f]'
   const mutedColor   = darkBg ? 'text-white/65'  : 'text-[#1d1d1f]/60'
@@ -91,16 +92,18 @@ export default function Header() {
             <Link href="/" className={`text-sm font-semibold tracking-tight transition-colors duration-300 ${textColor}`}>
               Kingdom Sites
             </Link>
-            <nav className="hidden sm:flex items-center gap-4">
-              {NAV_LINKS.map(({ to, label }) => (
-                <Link
-                  key={to} href={to}
-                  className={`text-sm font-medium transition-colors duration-300 ${isActive(to) ? activeColor : `${mutedColor} ${hoverColor}`}`}
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
+            {!onDashboard && (
+              <nav className="hidden sm:flex items-center gap-4">
+                {NAV_LINKS.map(({ to, label }) => (
+                  <Link
+                    key={to} href={to}
+                    className={`text-sm font-medium transition-colors duration-300 ${isActive(to) ? activeColor : `${mutedColor} ${hoverColor}`}`}
+                  >
+                    {label}
+                  </Link>
+                ))}
+              </nav>
+            )}
           </div>
 
           <div className="hidden sm:flex items-center gap-2">
@@ -122,13 +125,15 @@ export default function Header() {
             )}
           </div>
 
-          <button
-            className={`sm:hidden flex h-9 w-9 items-center justify-center rounded-2xl border border-white/30 bg-white/20 backdrop-blur-sm transition-colors duration-300 hover:bg-white/35 ${burgerColor}`}
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          >
-            {menuOpen ? <CloseIcon /> : <MenuIcon />}
-          </button>
+          {!onDashboard && (
+            <button
+              className={`sm:hidden flex h-9 w-9 items-center justify-center rounded-2xl border border-white/30 bg-white/20 backdrop-blur-sm transition-colors duration-300 hover:bg-white/35 ${burgerColor}`}
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            >
+              {menuOpen ? <CloseIcon /> : <MenuIcon />}
+            </button>
+          )}
         </div>
       </div>
 
