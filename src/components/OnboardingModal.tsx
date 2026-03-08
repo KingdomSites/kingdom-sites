@@ -97,7 +97,7 @@ export default function OnboardingModal({ user, onComplete }: { user: User; onCo
               <option value="" disabled>Select a service</option>
               <option>Website Build</option>
               <option>App Build</option>
-              <option>Maintenance / Care Plan</option>
+              <option>Hosting &amp; Maintenance</option>
             </select>
           </label>
 

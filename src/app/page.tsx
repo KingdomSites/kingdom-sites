@@ -198,7 +198,7 @@ export default function Home() {
               <span className="text-4xl font-semibold tracking-tight">$50</span>
               <span className="text-sm text-[#1d1d1f]/55 mb-1">/month</span>
             </div>
-            <p className="text-sm font-medium mb-4">Care &amp; Maintenance</p>
+            <p className="text-sm font-medium mb-4">Hosting &amp; Maintenance</p>
             <ul className="grid gap-2 mb-6 flex-1">
               {[
                 'Unlimited updates — just message me',
