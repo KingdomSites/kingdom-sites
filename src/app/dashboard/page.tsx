@@ -683,10 +683,12 @@ export default function Dashboard() {
                 <div className="grid gap-3 sm:grid-cols-2">
                   <label className="grid gap-1 text-sm">
                     <span className="font-medium text-[#1d1d1f]/75">Date</span>
-                    <input required type="date" name="date" className={`${INPUT} overflow-hidden`}
-                      value={mtgDate} onChange={(e) => setMtgDate(e.target.value)}
-                      min={new Date().toISOString().split('T')[0]}
-                    />
+                    <div className="overflow-hidden rounded-3xl">
+                      <input required type="date" name="date" className={`${INPUT} rounded-none`}
+                        value={mtgDate} onChange={(e) => setMtgDate(e.target.value)}
+                        min={new Date().toISOString().split('T')[0]}
+                      />
+                    </div>
                   </label>
                   <label className="grid gap-1 text-sm">
                     <span className="font-medium text-[#1d1d1f]/75">Time</span>
