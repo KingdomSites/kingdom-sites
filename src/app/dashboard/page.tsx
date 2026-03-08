@@ -99,19 +99,18 @@ const STATUSES = [
 ]
 
 function AdminView({ onSignOut }: { onSignOut: () => void }) {
-  const [clients, setClients]   = useState<ClientRow[]>([])
-  const [loading, setLoading]   = useState(true)
-  const [selected, setSelected] = useState<ClientRow | null>(null)
-  const [selectedProject, setSelectedProject] = useState<ProjectRow | null>(null)
+  const [clients, setClients] = useState<ClientRow[]>([])
+  const [loading, setLoading] = useState(true)
+  const [modal, setModal]     = useState<ClientRow | null>(null)
 
-  // Project form state
-  const [showForm, setShowForm]       = useState(false)
-  const [projName, setProjName]       = useState('')
-  const [projStatus, setProjStatus]   = useState('in_progress')
-  const [projDesc, setProjDesc]       = useState('')
-  const [projDrive, setProjDrive]     = useState('')
-  const [projSaving, setProjSaving]   = useState(false)
-  const [projError, setProjError]     = useState('')
+  // Project form state (lives inside modal)
+  const [showForm, setShowForm]     = useState(false)
+  const [projName, setProjName]     = useState('')
+  const [projStatus, setProjStatus] = useState('in_progress')
+  const [projDesc, setProjDesc]     = useState('')
+  const [projDrive, setProjDrive]   = useState('')
+  const [projSaving, setProjSaving] = useState(false)
+  const [projError, setProjError]   = useState('')
 
   useEffect(() => {
     async function load() {
@@ -135,59 +134,55 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
     return acc
   }, {})
 
-  const handleSelect = (client: ClientRow) => {
-    if (selected?.id === client.id) { setSelected(null); setSelectedProject(null); setShowForm(false); return }
-    setSelected(client)
-    setSelectedProject(client.project)
+  const openModal = (client: ClientRow) => {
+    setModal(client)
     setShowForm(false)
+    setProjName(client.project?.name ?? '')
+    setProjStatus(client.project?.status ?? 'in_progress')
+    setProjDesc(client.project?.description ?? '')
+    setProjDrive(client.project?.drive_link ?? '')
+    setProjError('')
   }
 
-  const openForm = (proj: ProjectRow | null) => {
-    setProjName(proj?.name ?? '')
-    setProjStatus(proj?.status ?? 'in_progress')
-    setProjDesc(proj?.description ?? '')
-    setProjDrive(proj?.drive_link ?? '')
-    setProjError('')
-    setShowForm(true)
-  }
+  const closeModal = () => { setModal(null); setShowForm(false) }
 
   const saveProject = async () => {
-    if (!selected || !projName.trim()) { setProjError('Project name is required.'); return }
+    if (!modal || !projName.trim()) { setProjError('Project name is required.'); return }
     setProjSaving(true)
     setProjError('')
-
     const payload = {
       name:         projName.trim(),
       status:       projStatus,
       description:  projDesc.trim() || null,
       drive_link:   projDrive.trim() || null,
-      client_email: selected.email,
+      client_email: modal.email,
     }
-
-    const { error } = selectedProject
-      ? await supabase.from('projects').update(payload).eq('client_email', selected.email)
+    const { error } = modal.project
+      ? await supabase.from('projects').update(payload).eq('client_email', modal.email)
       : await supabase.from('projects').insert(payload)
-
     setProjSaving(false)
     if (error) { setProjError(error.message); return }
-
-    // Update local state
     const updated: ProjectRow = {
       name:        payload.name,
       status:      payload.status,
       description: payload.description ?? undefined,
       drive_link:  payload.drive_link  ?? undefined,
-      created_at:  selectedProject?.created_at ?? new Date().toISOString(),
+      created_at:  modal.project?.created_at ?? new Date().toISOString(),
     }
-    setSelectedProject(updated)
-    setClients(prev => prev.map(c =>
-      c.id === selected.id ? { ...c, project: updated } : c
-    ))
+    const updatedClient = { ...modal, project: updated }
+    setClients(prev => prev.map(c => c.id === modal.id ? updatedClient : c))
+    setModal(updatedClient)
     setShowForm(false)
   }
 
+  const initials = (client: ClientRow) => {
+    const name = client.name ?? client.email
+    return name.split(' ').map((w: string) => w[0]).join('').slice(0, 2).toUpperCase()
+  }
+
   return (
-    <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6 sm:py-20">
+    <div className="mx-auto max-w-5xl px-4 py-14 sm:px-6 sm:py-20">
+      {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
           <p className="mb-1 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-medium text-[#1d1d1f]/70 backdrop-blur-sm">
@@ -204,7 +199,8 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
         </button>
       </div>
 
-      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      {/* Stats */}
+      <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <GlassCard className="!p-4">
           <p className="text-xs text-[#1d1d1f]/45 mb-1">Total clients</p>
           <p className="text-2xl font-semibold">{clients.length}</p>
@@ -217,6 +213,7 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
         ))}
       </div>
 
+      {/* Client grid */}
       {loading ? (
         <p className="text-sm text-[#1d1d1f]/50">Loading clients…</p>
       ) : clients.length === 0 ? (
@@ -224,168 +221,192 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
           <p className="text-sm text-[#1d1d1f]/55 text-center py-4">No clients yet.</p>
         </GlassCard>
       ) : (
-        <div className="grid gap-3">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {clients.map((client) => (
-            <div key={client.id}>
-              <button onClick={() => handleSelect(client)} className="w-full text-left">
-                <GlassCard className={`transition hover:bg-white/20 ${selected?.id === client.id ? 'ring-2 ring-[#0071e3]/30' : ''}`}>
-                  <div className="flex items-center justify-between gap-4">
-                    <div className="min-w-0">
-                      <p className="font-semibold truncate">{client.name ?? '—'}</p>
-                      <p className="text-sm text-[#1d1d1f]/55 truncate">{client.email}</p>
-                    </div>
-                    <div className="flex shrink-0 items-center gap-2">
-                      {client.tech_type && (
-                        <span className="rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-medium text-[#1d1d1f]/60">
-                          {client.tech_type}
-                        </span>
-                      )}
-                      {client.project && (
-                        <span className={`rounded-full px-3 py-1 text-xs font-medium ${STATUS[client.project.status]?.color ?? STATUS.in_progress.color}`}>
-                          {STATUS[client.project.status]?.label ?? client.project.status.replace(/_/g, ' ').replace(/\b\w/g, (c: string) => c.toUpperCase())}
-                        </span>
-                      )}
-                      <svg
-                        className={`h-4 w-4 text-[#1d1d1f]/30 transition-transform ${selected?.id === client.id ? 'rotate-180' : ''}`}
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                      </svg>
-                    </div>
-                  </div>
-                </GlassCard>
+            <button
+              key={client.id}
+              onClick={() => openModal(client)}
+              className="group flex flex-col items-center justify-center gap-3 rounded-3xl p-5 text-center transition hover:scale-[1.02] active:scale-[0.98]"
+              style={{
+                background: 'rgba(255,255,255,0.18)',
+                backdropFilter: 'blur(32px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(32px) saturate(180%)',
+                border: '1px solid rgba(255,255,255,0.30)',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
+                aspectRatio: '1',
+              }}
+            >
+              {/* Avatar */}
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#0071e3]/15 text-sm font-semibold text-[#0071e3]">
+                {initials(client)}
+              </div>
+              <div className="w-full min-w-0">
+                <p className="truncate text-sm font-semibold text-[#1d1d1f]">{client.name ?? '—'}</p>
+                <p className="truncate text-[0.68rem] text-[#1d1d1f]/45">{client.email}</p>
+              </div>
+              {client.project ? (
+                <span className={`rounded-full px-2.5 py-0.5 text-[0.68rem] font-medium ${STATUS[client.project.status]?.color ?? STATUS.in_progress.color}`}>
+                  {STATUS[client.project.status]?.label ?? client.project.status}
+                </span>
+              ) : (
+                <span className="rounded-full border border-white/30 bg-white/20 px-2.5 py-0.5 text-[0.68rem] font-medium text-[#1d1d1f]/40">
+                  No project
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Modal */}
+      {modal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: 'rgba(0,0,0,0.30)', backdropFilter: 'blur(6px)' }}
+          onClick={(e) => { if (e.target === e.currentTarget) closeModal() }}
+        >
+          <div
+            className="w-full max-w-lg max-h-[90dvh] overflow-y-auto rounded-3xl p-6"
+            style={{
+              background: 'rgba(255,255,255,0.85)',
+              backdropFilter: 'blur(56px) saturate(200%)',
+              WebkitBackdropFilter: 'blur(56px) saturate(200%)',
+              border: '1px solid rgba(255,255,255,0.40)',
+              boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
+            }}
+          >
+            {/* Modal header */}
+            <div className="mb-5 flex items-start justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0071e3]/15 text-sm font-semibold text-[#0071e3]">
+                  {initials(modal)}
+                </div>
+                <div>
+                  <p className="font-semibold text-[#1d1d1f]">{modal.name ?? '—'}</p>
+                  <p className="text-xs text-[#1d1d1f]/50">{modal.email}</p>
+                </div>
+              </div>
+              <button
+                onClick={closeModal}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/8 bg-black/5 text-[#1d1d1f]/50 transition hover:bg-black/10"
+              >
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                </svg>
               </button>
+            </div>
 
-              {selected?.id === client.id && (
-                <div className="mt-2 ml-2 grid gap-3">
-                  <GlassCard>
-                    <h3 className="mb-3 text-sm font-semibold text-[#1d1d1f]/70">Profile</h3>
-                    <dl className="grid gap-2 text-sm">
-                      {[
-                        ['Name', client.name ?? '—'],
-                        ['Email', client.email],
-                        ['Role', client.who_they_are ?? '—'],
-                        ['Needs', client.tech_type ?? '—'],
-                        ['Description', client.description ?? '—'],
-                        ['Joined', new Date(client.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })],
-                      ].map(([dt, dd]) => (
-                        <div key={dt} className="flex gap-2">
-                          <dt className="text-[#1d1d1f]/45 w-28 shrink-0">{dt}</dt>
-                          <dd className="text-[#1d1d1f]/70">{dd}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </GlassCard>
-
-                  <GlassCard>
-                    <div className="mb-3 flex items-center justify-between">
-                      <h3 className="text-sm font-semibold text-[#1d1d1f]/70">Project</h3>
-                      {!showForm && (
-                        <button
-                          onClick={() => openForm(selectedProject)}
-                          className="rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-medium text-[#1d1d1f]/60 transition hover:bg-white/35"
-                        >
-                          {selectedProject ? 'Edit' : 'Set up project'}
-                        </button>
-                      )}
+            {/* Profile */}
+            <div className="mb-4">
+              <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-widest text-[#1d1d1f]/35">Profile</p>
+              <div className="rounded-2xl border border-black/6 bg-white/60 px-4 py-3">
+                <dl className="grid gap-2 text-sm">
+                  {([
+                    ['Role',        modal.who_they_are ?? '—'],
+                    ['Needs',       modal.tech_type    ?? '—'],
+                    ['Description', modal.description  ?? '—'],
+                    ['Joined',      new Date(modal.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })],
+                  ] as [string, string][]).map(([dt, dd]) => (
+                    <div key={dt} className="flex gap-2">
+                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40">{dt}</dt>
+                      <dd className="text-[#1d1d1f]/75 break-words">{dd}</dd>
                     </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
 
-                    {showForm ? (
-                      <div className="grid gap-3">
-                        <label className="grid gap-1 text-sm">
-                          <span className="font-medium text-[#1d1d1f]/70">Project name *</span>
-                          <input
-                            type="text" value={projName} onChange={e => setProjName(e.target.value)}
-                            placeholder="Grace Community Church Website" maxLength={150}
-                            className={INPUT}
-                          />
-                        </label>
+            {/* Project */}
+            <div>
+              <div className="mb-2 flex items-center justify-between">
+                <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-[#1d1d1f]/35">Project</p>
+                {!showForm && (
+                  <button
+                    onClick={() => setShowForm(true)}
+                    className="rounded-full border border-white/30 bg-white/40 px-3 py-1 text-xs font-medium text-[#1d1d1f]/60 transition hover:bg-white/60"
+                  >
+                    {modal.project ? 'Edit' : 'Set up project'}
+                  </button>
+                )}
+              </div>
 
-                        <label className="grid gap-1 text-sm">
-                          <span className="font-medium text-[#1d1d1f]/70">Status</span>
-                          <select
-                            value={projStatus} onChange={e => setProjStatus(e.target.value)}
-                            className="h-12 w-full appearance-none rounded-3xl border border-white/30 bg-white/20 px-5 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
-                            style={{ backgroundImage: CHEVRON, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1.25rem center' }}
-                          >
-                            {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
-                          </select>
-                        </label>
-
-                        <label className="grid gap-1 text-sm">
-                          <span className="font-medium text-[#1d1d1f]/70">Notes <span className="font-normal text-[#1d1d1f]/40">(optional)</span></span>
-                          <textarea
-                            rows={3} value={projDesc} onChange={e => setProjDesc(e.target.value)}
-                            placeholder="Brief description of the project scope…" maxLength={1000}
-                            className={TEXTAREA}
-                          />
-                        </label>
-
-                        <label className="grid gap-1 text-sm">
-                          <span className="font-medium text-[#1d1d1f]/70">Google Drive link <span className="font-normal text-[#1d1d1f]/40">(optional)</span></span>
-                          <input
-                            type="url" value={projDrive} onChange={e => setProjDrive(e.target.value)}
-                            placeholder="https://drive.google.com/drive/folders/…" maxLength={500}
-                            className={INPUT}
-                          />
-                        </label>
-
-                        {projError && <p className="text-xs text-red-500">{projError}</p>}
-
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => setShowForm(false)}
-                            className="h-10 flex-1 rounded-full border border-white/30 bg-white/20 text-sm font-medium text-[#1d1d1f]/60 transition hover:bg-white/35"
-                          >
-                            Cancel
-                          </button>
-                          <button
-                            onClick={saveProject} disabled={projSaving}
-                            className="h-10 flex-1 rounded-full bg-[#0071e3] text-sm font-semibold text-white shadow-sm transition hover:brightness-95 disabled:opacity-60"
-                          >
-                            {projSaving ? 'Saving…' : selectedProject ? 'Save changes' : 'Create project'}
-                          </button>
-                        </div>
+              {showForm ? (
+                <div className="grid gap-3 rounded-2xl border border-black/6 bg-white/60 p-4">
+                  <label className="grid gap-1 text-sm">
+                    <span className="font-medium text-[#1d1d1f]/70">Project name *</span>
+                    <input type="text" value={projName} onChange={e => setProjName(e.target.value)}
+                      placeholder="Grace Community Church Website" maxLength={150} className={INPUT} />
+                  </label>
+                  <label className="grid gap-1 text-sm">
+                    <span className="font-medium text-[#1d1d1f]/70">Status</span>
+                    <select value={projStatus} onChange={e => setProjStatus(e.target.value)}
+                      className="h-12 w-full appearance-none rounded-3xl border border-white/30 bg-white/20 px-5 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
+                      style={{ backgroundImage: CHEVRON, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1.25rem center' }}>
+                      {STATUSES.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
+                    </select>
+                  </label>
+                  <label className="grid gap-1 text-sm">
+                    <span className="font-medium text-[#1d1d1f]/70">Notes <span className="font-normal text-[#1d1d1f]/40">(optional)</span></span>
+                    <textarea rows={3} value={projDesc} onChange={e => setProjDesc(e.target.value)}
+                      placeholder="Brief description of the project scope…" maxLength={1000} className={TEXTAREA} />
+                  </label>
+                  <label className="grid gap-1 text-sm">
+                    <span className="font-medium text-[#1d1d1f]/70">Google Drive link <span className="font-normal text-[#1d1d1f]/40">(optional)</span></span>
+                    <input type="url" value={projDrive} onChange={e => setProjDrive(e.target.value)}
+                      placeholder="https://drive.google.com/drive/folders/…" maxLength={500} className={INPUT} />
+                  </label>
+                  {projError && <p className="text-xs text-red-500">{projError}</p>}
+                  <div className="flex gap-2">
+                    <button onClick={() => setShowForm(false)}
+                      className="h-10 flex-1 rounded-full border border-white/30 bg-white/20 text-sm font-medium text-[#1d1d1f]/60 transition hover:bg-white/35">
+                      Cancel
+                    </button>
+                    <button onClick={saveProject} disabled={projSaving}
+                      className="h-10 flex-1 rounded-full bg-[#0071e3] text-sm font-semibold text-white shadow-sm transition hover:brightness-95 disabled:opacity-60">
+                      {projSaving ? 'Saving…' : modal.project ? 'Save changes' : 'Create project'}
+                    </button>
+                  </div>
+                </div>
+              ) : modal.project ? (
+                <div className="rounded-2xl border border-black/6 bg-white/60 px-4 py-3">
+                  <dl className="grid gap-2 text-sm">
+                    <div className="flex gap-2">
+                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40">Name</dt>
+                      <dd className="font-medium text-[#1d1d1f]">{modal.project.name}</dd>
+                    </div>
+                    <div className="flex gap-2">
+                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40">Status</dt>
+                      <dd>
+                        <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS[modal.project.status]?.color ?? STATUS.in_progress.color}`}>
+                          {STATUS[modal.project.status]?.label ?? modal.project.status}
+                        </span>
+                      </dd>
+                    </div>
+                    {modal.project.description && (
+                      <div className="flex gap-2">
+                        <dt className="w-24 shrink-0 text-[#1d1d1f]/40">Notes</dt>
+                        <dd className="text-[#1d1d1f]/75">{modal.project.description}</dd>
                       </div>
-                    ) : selectedProject ? (
-                      <dl className="grid gap-2 text-sm">
-                        <div className="flex gap-2">
-                          <dt className="text-[#1d1d1f]/45 w-28 shrink-0">Name</dt>
-                          <dd className="font-medium">{selectedProject.name}</dd>
-                        </div>
-                        <div className="flex gap-2">
-                          <dt className="text-[#1d1d1f]/45 w-28 shrink-0">Status</dt>
-                          <dd>
-                            <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS[selectedProject.status]?.color ?? STATUS.in_progress.color}`}>
-                              {STATUS[selectedProject.status]?.label ?? selectedProject.status}
-                            </span>
-                          </dd>
-                        </div>
-                        {selectedProject.description && (
-                          <div className="flex gap-2">
-                            <dt className="text-[#1d1d1f]/45 w-28 shrink-0">Notes</dt>
-                            <dd className="text-[#1d1d1f]/70">{selectedProject.description}</dd>
-                          </div>
-                        )}
-                        {selectedProject.drive_link && (
-                          <div className="flex gap-2">
-                            <dt className="text-[#1d1d1f]/45 w-28 shrink-0">Drive</dt>
-                            <dd><a href={selectedProject.drive_link} target="_blank" rel="noopener noreferrer" className="text-[#0071e3] underline text-xs">Open folder</a></dd>
-                          </div>
-                        )}
-                        <div className="flex gap-2">
-                          <dt className="text-[#1d1d1f]/45 w-28 shrink-0">Started</dt>
-                          <dd>{new Date(selectedProject.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</dd>
-                        </div>
-                      </dl>
-                    ) : (
-                      <p className="text-sm text-[#1d1d1f]/45 py-1">No project yet — click "Set up project" to create one.</p>
                     )}
-                  </GlassCard>
+                    {modal.project.drive_link && (
+                      <div className="flex gap-2">
+                        <dt className="w-24 shrink-0 text-[#1d1d1f]/40">Drive</dt>
+                        <dd><a href={modal.project.drive_link} target="_blank" rel="noopener noreferrer" className="text-[#0071e3] underline text-xs">Open folder</a></dd>
+                      </div>
+                    )}
+                    <div className="flex gap-2">
+                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40">Started</dt>
+                      <dd className="text-[#1d1d1f]/75">{new Date(modal.project.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</dd>
+                    </div>
+                  </dl>
+                </div>
+              ) : (
+                <div className="rounded-2xl border border-black/6 bg-white/60 px-4 py-3">
+                  <p className="text-sm text-[#1d1d1f]/45">No project yet — click &ldquo;Set up project&rdquo; to create one.</p>
                 </div>
               )}
             </div>
-          ))}
+          </div>
         </div>
       )}
     </div>
