@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import OnboardingModal from '@/components/OnboardingModal'
+import IntakeForm from '@/components/IntakeForm'
 import type { User } from '@supabase/supabase-js'
 
 const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL ?? ''
@@ -14,7 +15,7 @@ const STATUS: Record<string, { label: string; color: string }> = {
   complete:    { label: 'Complete',    color: 'bg-green-100/80 text-green-700' },
 }
 
-const TABS = ['Project', 'Messages', 'Meetings', 'Payments']
+const TABS = ['Project', 'Messages', 'Meetings', 'Payments', 'Intake']
 
 const TIME_SLOTS = (() => {
   const slots: { label: string; value: string }[] = []
@@ -363,6 +364,7 @@ export default function Dashboard() {
             { t: 'Messages', icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H7l-4 3V6a2 2 0 0 1 2-2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/></svg> },
             { t: 'Meetings', icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="4" width="16" height="16" rx="2.5" stroke="currentColor" strokeWidth="1.5"/><path d="M3 9h16" stroke="currentColor" strokeWidth="1.5"/><path d="M8 2v3M14 2v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="M7 13h2v2H7z" fill="currentColor" opacity=".6"/><path d="M10 13h2v2h-2z" fill="currentColor" opacity=".6"/></svg> },
             { t: 'Payments', icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="5" width="18" height="14" rx="2.5" stroke="currentColor" strokeWidth="1.5"/><path d="M2 9h18" stroke="currentColor" strokeWidth="1.5"/><path d="M6 14h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg> },
+            { t: 'Intake',   icon: <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M4 4h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z" stroke="currentColor" strokeWidth="1.5"/><path d="M7 8h8M7 12h5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/><path d="M13 15l2 2 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg> },
           ].map(({ t, icon }) => (
             <button
               key={t}
@@ -591,6 +593,19 @@ export default function Dashboard() {
               </form>
             )}
           </GlassCard>
+        )}
+
+        {/* Intake */}
+        {tab === 'Intake' && user && (
+          <div>
+            <div className="mb-5">
+              <h2 className="text-base font-semibold tracking-tight">Client Intake</h2>
+              <p className="mt-0.5 text-sm text-[#1d1d1f]/55">
+                Share your church's details so we can build exactly what you need.
+              </p>
+            </div>
+            <IntakeForm user={user} />
+          </div>
         )}
 
         {/* Payments */}
