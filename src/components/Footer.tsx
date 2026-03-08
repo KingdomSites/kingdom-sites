@@ -20,6 +20,9 @@ export default function Footer() {
           <Link href="/terms" className="hover:text-[#1d1d1f] transition-colors">
             Terms of Service
           </Link>
+          <Link href="https://www.thegospelcoalition.org/what-is-the-gospel/" className="hover:text-[#1d1d1f] transition-colors">
+            What is the Gospel?
+          </Link>
         </div>
       </div>
     </footer>
