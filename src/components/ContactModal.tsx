@@ -87,7 +87,6 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
             <div className="rounded-xl border border-[#0071e3]/30 bg-[#0071e3]/15 p-5 text-center">
               <p className="text-sm font-semibold text-white">Message sent!</p>
               <p className="mt-1 text-sm text-white/55">I&apos;ll be in touch as soon as I can.</p>
-              <button onClick={() => setSubmitted(false)} className="mt-3 text-xs text-[#0071e3]">Send another</button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="grid gap-4" style={{ maxWidth: '100%' }}>
