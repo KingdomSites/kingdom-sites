@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import southasiaImage from '../../../public/Photos/southasia.jpg'
 
 export const metadata: Metadata = {
   title: 'Our Mission — Kingdom Sites',
@@ -16,10 +17,10 @@ export default function Mission() {
             <div className="absolute -inset-4 -z-10 rounded-[28px] bg-[#0071e3]/10 blur-2xl" />
             <div className="glass overflow-hidden rounded-3xl">
               <Image
-                src="/Photos/southasia.jpg"
+                src={southasiaImage}
                 alt="South Asia mission work"
-                width={800}
-                height={600}
+                quality={75}
+                placeholder="blur"
                 className="aspect-auto w-full object-cover"
               />
             </div>

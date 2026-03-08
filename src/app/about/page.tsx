@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import aboutImage from '../../../public/Photos/about.jpg'
 
 export const metadata: Metadata = {
   title: 'About — Kingdom Sites',
@@ -16,10 +17,10 @@ export default function About() {
             <div className="absolute -inset-4 -z-10 rounded-[28px] bg-[#0071e3]/10 blur-2xl" />
             <div className="glass overflow-hidden rounded-3xl">
               <Image
-                src="/Photos/about.jpg"
+                src={aboutImage}
                 alt="Thomas and Monisha"
-                width={800}
-                height={800}
+                quality={75}
+                placeholder="blur"
                 className="w-full h-auto object-contain"
                 priority
               />
