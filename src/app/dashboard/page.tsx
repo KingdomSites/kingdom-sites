@@ -860,7 +860,7 @@ export default function Dashboard() {
               </div>
 
               <a
-                href="https://wise.com/pay/r/thomasbrucek3"
+                href="https://wise.com/pay/me/thomasbrucek3"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0071e3] py-3 text-sm font-semibold text-white transition hover:brightness-95"
