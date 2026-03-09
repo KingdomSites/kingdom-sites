@@ -423,6 +423,8 @@ export default function Dashboard() {
   const [tab, setTab]                 = useState('Project')
   const router = useRouter()
 
+  const [wiseModal, setWiseModal] = useState<{ label: string; amount: string; description: string; type: 'one-time' | 'monthly' } | null>(null)
+
   const [msgSubmitted, setMsgSubmitted] = useState(false)
   const [msgSending, setMsgSending]     = useState(false)
   const msgFormRef = useRef<HTMLFormElement>(null)
@@ -762,29 +764,113 @@ export default function Dashboard() {
               <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40 mb-1">One-time</p>
               <p className="text-lg font-semibold tracking-tight mb-0.5">$499 — Website Build</p>
               <p className="text-sm text-[#1d1d1f]/55 mb-4">Custom-designed site, fully handed off.</p>
-              <a
-                href="https://paypal.me/thomasklein690/499"
-                target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full bg-[#0071e3] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-95"
+              <button
+                onClick={() => setWiseModal({ label: 'Website Build', amount: '$499', description: 'One-time payment for a custom-designed site, fully handed off.', type: 'one-time' })}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0071e3] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-95"
               >
-                Pay via PayPal — $499
-              </a>
+                Pay via Wise — $499
+              </button>
             </div>
 
             <div className="rounded-2xl border border-black/8 bg-white/60 p-5">
               <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40 mb-1">Monthly</p>
               <p className="text-lg font-semibold tracking-tight mb-0.5">$50/mo — Hosting & Maintenance</p>
               <p className="text-sm text-[#1d1d1f]/55 mb-4">Unlimited updates. Cancel any time. First month free.</p>
-              <a
-                href="https://paypal.me/thomasklein690/50"
-                target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-[#0071e3] px-5 py-2.5 text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
+              <button
+                onClick={() => setWiseModal({ label: 'Hosting & Maintenance', amount: '$50/mo', description: 'Monthly payment for unlimited updates. Cancel any time.', type: 'monthly' })}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-[#0071e3] px-5 py-2.5 text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
               >
-                Pay via PayPal — $50/mo
-              </a>
+                Pay via Wise — $50/mo
+              </button>
             </div>
 
-            <p className="text-xs text-center text-[#1d1d1f]/35">Payments go directly to Thomas via PayPal.</p>
+            <p className="text-xs text-center text-[#1d1d1f]/35">Payments go directly to Thomas via Wise.</p>
+          </div>
+        )}
+
+        {/* Wise payment modal */}
+        {wiseModal && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ background: 'rgba(0,0,0,0.30)', backdropFilter: 'blur(6px)' }}
+            onClick={(e) => { if (e.target === e.currentTarget) setWiseModal(null) }}
+          >
+            <div
+              className="w-full max-w-sm rounded-3xl p-6"
+              style={{
+                background: 'rgba(255,255,255,0.92)',
+                backdropFilter: 'blur(56px) saturate(200%)',
+                WebkitBackdropFilter: 'blur(56px) saturate(200%)',
+                border: '1px solid rgba(255,255,255,0.40)',
+                boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
+              }}
+            >
+              <div className="mb-5 flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40 mb-1">Pay via Wise</p>
+                  <p className="text-xl font-semibold tracking-tight">{wiseModal.amount}</p>
+                  <p className="text-sm text-[#1d1d1f]/55">{wiseModal.label}</p>
+                </div>
+                <button
+                  onClick={() => setWiseModal(null)}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/8 bg-black/5 text-[#1d1d1f]/50 transition hover:bg-black/10"
+                >
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+                  </svg>
+                </button>
+              </div>
+
+              <div className="mb-4 rounded-2xl border border-black/6 bg-white/70 px-4 py-3 text-sm text-[#1d1d1f]/65 leading-relaxed">
+                <p>{wiseModal.description}</p>
+                <p className="mt-2">Click below to open Wise and send <strong>{wiseModal.amount}</strong> in USD directly to Thomas&apos;s account.</p>
+              </div>
+
+              {wiseModal.type === 'one-time' && (
+                <div className="mb-4 rounded-2xl border border-black/6 bg-white/70 px-4 py-3 text-sm text-[#1d1d1f]/65 leading-relaxed">
+                  <p className="font-medium text-[#1d1d1f]/75 mb-1">Don&apos;t have a Wise account?</p>
+                  <p className="mb-2">Setting up Wise is like any other payment account — similar to PayPal or Venmo, but designed for international payments. Simple and easy.</p>
+                  <a
+                    href="https://wise.com/register"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#0071e3] underline text-sm font-medium"
+                  >
+                    Create your Wise account →
+                  </a>
+                </div>
+              )}
+
+              {wiseModal.type === 'monthly' && (
+                <div className="mb-4 rounded-2xl border border-black/6 bg-white/70 px-4 py-3 text-sm text-[#1d1d1f]/65 leading-relaxed">
+                  <p className="font-medium text-[#1d1d1f]/75 mb-1">How to set up recurring payments</p>
+                  <p className="mb-2">Watch this short video to learn how to set up automatic monthly payments through Wise.</p>
+                  <a
+                    href="https://www.youtube.com/watch?v=9-8aKYAAMj8"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#0071e3] underline text-sm font-medium"
+                  >
+                    Watch: How to set up recurring payments →
+                  </a>
+                </div>
+              )}
+
+              <div className="mb-4 rounded-2xl border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm text-[#1d1d1f]/65 leading-relaxed">
+                <p>After setting up your account, send money to: <span className="font-semibold text-[#1d1d1f]/80">@thomasbrucek3</span></p>
+                <p className="mt-1.5">Need help? <button onClick={() => { setWiseModal(null); setTab('Messages') }} className="text-[#0071e3] underline font-medium">Contact me</button> and I&apos;ll walk you through it.</p>
+              </div>
+
+              <a
+                href="https://wise.com/pay/me/thomasbrucek3"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#0071e3] py-3 text-sm font-semibold text-white transition hover:brightness-95"
+              >
+                Open Wise — Pay {wiseModal.amount}
+              </a>
+              <p className="mt-3 text-center text-xs text-[#1d1d1f]/35">Opens wise.com in a new tab. USD supported worldwide.</p>
+            </div>
           </div>
         )}
       </div>
