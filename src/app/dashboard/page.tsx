@@ -423,7 +423,7 @@ export default function Dashboard() {
   const [tab, setTab]                 = useState('Project')
   const router = useRouter()
 
-  const [wiseModal, setWiseModal] = useState<{ label: string; amount: string; description: string } | null>(null)
+  const [wiseModal, setWiseModal] = useState<{ label: string; amount: string; description: string; type: 'one-time' | 'monthly' } | null>(null)
 
   const [msgSubmitted, setMsgSubmitted] = useState(false)
   const [msgSending, setMsgSending]     = useState(false)
@@ -763,7 +763,7 @@ export default function Dashboard() {
               <p className="text-lg font-semibold tracking-tight mb-0.5">$499 — Website Build</p>
               <p className="text-sm text-[#1d1d1f]/55 mb-4">Custom-designed site, fully handed off.</p>
               <button
-                onClick={() => setWiseModal({ label: 'Website Build', amount: '$499', description: 'One-time payment for a custom-designed site, fully handed off.' })}
+                onClick={() => setWiseModal({ label: 'Website Build', amount: '$499', description: 'One-time payment for a custom-designed site, fully handed off.', type: 'one-time' })}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0071e3] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-95"
               >
                 Pay via Wise — $499
@@ -775,7 +775,7 @@ export default function Dashboard() {
               <p className="text-lg font-semibold tracking-tight mb-0.5">$50/mo — Care Plan</p>
               <p className="text-sm text-[#1d1d1f]/55 mb-4">Unlimited updates. Cancel any time. First month free.</p>
               <button
-                onClick={() => setWiseModal({ label: 'Hosting & Maintenance', amount: '$50/mo', description: 'Monthly payment for unlimited updates. Cancel any time.' })}
+                onClick={() => setWiseModal({ label: 'Hosting & Maintenance', amount: '$50/mo', description: 'Monthly payment for unlimited updates. Cancel any time.', type: 'monthly' })}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-[#0071e3] px-5 py-2.5 text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
               >
                 Pay via Wise — $50/mo
@@ -819,9 +819,44 @@ export default function Dashboard() {
                 </button>
               </div>
 
-              <div className="mb-5 rounded-2xl border border-black/6 bg-white/70 px-4 py-3 text-sm text-[#1d1d1f]/65 leading-relaxed">
+              <div className="mb-4 rounded-2xl border border-black/6 bg-white/70 px-4 py-3 text-sm text-[#1d1d1f]/65 leading-relaxed">
                 <p>{wiseModal.description}</p>
                 <p className="mt-2">Click below to open Wise and send <strong>{wiseModal.amount}</strong> in USD directly to Thomas&apos;s account.</p>
+              </div>
+
+              {wiseModal.type === 'one-time' && (
+                <div className="mb-4 rounded-2xl border border-black/6 bg-white/70 px-4 py-3 text-sm text-[#1d1d1f]/65 leading-relaxed">
+                  <p className="font-medium text-[#1d1d1f]/75 mb-1">Don&apos;t have a Wise account?</p>
+                  <p className="mb-2">Setting up Wise is like any other payment account — similar to PayPal or Venmo, but designed for international payments. Simple and easy.</p>
+                  <a
+                    href="https://wise.com/register"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#0071e3] underline text-sm font-medium"
+                  >
+                    Create your Wise account →
+                  </a>
+                </div>
+              )}
+
+              {wiseModal.type === 'monthly' && (
+                <div className="mb-4 rounded-2xl border border-black/6 bg-white/70 px-4 py-3 text-sm text-[#1d1d1f]/65 leading-relaxed">
+                  <p className="font-medium text-[#1d1d1f]/75 mb-1">How to set up recurring payments</p>
+                  <p className="mb-2">Watch this short video to learn how to set up automatic monthly payments through Wise.</p>
+                  <a
+                    href="https://www.youtube.com/watch?v=9-8aKYAAMj8"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#0071e3] underline text-sm font-medium"
+                  >
+                    Watch: How to set up recurring payments →
+                  </a>
+                </div>
+              )}
+
+              <div className="mb-4 rounded-2xl border border-amber-100 bg-amber-50/80 px-4 py-3 text-sm text-[#1d1d1f]/65 leading-relaxed">
+                <p>After setting up your account, send money to: <span className="font-semibold text-[#1d1d1f]/80">@thomasbrucek3</span></p>
+                <p className="mt-1.5">Need help? <button onClick={() => { setWiseModal(null); setTab('Messages') }} className="text-[#0071e3] underline font-medium">Contact me</button> and I&apos;ll walk you through it.</p>
               </div>
 
               <a
