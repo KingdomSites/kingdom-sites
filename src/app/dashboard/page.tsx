@@ -41,8 +41,8 @@ function GlassCard({ children, className = '' }: { children: React.ReactNode; cl
       className={`rounded-3xl p-6 ${className}`}
       style={{
         background: 'rgba(255,255,255,0.12)',
-        backdropFilter: 'blur(56px) saturate(200%)',
-        WebkitBackdropFilter: 'blur(56px) saturate(200%)',
+        backdropFilter: 'blur(16px) saturate(160%)',
+        WebkitBackdropFilter: 'blur(16px) saturate(160%)',
         border: '1px solid rgba(255,255,255,0.22)',
         boxShadow: '0 4px 24px rgba(0,0,0,0.05), inset 0 0.5px 0 rgba(255,255,255,0.70)',
       }}
@@ -229,8 +229,8 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
               className="group flex flex-col items-center justify-center gap-3 rounded-3xl p-5 text-center transition hover:scale-[1.02] active:scale-[0.98]"
               style={{
                 background: 'rgba(255,255,255,0.18)',
-                backdropFilter: 'blur(32px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(32px) saturate(180%)',
+                backdropFilter: 'blur(16px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(16px) saturate(160%)',
                 border: '1px solid rgba(255,255,255,0.30)',
                 boxShadow: '0 2px 12px rgba(0,0,0,0.05)',
                 aspectRatio: '1',
@@ -269,8 +269,8 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
             className="w-full max-w-lg max-h-[90dvh] overflow-y-auto rounded-3xl p-6"
             style={{
               background: 'rgba(255,255,255,0.85)',
-              backdropFilter: 'blur(56px) saturate(200%)',
-              WebkitBackdropFilter: 'blur(56px) saturate(200%)',
+              backdropFilter: 'blur(16px) saturate(160%)',
+              WebkitBackdropFilter: 'blur(16px) saturate(160%)',
               border: '1px solid rgba(255,255,255,0.40)',
               boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
             }}
@@ -519,8 +519,8 @@ export default function Dashboard() {
               className={`flex flex-col items-center justify-center gap-2 rounded-3xl py-5 text-xs font-medium transition ${t === 'Intake' ? 'col-span-2' : ''} ${tab === t ? 'text-[#0071e3]' : 'text-[#1d1d1f]/55'}`}
               style={{
                 background: tab === t ? 'rgba(0,113,227,0.10)' : 'rgba(255,255,255,0.18)',
-                backdropFilter: 'blur(32px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(32px) saturate(180%)',
+                backdropFilter: 'blur(16px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(16px) saturate(160%)',
                 border: tab === t ? '1px solid rgba(0,113,227,0.20)' : '1px solid rgba(255,255,255,0.28)',
               }}
             >
@@ -535,8 +535,8 @@ export default function Dashboard() {
           className="mb-6 hidden sm:flex gap-1 rounded-2xl p-1"
           style={{
             background: 'rgba(255,255,255,0.18)',
-            backdropFilter: 'blur(32px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(32px) saturate(180%)',
+            backdropFilter: 'blur(16px) saturate(160%)',
+            WebkitBackdropFilter: 'blur(16px) saturate(160%)',
             border: '1px solid rgba(255,255,255,0.28)',
           }}
         >
@@ -799,8 +799,8 @@ export default function Dashboard() {
               className="w-full max-w-sm rounded-3xl p-6"
               style={{
                 background: 'rgba(255,255,255,0.92)',
-                backdropFilter: 'blur(56px) saturate(200%)',
-                WebkitBackdropFilter: 'blur(56px) saturate(200%)',
+                backdropFilter: 'blur(16px) saturate(160%)',
+                WebkitBackdropFilter: 'blur(16px) saturate(160%)',
                 border: '1px solid rgba(255,255,255,0.40)',
                 boxShadow: '0 24px 64px rgba(0,0,0,0.12)',
               }}

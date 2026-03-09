@@ -25,8 +25,8 @@ function RevealCard({ children, className = '', delay = 0 }: { children: React.R
       className={`reveal-card w-full rounded-2xl p-4 sm:p-6 lg:p-8 ${className}`}
       style={{
         background: 'rgba(255,255,255,0.55)',
-        backdropFilter: 'blur(24px) saturate(140%)',
-        WebkitBackdropFilter: 'blur(24px) saturate(140%)',
+        backdropFilter: 'blur(16px) saturate(140%)',
+        WebkitBackdropFilter: 'blur(16px) saturate(140%)',
         border: '1px solid rgba(0,0,0,0.06)',
         boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
         transitionDelay: `${delay}ms`,
@@ -46,8 +46,8 @@ function StatCard({ value, label, delay }: { value: string; label: string; delay
       className="reveal-card w-full rounded-2xl p-6 sm:p-8 text-center"
       style={{
         background: 'rgba(255,255,255,0.55)',
-        backdropFilter: 'blur(24px) saturate(140%)',
-        WebkitBackdropFilter: 'blur(24px) saturate(140%)',
+        backdropFilter: 'blur(16px) saturate(140%)',
+        WebkitBackdropFilter: 'blur(16px) saturate(140%)',
         border: '1px solid rgba(0,0,0,0.06)',
         boxShadow: '0 1px 4px rgba(0,0,0,0.05)',
         transitionDelay: `${delay}ms`,

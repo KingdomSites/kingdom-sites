@@ -6,8 +6,8 @@ import { supabase } from '@/lib/supabase'
 
 const CARD_STYLE = {
   background: 'rgba(255,255,255,0.12)',
-  backdropFilter: 'blur(56px) saturate(200%)',
-  WebkitBackdropFilter: 'blur(56px) saturate(200%)',
+  backdropFilter: 'blur(16px) saturate(160%)',
+  WebkitBackdropFilter: 'blur(16px) saturate(160%)',
   border: '1px solid rgba(255,255,255,0.22)',
   boxShadow: '0 4px 24px rgba(0,0,0,0.05), inset 0 0.5px 0 rgba(255,255,255,0.70)',
 }
