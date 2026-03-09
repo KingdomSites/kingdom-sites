@@ -9,6 +9,9 @@ CREATE TABLE IF NOT EXISTS church_intake (
   -- Auth / RLS anchor  (one row per user — enforced by UNIQUE)
   user_id              uuid        NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
 
+  -- Organization type
+  org_type             text        NOT NULL DEFAULT 'church',   -- 'church' | 'business'
+
   -- Section 1: Basic Church Info
   org_name             text        NOT NULL,
   primary_contact_name text        NOT NULL,

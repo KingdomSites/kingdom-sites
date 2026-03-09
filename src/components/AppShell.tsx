@@ -22,7 +22,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   }, [])
 
   return (
-    <div className="min-h-screen min-h-dvh text-[#1d1d1f]">
+    <div className="min-h-screen min-h-dvh w-full overflow-x-hidden text-[#1d1d1f]">
       <Header />
       <main>{children}</main>
       <Footer />

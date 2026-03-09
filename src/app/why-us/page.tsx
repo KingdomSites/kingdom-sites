@@ -145,10 +145,10 @@ export default function WhyUs() {
         <div className="mb-6 text-center">
           <h2 className="text-xl font-semibold tracking-tight sm:text-2xl lg:text-3xl">Who we work with.</h2>
           <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/55 sm:mt-3">
-            We collaborate with anyone but focus on churches and non-profit organizations.
+            We collaborate with churches, ministries, and small businesses.
           </p>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2">
           {[
             {
               title: 'Bible-believing churches',
@@ -161,6 +161,10 @@ export default function WhyUs() {
             {
               title: 'Mission-minded ministries',
               desc: 'We especially love serving churches and organizations reaching the lost for Christ.',
+            },
+            {
+              title: 'Small businesses',
+              desc: "Not a ministry? No problem. If you're a small business owner who likes what we're about, we'd love to build something great for you — same quality, same pricing.",
             },
           ].map((item, i) => (
             <RevealCard key={item.title} delay={i * 90}>

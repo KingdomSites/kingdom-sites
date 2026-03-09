@@ -110,8 +110,12 @@ export default function Header() {
             {!isActive('/dashboard') && (
               <Link
                 href={user ? '/dashboard' : '/login'}
-                className={`rounded-full border border-white/40 bg-white/25 px-4 py-2 text-sm font-medium backdrop-blur-sm transition-colors duration-300 hover:bg-white/40 ${accountColor}`}
+                className={`inline-flex items-center gap-1.5 rounded-full border border-white/40 bg-white/25 px-4 py-2 text-sm font-medium backdrop-blur-sm transition-colors duration-300 hover:bg-white/40 ${accountColor}`}
               >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="shrink-0">
+                  <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="1.7" />
+                  <path d="M4 20c0-3.314 3.582-6 8-6s8 2.686 8 6" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+                </svg>
                 {user ? 'Dashboard' : 'Your Account'}
               </Link>
             )}

@@ -55,7 +55,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className="overflow-x-hidden w-full">
       <section className="mx-auto max-w-6xl px-4 pb-14 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
@@ -147,6 +147,25 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Business callout */}
+      <section aria-label="Also serving businesses" className="mx-auto max-w-6xl px-4 pb-10 sm:px-6">
+        <div className="glass rounded-3xl p-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-1">Not a church?</p>
+            <h3 className="text-sm font-semibold tracking-tight">We also build for small businesses.</h3>
+            <p className="mt-1 text-sm leading-relaxed text-[#1d1d1f]/65">
+              Same quality, same pricing. If you&apos;re a small business owner who appreciates what we&apos;re about, we&apos;d love to work with you.
+            </p>
+          </div>
+          <button
+            onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
+            className="mt-4 sm:mt-0 sm:ml-8 shrink-0 inline-flex cursor-pointer items-center justify-center rounded-full border border-[#0071e3] px-5 py-2.5 text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
+          >
+            Get in touch
+          </button>
         </div>
       </section>
 
