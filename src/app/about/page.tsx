@@ -58,7 +58,7 @@ export default function About() {
 
             <div className="mt-2">
               <Link
-                href="/#contact"
+                href="/login"
                 className="inline-flex items-center justify-center rounded-full bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-95 active:brightness-90"
               >
                 Build Now

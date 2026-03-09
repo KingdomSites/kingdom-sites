@@ -67,12 +67,12 @@ export default function Home() {
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <button
-                onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
+              <Link
+                href="/login"
                 className="inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:border-[#0071e3] hover:bg-[#f5f5f7] hover:text-[#0071e3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3]"
               >
                 Build Now
-              </button>
+              </Link>
               <a
                 href="#value"
                 className="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3]"
