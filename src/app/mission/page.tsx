@@ -44,7 +44,7 @@ export default function Mission() {
               We collaborate with Christians toward seeing movements of Christ among Muslim-majority people groups in South Asia, using approaches from No Place Left.
             </p>
             <p>
-              Your project fuels long-term mission work among people with little access to the gospel. My fiancée and I are in training for long-term ministry in South Asia.
+              Your project fuels long-term mission work among people with little access to the gospel. My soon to be fiancée and I are in training for long-term ministry in South Asia.
             </p>
           </div>
 

@@ -37,7 +37,7 @@ export default function About() {
             A little bit about us.
           </h1>
           <p className="mt-5 text-pretty text-base leading-relaxed text-[#1d1d1f]/75 sm:text-lg">
-            My name is Thomas Klein — a web developer and devoted Christian. My fiancée Monisha and I are passionate about seeing Jesus glorified throughout the world.
+            My name is Thomas Klein — a web developer and devoted Christian. My soon to be fiancée Monisha and I are passionate about seeing Jesus glorified throughout the world.
             This business is an extension of our ministry, and we love building relationships with believers everywhere — whether or not we end up building your website.
           </p>
 
