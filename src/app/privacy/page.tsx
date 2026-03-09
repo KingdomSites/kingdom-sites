@@ -6,7 +6,7 @@ export default function PrivacyPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-20 sm:px-6">
       <h1 className="mb-2 text-3xl font-bold text-[#1d1d1f]">Privacy Policy</h1>
-      <p className="mb-10 text-sm text-[#1d1d1f]/50">Last updated: March 7, 2026</p>
+      <p className="mb-10 text-sm text-[#1d1d1f]/50">Last updated: March 9, 2026</p>
 
       <section className="space-y-8 text-sm leading-relaxed text-[#1d1d1f]/80">
         <div>
@@ -14,7 +14,7 @@ export default function PrivacyPage() {
           <p>
             We may collect personal information such as your name, email address, and payment
             details when you purchase products or contact us. Payments are processed securely
-            through Lemon Squeezy.
+            through Wise.
           </p>
         </div>
 
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
         <div>
           <h2 className="mb-2 font-semibold text-[#1d1d1f]">Third-Party Services</h2>
           <p>
-            We use third-party services including Lemon Squeezy for payment processing and
+            We use third-party services including Wise for payment processing and
             hosting providers for website infrastructure. These providers may collect information
             necessary to perform their services.
           </p>
