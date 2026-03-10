@@ -1,11 +1,16 @@
 'use client'
 
+import * as Sentry from '@sentry/nextjs'
+
 export default function SentryTest() {
   return (
     <div className="mx-auto flex min-h-[calc(100dvh-120px)] max-w-md items-center justify-center px-4">
       <button
-        className="rounded-full bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white"
-        onClick={() => { throw new Error('Sentry test error — Kingdom Sites') }}
+        className="rounded-full bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white transition hover:brightness-95"
+        onClick={() => {
+          Sentry.captureException(new Error('Sentry test error — Kingdom Sites'))
+          alert('Error sent to Sentry!')
+        }}
       >
         Trigger Sentry Test Error
       </button>
