@@ -10,7 +10,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
-  `connect-src 'self' ${supabaseUrl} ${supabaseWs}`,
+  `connect-src 'self' ${supabaseUrl} ${supabaseWs} https://*.ingest.us.sentry.io https://*.ingest.sentry.io`,
   "form-action 'self' https://formsubmit.co",
   "frame-src 'none'",
   "base-uri 'self'",
