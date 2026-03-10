@@ -1,5 +1,31 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --glass-bg:     rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+
+  --modal-bg:     rgba(255, 255, 255, 0.88);
+  --modal-border: rgba(255, 255, 255, 0.40);
+
+  --info-bg:      rgba(255, 255, 255, 0.60);
+  --info-border:  rgba(0, 0, 0, 0.06);
+}
+
+.dark {
+  --glass-bg:     rgba(80, 130, 255, 0.07);
+  --glass-border: rgba(150, 190, 255, 0.12);
+  --glass-shadow: 0 1px 4px rgba(0, 0, 0, 0.30);
+
+  --modal-bg:     rgba(9, 18, 36, 0.97);
+  --modal-border: rgba(150, 190, 255, 0.14);
+
+  --info-bg:      rgba(80, 130, 255, 0.07);
+  --info-border:  rgba(150, 190, 255, 0.12);
+}
+
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
@@ -20,6 +46,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.dark body {
+  background:
+    radial-gradient(ellipse 130% 80% at 5%   0%,  rgba(80,  60, 200, 0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 90%  70% at 98%  5%,  rgba(100, 60, 180, 0.14) 0%, transparent 55%),
+    radial-gradient(ellipse 60%  50% at 50% 100%, rgba(50,  30, 140, 0.10) 0%, transparent 60%),
+    #0f1225;
+  color: #e8eef7;
+}
+
 @media (max-width: 768px) {
   body {
     background-attachment: scroll;
@@ -27,11 +62,11 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--glass-bg);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
 
 .reveal-card {
@@ -42,4 +77,24 @@ body {
 .reveal-card.revealed {
   opacity: 1;
   transform: translateY(0);
+}
+
+.shine-once {
+  text-shadow: 0 0 22px rgba(165, 195, 215, 0.55), 0 1px 5px rgba(210, 230, 242, 0.35);
+  transition: text-shadow .01s ease-out;
+}
+
+@keyframes pro-tap {
+  0%   { transform: skewX(0)      translateX(0);   }
+  20%  { transform: skewX(5deg)   translateX(-4px); }
+  55%  { transform: skewX(-18deg) translateX(6px);  }
+  75%  { transform: skewX(-6deg)  translateX(1px);  }
+  100% { transform: skewX(0)      translateX(0);   }
+}
+
+@keyframes word-bloop {
+  0%   { transform: scaleY(1)    scaleX(1);    opacity: 1;   }
+  20%  { transform: scaleY(0.35) scaleX(1.21); opacity: 0.45; }
+  60%  { transform: scaleY(1.13) scaleX(0.92); opacity: 1;   }
+  100% { transform: scaleY(1)    scaleX(1);    }
 }

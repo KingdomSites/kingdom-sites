@@ -11,8 +11,14 @@ const NAV_LINKS = [
   { to: '/why-us',  label: 'Why Kingdom Sites' },
 ]
 
-const GLASS_HEADER = {
+const GLASS_LIGHT = {
   background: 'rgba(232, 238, 247, 0.85)',
+  backdropFilter: 'blur(20px) saturate(130%)',
+  WebkitBackdropFilter: 'blur(20px) saturate(130%)',
+}
+
+const GLASS_DARK = {
+  background: 'rgba(9, 18, 36, 0.90)',
   backdropFilter: 'blur(20px) saturate(130%)',
   WebkitBackdropFilter: 'blur(20px) saturate(130%)',
 }
@@ -33,7 +39,24 @@ function CloseIcon() {
   )
 }
 
-export default function Header() {
+function SunIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4"/>
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+    </svg>
+  )
+}
+
+function MoonIcon() {
+  return (
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  )
+}
+
+export default function Header({ isDark, onToggleDark }: { isDark: boolean; onToggleDark: () => void }) {
   const pathname = usePathname()
   const [user, setUser]         = useState<{ email?: string } | null>(null)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -70,12 +93,16 @@ export default function Header() {
   const isActive    = (path: string) => pathname === path
   const onDashboard = pathname === '/dashboard'
 
-  const textColor    = darkBg ? 'text-white'     : 'text-[#1d1d1f]'
-  const mutedColor   = darkBg ? 'text-white/65'  : 'text-[#1d1d1f]/60'
-  const hoverColor   = darkBg ? 'hover:text-white' : 'hover:text-[#0071e3]'
-  const activeColor  = darkBg ? 'text-white'     : 'text-[#1d1d1f]'
-  const accountColor = darkBg ? 'text-white/80'  : 'text-[#1d1d1f]/80'
-  const burgerColor  = darkBg ? 'text-white/80'  : 'text-[#1d1d1f]/70'
+  const effectiveDark = isDark || darkBg
+  const GLASS_HEADER  = isDark ? GLASS_DARK : GLASS_LIGHT
+
+  const textColor    = effectiveDark ? 'text-white'     : 'text-[#1d1d1f]'
+  const mutedColor   = effectiveDark ? 'text-white/65'  : 'text-[#1d1d1f]/60'
+  const hoverColor   = effectiveDark ? 'hover:text-white' : 'hover:text-[#0071e3]'
+  const activeColor  = effectiveDark ? 'text-white'     : 'text-[#1d1d1f]'
+  const accountColor = effectiveDark ? 'text-white/80'  : 'text-[#1d1d1f]/80'
+  const burgerColor  = effectiveDark ? 'text-white/80'  : 'text-[#1d1d1f]/70'
+  const toggleColor  = effectiveDark ? 'text-white/60 hover:bg-white/10' : 'text-[#1d1d1f]/50 hover:bg-black/5'
 
   return (
     <header ref={headerRef} className="sticky top-0 z-50">
@@ -107,6 +134,14 @@ export default function Header() {
           </div>
 
           <div className="hidden sm:flex items-center gap-2">
+            <button
+              onClick={onToggleDark}
+              className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors duration-300 ${toggleColor}`}
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {isDark ? <SunIcon /> : <MoonIcon />}
+            </button>
+
             {!isActive('/dashboard') && (
               <Link
                 href={user ? '/dashboard' : '/login'}
@@ -154,8 +189,8 @@ export default function Header() {
                   onClick={() => setMenuOpen(false)}
                   className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${
                     isActive(to)
-                      ? 'bg-white/30 text-[#1d1d1f]'
-                      : 'text-[#1d1d1f]/70 hover:bg-white/20'
+                      ? `bg-white/30 ${activeColor}`
+                      : `${mutedColor} hover:bg-white/20`
                   }`}
                 >
                   {label}
@@ -168,7 +203,7 @@ export default function Header() {
                 <Link
                   href={user ? '/dashboard' : '/login'}
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-2xl border border-white/30 bg-white/20 px-4 py-3 text-center text-sm font-medium text-[#1d1d1f]/80 transition hover:bg-white/35"
+                  className={`rounded-2xl border border-white/30 bg-white/20 px-4 py-3 text-center text-sm font-medium transition hover:bg-white/35 ${accountColor}`}
                 >
                   {user ? 'Dashboard' : 'Your Account'}
                 </Link>

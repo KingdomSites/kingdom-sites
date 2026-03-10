@@ -8,8 +8,13 @@ import ContactModal from '@/components/ContactModal'
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   const [contactOpen, setContactOpen] = useState(false)
+  const [isDark, setIsDark] = useState(false)
   const pathname = usePathname()
   const onDashboard = pathname === '/dashboard'
+
+  useEffect(() => {
+    setIsDark(document.documentElement.classList.contains('dark'))
+  }, [])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -21,11 +26,18 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     return () => document.removeEventListener('open-contact-modal', handler)
   }, [])
 
+  function toggleDark() {
+    const next = !isDark
+    setIsDark(next)
+    document.documentElement.classList.toggle('dark', next)
+    try { localStorage.setItem('theme', next ? 'dark' : 'light') } catch {}
+  }
+
   return (
-    <div className="min-h-screen min-h-dvh w-full overflow-x-hidden text-[#1d1d1f]">
-      <Header />
+    <div className="min-h-screen min-h-dvh w-full overflow-x-hidden text-[#1d1d1f] dark:text-[#e8eef7]">
+      <Header isDark={isDark} onToggleDark={toggleDark} />
       <main>{children}</main>
-      <Footer />
+      <Footer isDark={isDark} onToggleDark={toggleDark} />
 
       {!onDashboard && (
         <button
