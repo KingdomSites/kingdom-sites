@@ -760,27 +760,52 @@ export default function Dashboard() {
         {/* Payments */}
         {tab === 'Payments' && (
           <div className="grid gap-4">
+
+            {/* Step 1 */}
             <div className="rounded-2xl border border-black/8 bg-white/60 p-5">
-              <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40 mb-1">One-time</p>
-              <p className="text-lg font-semibold tracking-tight mb-0.5">$499 — Website Build</p>
-              <p className="text-sm text-[#1d1d1f]/55 mb-4">Custom-designed site, fully handed off.</p>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0071e3] text-[10px] font-bold text-white">1</span>
+                <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40">Due Now — Down Payment</p>
+              </div>
+              <p className="text-lg font-semibold tracking-tight mb-0.5">$100 — To Get Started</p>
+              <p className="text-sm text-[#1d1d1f]/55 mb-4">Secures your spot and kicks off the project. Work begins as soon as this is received.</p>
               <button
-                onClick={() => setWiseModal({ label: 'Website Build', amount: '$499', description: 'One-time payment for a custom-designed site, fully handed off.', type: 'one-time' })}
+                onClick={() => setWiseModal({ label: 'Down Payment', amount: '$100', description: 'Down payment to get started. Work begins as soon as this is received.', type: 'one-time' })}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0071e3] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-95"
               >
-                Pay via Wise — $499
+                Pay via Wise — $100
               </button>
             </div>
 
+            {/* Step 2 */}
             <div className="rounded-2xl border border-black/8 bg-white/60 p-5">
-              <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40 mb-1">Monthly</p>
-              <p className="text-lg font-semibold tracking-tight mb-0.5">$50/mo — Hosting & Maintenance</p>
-              <p className="text-sm text-[#1d1d1f]/55 mb-4">Unlimited updates. Cancel any time. First month free.</p>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0071e3] text-[10px] font-bold text-white">2</span>
+                <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40">Upon Completion — Final Balance</p>
+              </div>
+              <p className="text-lg font-semibold tracking-tight mb-0.5">$400 — Site Delivered</p>
+              <p className="text-sm text-[#1d1d1f]/55 mb-4">Remaining balance due when your site is ready and approved. Full ownership transferred on payment.</p>
               <button
-                onClick={() => setWiseModal({ label: 'Hosting & Maintenance', amount: '$50/mo', description: 'Monthly payment for unlimited updates. Cancel any time.', type: 'monthly' })}
+                onClick={() => setWiseModal({ label: 'Final Balance', amount: '$400', description: 'Remaining balance due upon completion. Full ownership transferred on payment.', type: 'one-time' })}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0071e3] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-95"
+              >
+                Pay via Wise — $400
+              </button>
+            </div>
+
+            {/* Step 3 */}
+            <div className="rounded-2xl border border-black/8 bg-white/60 p-5">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0071e3] text-[10px] font-bold text-white">3</span>
+                <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40">Upon Completion — Monthly</p>
+              </div>
+              <p className="text-lg font-semibold tracking-tight mb-0.5">$50/mo — Hosting & Maintenance</p>
+              <p className="text-sm text-[#1d1d1f]/55 mb-4">Unlimited updates, hosting, and support. Set up when your site is complete — first payment due 30 days later. Cancel any time.</p>
+              <button
+                onClick={() => setWiseModal({ label: 'Hosting & Maintenance', amount: '$50/mo', description: 'Monthly hosting and maintenance. First payment due 30 days after setup. Cancel any time.', type: 'monthly' })}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-[#0071e3] px-5 py-2.5 text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
               >
-                Pay via Wise — $50/mo
+                Set up via Wise — $50/mo
               </button>
             </div>
 
