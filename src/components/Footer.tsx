@@ -42,21 +42,7 @@ export default function Footer({ isDark, onToggleDark }: { isDark: boolean; onTo
         {/* Dark mode toggle */}
         <div className="flex justify-center">
           <button
-            onClick={() => {
-              if (!isDark) {
-                onToggleDark()
-                setTimeout(() => {
-                  document.getElementById('built-premium')?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-                }, 50)
-                // Fire shine once scroll has settled (~700ms)
-                setTimeout(() => {
-                  document.dispatchEvent(new CustomEvent('trigger-premium-shine'))
-                }, 750)
-              } else {
-                onToggleDark()
-                document.dispatchEvent(new CustomEvent('reset-premium-shine'))
-              }
-            }}
+            onClick={onToggleDark}
             className="inline-flex items-center gap-1.5 rounded-full border border-current/20 px-3 py-1 text-xs transition-colors hover:text-[#1d1d1f] dark:hover:text-[#e8eef7]"
           >
             {isDark ? (

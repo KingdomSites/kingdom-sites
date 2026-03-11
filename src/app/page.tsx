@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import heroImage from '../../public/Photos/hero.jpeg'
@@ -16,28 +16,6 @@ export default function Home() {
   const [submitting, setSubmitting] = useState(false)
   const [errors, setErrors] = useState<FieldErrors>({})
   const [serverError, setServerError] = useState('')
-  const [proTap, setProTap]   = useState(false)
-  const [wordHit, setWordHit] = useState(false)
-  const [premiumShine, setPremiumShine] = useState(false)
-  const premiumRef = useRef<HTMLHeadingElement>(null)
-
-  useEffect(() => {
-    const t1 = setTimeout(() => setProTap(true), 800)
-    // moment of impact: ~55% through pro-tap (800 + ~470ms)
-    const t2 = setTimeout(() => setWordHit(true), 1270)
-    return () => { clearTimeout(t1); clearTimeout(t2) }
-  }, [])
-
-  useEffect(() => {
-    const onTrigger = () => setPremiumShine(true)
-    const onReset   = () => setPremiumShine(false)
-    document.addEventListener('trigger-premium-shine', onTrigger)
-    document.addEventListener('reset-premium-shine',   onReset)
-    return () => {
-      document.removeEventListener('trigger-premium-shine', onTrigger)
-      document.removeEventListener('reset-premium-shine',   onReset)
-    }
-  }, [])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -82,18 +60,7 @@ export default function Home() {
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
             <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-              <span style={{
-                display: 'inline-block',
-                fontStyle: wordHit ? 'italic' : 'normal',
-                transformOrigin: 'right center',
-                animation: proTap ? 'pro-tap 0.85s ease forwards' : 'none',
-              }}>Pro</span><span style={{
-                display: 'inline-block',
-                fontStyle: wordHit ? 'italic' : 'normal',
-                transformOrigin: 'left center',
-                animation: wordHit ? 'word-bloop 1.2s ease forwards' : 'none',
-              paddingRight: '0.18em',
-              }}>fessional</span>{' '}Websites that support mission work around the world.
+              Professional Websites that support mission work around the world.
             </h1>
             <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[#1d1d1f]/75 dark:text-[#e8eef7]/70 sm:text-lg">
               American-standard development at unbeatable prices.
@@ -143,13 +110,23 @@ export default function Home() {
         </div>
       </section>
 
+      <div
+        data-dark-section
+        className="dark"
+        style={{
+          background:
+            'radial-gradient(ellipse 130% 80% at 5% 0%, rgba(0,80,200,0.22) 0%, transparent 55%),' +
+            'radial-gradient(ellipse 90% 70% at 98% 5%, rgba(30,80,180,0.14) 0%, transparent 55%),' +
+            '#0b1a32',
+          color: '#e8eef7',
+        }}
+      >
       <section id="value" aria-label="Value proposition">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <div className="mx-auto max-w-3xl text-center">
             <h2
               id="built-premium"
-              ref={premiumRef}
-              className={`text-balance text-3xl font-semibold tracking-tight sm:text-4xl${premiumShine ? ' shine-once' : ''}`}
+              className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl shine-once"
             >
               Built premium.
             </h2>
@@ -187,8 +164,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Business callout */}
-      <section aria-label="Also serving businesses" className="mx-auto max-w-6xl px-4 pb-10 sm:px-6">
+      {/* Business callout — still inside dark block */}
+      <section aria-label="Also serving businesses" className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
         <div className="glass rounded-3xl p-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-1">Not a church?</p>
@@ -205,9 +182,10 @@ export default function Home() {
           </button>
         </div>
       </section>
+      </div>
 
       {/* Pricing */}
-      <section aria-label="Pricing" className="mx-auto max-w-6xl px-4 pb-14 sm:px-6 sm:pb-20">
+      <section aria-label="Pricing" className="mx-auto max-w-6xl px-4 pb-14 pt-8 sm:px-6 sm:pb-20 sm:pt-10">
         <div className="mx-auto max-w-3xl text-center mb-10">
           <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             Simple, honest pricing.
