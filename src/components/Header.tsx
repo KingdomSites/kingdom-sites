@@ -6,9 +6,10 @@ import { usePathname } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 
 const NAV_LINKS = [
-  { to: '/about',   label: 'About' },
-  { to: '/mission', label: 'Our Mission' },
-  { to: '/why-us',  label: 'Why Kingdom Sites' },
+  { to: '/about',    label: 'About' },
+  { to: '/mission',  label: 'Our Mission' },
+  { to: '/why-us',   label: 'Why Kingdom Sites' },
+  { to: '/articles', label: 'Articles' },
 ]
 
 const GLASS_HEADER = {
