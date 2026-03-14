@@ -85,7 +85,7 @@ export default function TermsPage() {
           <h2 className="mb-3 text-base font-semibold text-[#1d1d1f]">3. The &ldquo;Content Deadline&rdquo; Clause</h2>
           <div className="space-y-3">
             <p>
-              The client must provide all text, church /business info, and photos within 14 days of signing.
+              The client must provide all text, church / business info, and photos within 14 days of signing.
             </p>
             <p>
               If content is not provided within this window, the project is moved to
