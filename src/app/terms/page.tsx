@@ -6,7 +6,7 @@ export default function TermsPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-20 sm:px-6">
       <h1 className="mb-2 text-3xl font-bold text-[#1d1d1f]">Terms of Service</h1>
-      <p className="mb-10 text-sm text-[#1d1d1f]/50">Last updated: March 8, 2026</p>
+      <p className="mb-10 text-sm text-[#1d1d1f]/50">Last updated: March 15, 2026</p>
 
       <section className="space-y-10 text-sm leading-relaxed text-[#1d1d1f]/80">
 
@@ -85,7 +85,7 @@ export default function TermsPage() {
           <h2 className="mb-3 text-base font-semibold text-[#1d1d1f]">3. The &ldquo;Content Deadline&rdquo; Clause</h2>
           <div className="space-y-3">
             <p>
-              The client must provide all text, church info, and photos within 14 days of signing.
+              The client must provide all text, church /business info, and photos within 14 days of signing.
             </p>
             <p>
               If content is not provided within this window, the project is moved to
@@ -144,7 +144,7 @@ export default function TermsPage() {
           <h2 className="mb-3 text-base font-semibold text-[#1d1d1f]">5. Ownership &amp; Access</h2>
           <div className="space-y-3">
             <p>
-              <span className="font-medium text-[#1d1d1f]">Ownership:</span> The church owns the
+              <span className="font-medium text-[#1d1d1f]">Ownership:</span> The church or business owns the
               website content and domain once the final payment has been made.
             </p>
             <p>
@@ -160,10 +160,10 @@ export default function TermsPage() {
           <p>
             Please reach out if you have any questions or need practical examples of these terms.{' '}
             <a
-              href="mailto:thomas@kleinsonline.org"
+              href="mailto:thomas@kingdom-sites.com"
               className="underline underline-offset-2 hover:text-[#1d1d1f]"
             >
-              thomas@kleinsonline.org
+              thomas@kingdom-sites.com
             </a>
           </p>
         </div>

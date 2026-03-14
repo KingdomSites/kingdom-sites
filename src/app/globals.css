@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@variant dark (&:where(.dark, .dark *));
-
 html {
   scroll-behavior: smooth;
 }
@@ -16,15 +14,6 @@ body {
   color: #1d1d1f;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-.dark body {
-  background:
-    radial-gradient(ellipse 120% 75% at 5%   0%,  rgba(0, 113, 227, 0.12) 0%, transparent 52%),
-    radial-gradient(ellipse 80%  65% at 98%  5%,  rgba(90,  90, 160, 0.06) 0%, transparent 52%),
-    #0b0c0f;
-
-  color: #e8eef7;
 }
 
 @media (max-width: 768px) {

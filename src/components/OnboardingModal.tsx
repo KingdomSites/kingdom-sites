@@ -83,6 +83,7 @@ export default function OnboardingModal({ user, onComplete }: { user: User; onCo
               <option>Church Administrator</option>
               <option>Ministry Leader</option>
               <option>Individual</option>
+              <option>Business Leader</option>
               <option>Other</option>
             </select>
           </label>
