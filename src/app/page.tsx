@@ -130,7 +130,7 @@ export default function Home() {
             >
               Built premium.
             </h2>
-            <p className="mt-4 text-pretty text-base leading-relaxed text-[#1d1d1f]/70 sm:text-lg">
+            <p className="mt-4 text-pretty text-base leading-relaxed text-[#e8eef7]/65 sm:text-lg">
               American quality websites with unbeatable prices. Direct
               impact to mission work.
             </p>
@@ -155,9 +155,9 @@ export default function Home() {
                 desc: "Your project funds our ministry work in South Asia. You're not just getting a great website — you're investing in something that has an eternal impact.",
               },
             ].map((item) => (
-              <div key={item.title} className="glass rounded-3xl p-6">
-                <h3 className="text-sm font-semibold tracking-tight">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/70">{item.desc}</p>
+              <div key={item.title} className="rounded-3xl p-6" style={{ background: 'rgba(10,25,60,0.55)', border: '1px solid rgba(100,150,255,0.12)', backdropFilter: 'blur(16px)' }}>
+                <h3 className="text-sm font-semibold tracking-tight text-white">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#e8eef7]/60">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -166,11 +166,11 @@ export default function Home() {
 
       {/* Business callout — still inside dark block */}
       <section aria-label="Also serving businesses" className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
-        <div className="glass rounded-3xl p-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div className="rounded-3xl p-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between" style={{ background: 'rgba(10,25,60,0.55)', border: '1px solid rgba(100,150,255,0.12)', backdropFilter: 'blur(16px)' }}>
           <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-1">Not a church?</p>
-            <h3 className="text-sm font-semibold tracking-tight">We also build for small businesses.</h3>
-            <p className="mt-1 text-sm leading-relaxed text-[#1d1d1f]/65">
+            <p className="text-xs font-medium uppercase tracking-widest text-[#4d8cff] mb-1">Not a church?</p>
+            <h3 className="text-sm font-semibold tracking-tight text-white">We also build for small businesses.</h3>
+            <p className="mt-1 text-sm leading-relaxed text-[#e8eef7]/60">
               Same quality, same pricing. If you&apos;re a small business owner who appreciates what we&apos;re about, we&apos;d love to work with you.
             </p>
           </div>
