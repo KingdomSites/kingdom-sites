@@ -29,14 +29,14 @@ export default function About() {
         </div>
 
         <div className="lg:col-span-7">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-white dark:bg-white/10 px-3 py-1 text-xs font-medium text-[#1d1d1f]/80 dark:text-[#e8eef7]/75">
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-medium text-[#1d1d1f]/80">
             <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
             About
           </p>
           <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
             A little bit about us.
           </h1>
-          <p className="mt-5 text-pretty text-base leading-relaxed text-[#1d1d1f]/75 dark:text-[#e8eef7]/70 sm:text-lg">
+          <p className="mt-5 text-pretty text-base leading-relaxed text-[#1d1d1f]/75 sm:text-lg">
             My name is Thomas Klein — a web developer and devoted Christian. My soon to be fiancée Monisha and I are passionate about seeing Jesus glorified throughout the world.
             This business is an extension of our ministry, and we love building relationships with believers everywhere — whether or not we end up building your website.
           </p>
@@ -44,14 +44,14 @@ export default function About() {
           <div className="mt-8 grid gap-4">
             <div className="glass rounded-3xl p-6">
               <h2 className="text-sm font-semibold tracking-tight">What I focus on</h2>
-              <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">
+              <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/70">
                 I focus on building websites and apps that are fast, clean, mobile-friendly, and easy to maintain.
               </p>
             </div>
 
             <div className="glass rounded-3xl p-6">
               <h2 className="text-sm font-semibold tracking-tight">Why &quot;Kingdom Sites&quot;</h2>
-              <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">
+              <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/70">
                 You&apos;re not just getting a website — you&apos;re getting a partner in your ministry. We want to see churches and organizations thrive and reach people for Christ. Technology can accelerate the spread of the gospel, and we want to be part of that.
               </p>
             </div>

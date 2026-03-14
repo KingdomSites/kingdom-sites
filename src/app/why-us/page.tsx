@@ -47,7 +47,7 @@ function StatCard({ value, label, delay }: { value: string; label: string; delay
       style={{ ...CARD_STYLE, transitionDelay: `${delay}ms`, boxSizing: 'border-box' }}
     >
       <p className="text-3xl font-bold tracking-tight text-[#0071e3] sm:text-4xl lg:text-5xl">{value}</p>
-      <p className="mt-2 text-sm font-medium leading-snug text-[#1d1d1f]/60 dark:text-[#e8eef7]/55 sm:text-base">{label}</p>
+      <p className="mt-2 text-sm font-medium leading-snug text-[#1d1d1f]/60 sm:text-base">{label}</p>
     </div>
   )
 }
@@ -76,14 +76,14 @@ export default function WhyUs() {
       {/* Hero */}
       <section ref={heroRef} className="mx-auto max-w-6xl px-4 pb-10 pt-12 sm:px-6 sm:pb-16 sm:pt-20 lg:pb-20 lg:pt-24">
         <div ref={heroInnerRef} style={{ willChange: 'transform' }}>
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-white/60 dark:bg-white/8 px-3 py-1.5 text-xs font-medium text-[#1d1d1f]/60 dark:text-[#e8eef7]/55 backdrop-blur-sm">
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/60 px-3 py-1.5 text-xs font-medium text-[#1d1d1f]/60 backdrop-blur-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
             Why Kingdom Sites
           </p>
           <h1 className="max-w-3xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl lg:text-6xl">
             Your ministry deserves a website that works as hard as you do.
           </h1>
-          <p className="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-[#1d1d1f]/55 dark:text-[#e8eef7]/50 sm:mt-5 sm:text-base">
+          <p className="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-[#1d1d1f]/55 sm:mt-5 sm:text-base">
             First impressions happen online. A clear, fast, functional website helps seekers find you and learn more about your org.
           </p>
         </div>
@@ -105,11 +105,11 @@ export default function WhyUs() {
           <h2 className="mb-3 text-xl font-semibold tracking-tight sm:mb-4 sm:text-2xl lg:text-3xl">
             Why a quality website matters for your church or organization.
           </h2>
-          <p className="mb-3 text-base font-medium leading-relaxed text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">
+          <p className="mb-3 text-base font-medium leading-relaxed text-[#1d1d1f]/70">
             Most church and ministry websites were built years ago, load slowly, and look dated on mobile.
             That matters — most visitors decide whether to show up based on your statement of faith, location, and service times. When I've searched for a church while traveling, if a site wasn't clear on those basics, I'd look elsewhere.
           </p>
-          <p className="text-base font-medium leading-relaxed text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">
+          <p className="text-base font-medium leading-relaxed text-[#1d1d1f]/70">
             A well-built site communicates that your church or organization is alive, organized, and welcoming.
             It removes friction for first-time visitors, makes key info instantly findable, and keeps donors and guests informed.
           </p>
@@ -123,7 +123,7 @@ export default function WhyUs() {
           <h3 className="mb-3 text-lg font-semibold tracking-tight sm:text-xl">
             South Asia costs. American quality.
           </h3>
-          <p className="text-base font-medium leading-relaxed text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">
+          <p className="text-base font-medium leading-relaxed text-[#1d1d1f]/70">
             We live and serve in South Asia, where the cost of living is a
             fraction of the US — which means I can offer premium, American-standard
             development at a price your budget can actually handle — without
@@ -136,7 +136,7 @@ export default function WhyUs() {
       <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 sm:pb-24 lg:pb-28">
         <div className="mb-6 text-center">
           <h2 className="text-xl font-semibold tracking-tight sm:text-2xl lg:text-3xl">Who we work with.</h2>
-          <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/55 dark:text-[#e8eef7]/50 sm:mt-3">
+          <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/55 sm:mt-3">
             We collaborate with churches, ministries, and small businesses.
           </p>
         </div>
@@ -161,7 +161,7 @@ export default function WhyUs() {
           ].map((item, i) => (
             <RevealCard key={item.title} delay={i * 90}>
               <h3 className="mb-2 text-sm font-semibold tracking-tight">{item.title}</h3>
-              <p className="text-base font-medium leading-relaxed text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">{item.desc}</p>
+              <p className="text-base font-medium leading-relaxed text-[#1d1d1f]/70">{item.desc}</p>
             </RevealCard>
           ))}
         </div>

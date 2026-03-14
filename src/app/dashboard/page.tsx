@@ -11,8 +11,8 @@ const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL ?? ''
 
 const STATUS: Record<string, { label: string; color: string }> = {
   in_progress: { label: 'In Progress', color: 'bg-[#0071e3]/15 text-[#0071e3]' },
-  review:      { label: 'In Review',   color: 'bg-amber-100/80 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' },
-  complete:    { label: 'Complete',    color: 'bg-green-100/80 text-green-700 dark:bg-green-900/30 dark:text-green-400' },
+  review:      { label: 'In Review',   color: 'bg-amber-100/80 text-amber-700' },
+  complete:    { label: 'Complete',    color: 'bg-green-100/80 text-green-700' },
 }
 
 const TABS = ['Project', 'Messages', 'Meetings', 'Payments', 'Intake']
@@ -31,8 +31,8 @@ const TIME_SLOTS = (() => {
   return slots
 })()
 
-const INPUT = 'h-12 w-full rounded-3xl border border-white/30 bg-white/20 px-5 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 placeholder:text-[#1d1d1f]/35 dark:placeholder:text-[#e8eef7]/30'
-const TEXTAREA = 'w-full resize-none rounded-2xl border border-white/30 bg-white/20 px-4 py-3 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 placeholder:text-[#1d1d1f]/35 dark:placeholder:text-[#e8eef7]/30'
+const INPUT = 'h-12 w-full rounded-3xl border border-white/30 bg-white/20 px-5 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 placeholder:text-[#1d1d1f]/35'
+const TEXTAREA = 'w-full resize-none rounded-2xl border border-white/30 bg-white/20 px-4 py-3 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 placeholder:text-[#1d1d1f]/35'
 const CHEVRON = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%231d1d1f' fill-opacity='.45' d='M6 8L1 3h10z'/%3E%3C/svg%3E")`
 
 function GlassCard({ children, className = '' }: { children: React.ReactNode; className?: string }) {
@@ -61,7 +61,7 @@ function PillGroup({ options, value, onChange, name }: { options: string[]; valu
           className={`flex flex-1 cursor-pointer items-center justify-center rounded-2xl border py-2.5 text-sm font-medium transition ${
             value === opt
               ? 'border-[#0071e3]/30 bg-[#0071e3]/12 text-[#0071e3]'
-              : 'border-white/30 bg-white/15 text-[#1d1d1f]/65 dark:text-[#e8eef7]/55 hover:bg-white/25'
+              : 'border-white/30 bg-white/15 text-[#1d1d1f]/65 hover:bg-white/25'
           }`}
         >
           <input type="radio" name={name} value={opt} className="sr-only" checked={value === opt} onChange={() => onChange(opt)} />
@@ -185,7 +185,7 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
       {/* Header */}
       <div className="mb-8 flex items-center justify-between">
         <div>
-          <p className="mb-1 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-medium text-[#1d1d1f]/70 dark:text-[#e8eef7]/60 backdrop-blur-sm">
+          <p className="mb-1 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-medium text-[#1d1d1f]/70 backdrop-blur-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
             Admin
           </p>
@@ -193,7 +193,7 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
         </div>
         <button
           onClick={onSignOut}
-          className="rounded-full border border-white/30 bg-white/20 px-4 py-2 text-xs font-medium text-[#1d1d1f]/60 dark:text-[#e8eef7]/55 backdrop-blur-sm transition hover:bg-white/35"
+          className="rounded-full border border-white/30 bg-white/20 px-4 py-2 text-xs font-medium text-[#1d1d1f]/60 backdrop-blur-sm transition hover:bg-white/35"
         >
           Sign out
         </button>
@@ -202,12 +202,12 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
       {/* Stats */}
       <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <GlassCard className="!p-4">
-          <p className="text-xs text-[#1d1d1f]/45 dark:text-[#e8eef7]/40 mb-1">Total clients</p>
+          <p className="text-xs text-[#1d1d1f]/45 mb-1">Total clients</p>
           <p className="text-2xl font-semibold">{clients.length}</p>
         </GlassCard>
         {Object.entries(techCounts).map(([type, count]) => (
           <GlassCard key={type} className="!p-4">
-            <p className="text-xs text-[#1d1d1f]/45 dark:text-[#e8eef7]/40 mb-1 truncate">{type}</p>
+            <p className="text-xs text-[#1d1d1f]/45 mb-1 truncate">{type}</p>
             <p className="text-2xl font-semibold">{count}</p>
           </GlassCard>
         ))}
@@ -215,10 +215,10 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
 
       {/* Client grid */}
       {loading ? (
-        <p className="text-sm text-[#1d1d1f]/50 dark:text-[#e8eef7]/45">Loading clients…</p>
+        <p className="text-sm text-[#1d1d1f]/50">Loading clients…</p>
       ) : clients.length === 0 ? (
         <GlassCard>
-          <p className="text-sm text-[#1d1d1f]/55 dark:text-[#e8eef7]/50 text-center py-4">No clients yet.</p>
+          <p className="text-sm text-[#1d1d1f]/55 text-center py-4">No clients yet.</p>
         </GlassCard>
       ) : (
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
@@ -241,15 +241,15 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                 {initials(client)}
               </div>
               <div className="w-full min-w-0">
-                <p className="truncate text-sm font-semibold text-[#1d1d1f] dark:text-[#e8eef7]">{client.name ?? '—'}</p>
-                <p className="truncate text-[0.68rem] text-[#1d1d1f]/45 dark:text-[#e8eef7]/40">{client.email}</p>
+                <p className="truncate text-sm font-semibold text-[#1d1d1f]">{client.name ?? '—'}</p>
+                <p className="truncate text-[0.68rem] text-[#1d1d1f]/45">{client.email}</p>
               </div>
               {client.project ? (
                 <span className={`rounded-full px-2.5 py-0.5 text-[0.68rem] font-medium ${STATUS[client.project.status]?.color ?? STATUS.in_progress.color}`}>
                   {STATUS[client.project.status]?.label ?? client.project.status}
                 </span>
               ) : (
-                <span className="rounded-full border border-white/30 bg-white/20 px-2.5 py-0.5 text-[0.68rem] font-medium text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">
+                <span className="rounded-full border border-white/30 bg-white/20 px-2.5 py-0.5 text-[0.68rem] font-medium text-[#1d1d1f]/40">
                   No project
                 </span>
               )}
@@ -282,13 +282,13 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                   {initials(modal)}
                 </div>
                 <div>
-                  <p className="font-semibold text-[#1d1d1f] dark:text-[#e8eef7]">{modal.name ?? '—'}</p>
-                  <p className="text-xs text-[#1d1d1f]/50 dark:text-[#e8eef7]/45">{modal.email}</p>
+                  <p className="font-semibold text-[#1d1d1f]">{modal.name ?? '—'}</p>
+                  <p className="text-xs text-[#1d1d1f]/50">{modal.email}</p>
                 </div>
               </div>
               <button
                 onClick={closeModal}
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/8 dark:border-white/10 bg-black/5 dark:bg-white/8 text-[#1d1d1f]/50 dark:text-[#e8eef7]/45 transition hover:bg-black/10 dark:hover:bg-white/15"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/8 bg-black/5 text-[#1d1d1f]/50 transition hover:bg-black/10"
               >
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
@@ -298,7 +298,7 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
 
             {/* Profile */}
             <div className="mb-4">
-              <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-widest text-[#1d1d1f]/35 dark:text-[#e8eef7]/30">Profile</p>
+              <p className="mb-2 text-[0.65rem] font-semibold uppercase tracking-widest text-[#1d1d1f]/35">Profile</p>
               <div className="rounded-2xl px-4 py-3" style={{ background: 'var(--info-bg)', border: '1px solid var(--info-border)' }}>
                 <dl className="grid gap-2 text-sm">
                   {([
@@ -308,8 +308,8 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                     ['Joined',      new Date(modal.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })],
                   ] as [string, string][]).map(([dt, dd]) => (
                     <div key={dt} className="flex gap-2">
-                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">{dt}</dt>
-                      <dd className="text-[#1d1d1f]/75 dark:text-[#e8eef7]/70 break-words">{dd}</dd>
+                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40">{dt}</dt>
+                      <dd className="text-[#1d1d1f]/75 break-words">{dd}</dd>
                     </div>
                   ))}
                 </dl>
@@ -319,11 +319,11 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
             {/* Project */}
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-[#1d1d1f]/35 dark:text-[#e8eef7]/30">Project</p>
+                <p className="text-[0.65rem] font-semibold uppercase tracking-widest text-[#1d1d1f]/35">Project</p>
                 {!showForm && (
                   <button
                     onClick={() => setShowForm(true)}
-                    className="rounded-full border border-white/30 bg-white/40 dark:bg-white/8 px-3 py-1 text-xs font-medium text-[#1d1d1f]/60 dark:text-[#e8eef7]/55 transition hover:bg-white/60 dark:hover:bg-white/15"
+                    className="rounded-full border border-white/30 bg-white/40 px-3 py-1 text-xs font-medium text-[#1d1d1f]/60 transition hover:bg-white/60"
                   >
                     {modal.project ? 'Edit' : 'Set up project'}
                   </button>
@@ -333,12 +333,12 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
               {showForm ? (
                 <div className="grid gap-3 rounded-2xl p-4" style={{ background: 'var(--info-bg)', border: '1px solid var(--info-border)' }}>
                   <label className="grid gap-1 text-sm">
-                    <span className="font-medium text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">Project name *</span>
+                    <span className="font-medium text-[#1d1d1f]/70">Project name *</span>
                     <input type="text" value={projName} onChange={e => setProjName(e.target.value)}
                       placeholder="Grace Community Church Website" maxLength={150} className={INPUT} />
                   </label>
                   <label className="grid gap-1 text-sm">
-                    <span className="font-medium text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">Status</span>
+                    <span className="font-medium text-[#1d1d1f]/70">Status</span>
                     <select value={projStatus} onChange={e => setProjStatus(e.target.value)}
                       className="h-12 w-full appearance-none rounded-3xl border border-white/30 bg-white/20 px-5 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
                       style={{ backgroundImage: CHEVRON, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1.25rem center' }}>
@@ -346,19 +346,19 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                     </select>
                   </label>
                   <label className="grid gap-1 text-sm">
-                    <span className="font-medium text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">Notes <span className="font-normal text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">(optional)</span></span>
+                    <span className="font-medium text-[#1d1d1f]/70">Notes <span className="font-normal text-[#1d1d1f]/40">(optional)</span></span>
                     <textarea rows={3} value={projDesc} onChange={e => setProjDesc(e.target.value)}
                       placeholder="Brief description of the project scope…" maxLength={1000} className={TEXTAREA} />
                   </label>
                   <label className="grid gap-1 text-sm">
-                    <span className="font-medium text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">Google Drive link <span className="font-normal text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">(optional)</span></span>
+                    <span className="font-medium text-[#1d1d1f]/70">Google Drive link <span className="font-normal text-[#1d1d1f]/40">(optional)</span></span>
                     <input type="url" value={projDrive} onChange={e => setProjDrive(e.target.value)}
                       placeholder="https://drive.google.com/drive/folders/…" maxLength={500} className={INPUT} />
                   </label>
                   {projError && <p className="text-xs text-red-500">{projError}</p>}
                   <div className="flex gap-2">
                     <button onClick={() => setShowForm(false)}
-                      className="h-10 flex-1 rounded-full border border-white/30 bg-white/20 text-sm font-medium text-[#1d1d1f]/60 dark:text-[#e8eef7]/55 transition hover:bg-white/35">
+                      className="h-10 flex-1 rounded-full border border-white/30 bg-white/20 text-sm font-medium text-[#1d1d1f]/60 transition hover:bg-white/35">
                       Cancel
                     </button>
                     <button onClick={saveProject} disabled={projSaving}
@@ -371,11 +371,11 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                 <div className="rounded-2xl px-4 py-3" style={{ background: 'var(--info-bg)', border: '1px solid var(--info-border)' }}>
                   <dl className="grid gap-2 text-sm">
                     <div className="flex gap-2">
-                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">Name</dt>
-                      <dd className="font-medium text-[#1d1d1f] dark:text-[#e8eef7]">{modal.project.name}</dd>
+                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40">Name</dt>
+                      <dd className="font-medium text-[#1d1d1f]">{modal.project.name}</dd>
                     </div>
                     <div className="flex gap-2">
-                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">Status</dt>
+                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40">Status</dt>
                       <dd>
                         <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${STATUS[modal.project.status]?.color ?? STATUS.in_progress.color}`}>
                           {STATUS[modal.project.status]?.label ?? modal.project.status}
@@ -384,25 +384,25 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                     </div>
                     {modal.project.description && (
                       <div className="flex gap-2">
-                        <dt className="w-24 shrink-0 text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">Notes</dt>
-                        <dd className="text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">{modal.project.description}</dd>
+                        <dt className="w-24 shrink-0 text-[#1d1d1f]/40">Notes</dt>
+                        <dd className="text-[#1d1d1f]/75">{modal.project.description}</dd>
                       </div>
                     )}
                     {modal.project.drive_link && (
                       <div className="flex gap-2">
-                        <dt className="w-24 shrink-0 text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">Drive</dt>
+                        <dt className="w-24 shrink-0 text-[#1d1d1f]/40">Drive</dt>
                         <dd><a href={modal.project.drive_link} target="_blank" rel="noopener noreferrer" className="text-[#0071e3] underline text-xs">Open folder</a></dd>
                       </div>
                     )}
                     <div className="flex gap-2">
-                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">Started</dt>
-                      <dd className="text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">{new Date(modal.project.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</dd>
+                      <dt className="w-24 shrink-0 text-[#1d1d1f]/40">Started</dt>
+                      <dd className="text-[#1d1d1f]/75">{new Date(modal.project.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</dd>
                     </div>
                   </dl>
                 </div>
               ) : (
                 <div className="rounded-2xl px-4 py-3" style={{ background: 'var(--info-bg)', border: '1px solid var(--info-border)' }}>
-                  <p className="text-sm text-[#1d1d1f]/45 dark:text-[#e8eef7]/40">No project yet — click &ldquo;Set up project&rdquo; to create one.</p>
+                  <p className="text-sm text-[#1d1d1f]/45">No project yet — click &ldquo;Set up project&rdquo; to create one.</p>
                 </div>
               )}
             </div>
@@ -464,7 +464,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[calc(100dvh-120px)] items-center justify-center text-sm text-[#1d1d1f]/50 dark:text-[#e8eef7]/45">
+      <div className="flex min-h-[calc(100dvh-120px)] items-center justify-center text-sm text-[#1d1d1f]/50">
         Loading…
       </div>
     )
@@ -488,7 +488,7 @@ export default function Dashboard() {
       <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-20">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <p className="mb-1 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-medium text-[#1d1d1f]/70 dark:text-[#e8eef7]/60 backdrop-blur-sm">
+            <p className="mb-1 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/20 px-3 py-1 text-xs font-medium text-[#1d1d1f]/70 backdrop-blur-sm">
               <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
               Client portal
             </p>
@@ -498,7 +498,7 @@ export default function Dashboard() {
           </div>
           <button
             onClick={signOut}
-            className="rounded-full border border-white/30 bg-white/20 px-4 py-2 text-xs font-medium text-[#1d1d1f]/60 dark:text-[#e8eef7]/55 backdrop-blur-sm transition hover:bg-white/35"
+            className="rounded-full border border-white/30 bg-white/20 px-4 py-2 text-xs font-medium text-[#1d1d1f]/60 backdrop-blur-sm transition hover:bg-white/35"
           >
             Sign out
           </button>
@@ -516,7 +516,7 @@ export default function Dashboard() {
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`flex flex-col items-center justify-center gap-2 rounded-3xl py-5 text-xs font-medium transition ${t === 'Intake' ? 'col-span-2' : ''} ${tab === t ? 'text-[#0071e3]' : 'text-[#1d1d1f]/55 dark:text-[#e8eef7]/50'}`}
+              className={`flex flex-col items-center justify-center gap-2 rounded-3xl py-5 text-xs font-medium transition ${t === 'Intake' ? 'col-span-2' : ''} ${tab === t ? 'text-[#0071e3]' : 'text-[#1d1d1f]/55'}`}
               style={{
                 background: tab === t ? 'rgba(0,113,227,0.10)' : 'var(--glass-bg)',
                 backdropFilter: 'blur(16px) saturate(160%)',
@@ -546,8 +546,8 @@ export default function Dashboard() {
               onClick={() => setTab(t)}
               className={`flex-1 rounded-xl py-2 text-sm font-medium transition ${
                 tab === t
-                  ? 'bg-white/70 dark:bg-white/12 text-[#1d1d1f] dark:text-[#e8eef7] shadow-sm backdrop-blur-sm'
-                  : 'text-[#1d1d1f]/50 dark:text-[#e8eef7]/45 hover:text-[#1d1d1f] dark:hover:text-[#e8eef7]'
+                  ? 'bg-white/70 text-[#1d1d1f] shadow-sm backdrop-blur-sm'
+                  : 'text-[#1d1d1f]/50 hover:text-[#1d1d1f]'
               }`}
             >
               {t}
@@ -567,16 +567,16 @@ export default function Dashboard() {
                   </span>
                 </div>
                 {project.description && (
-                  <p className="text-sm leading-relaxed text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">{project.description}</p>
+                  <p className="text-sm leading-relaxed text-[#1d1d1f]/70">{project.description}</p>
                 )}
-                <p className="text-xs text-[#1d1d1f]/38 dark:text-[#e8eef7]/35">
+                <p className="text-xs text-[#1d1d1f]/38">
                   Started {new Date(project.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                 </p>
                 <div className="mt-2 border-t border-white/20 pt-4">
                   <h3 className="mb-2 text-sm font-semibold">Project Files</h3>
                   {project.drive_link ? (
                     <div className="grid gap-3">
-                      <p className="text-sm text-[#1d1d1f]/60 dark:text-[#e8eef7]/55">
+                      <p className="text-sm text-[#1d1d1f]/60">
                         Upload documents, photos, or any files for your project directly to our shared folder.
                       </p>
                       <a
@@ -590,10 +590,10 @@ export default function Dashboard() {
                         </svg>
                         Open Upload Folder
                       </a>
-                      <p className="text-xs text-[#1d1d1f]/38 dark:text-[#e8eef7]/35">Opens Google Drive — drag and drop your files there.</p>
+                      <p className="text-xs text-[#1d1d1f]/38">Opens Google Drive — drag and drop your files there.</p>
                     </div>
                   ) : (
-                    <p className="text-sm text-[#1d1d1f]/45 dark:text-[#e8eef7]/40">
+                    <p className="text-sm text-[#1d1d1f]/45">
                       Your file upload folder will appear here once your project manager sets it up.
                     </p>
                   )}
@@ -602,7 +602,7 @@ export default function Dashboard() {
             ) : (
               <div className="py-4 text-center">
                 <p className="text-sm font-medium">No project found</p>
-                <p className="mt-1 text-sm text-[#1d1d1f]/55 dark:text-[#e8eef7]/50">Your project will appear here once it&apos;s been set up.</p>
+                <p className="mt-1 text-sm text-[#1d1d1f]/55">Your project will appear here once it&apos;s been set up.</p>
               </div>
             )}
           </GlassCard>
@@ -615,7 +615,7 @@ export default function Dashboard() {
             {msgSubmitted ? (
               <div className="rounded-2xl border border-[#0071e3]/20 bg-[#0071e3]/8 p-5 text-center">
                 <p className="text-sm font-semibold">Message sent!</p>
-                <p className="mt-1 text-sm text-[#1d1d1f]/60 dark:text-[#e8eef7]/55">I&apos;ll reply as soon as I can.</p>
+                <p className="mt-1 text-sm text-[#1d1d1f]/60">I&apos;ll reply as soon as I can.</p>
                 <button onClick={() => setMsgSubmitted(false)} className="mt-3 text-xs text-[#0071e3]">Send another</button>
               </div>
             ) : (
@@ -637,7 +637,7 @@ export default function Dashboard() {
                 }}
               >
                 <label className="grid gap-1 text-sm">
-                  <span className="font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">Message</span>
+                  <span className="font-medium text-[#1d1d1f]/75">Message</span>
                   <textarea required name="message" rows={5} className={TEXTAREA} placeholder="Ask a question or share an update…" />
                 </label>
                 <button type="submit" disabled={msgSending}
@@ -657,7 +657,7 @@ export default function Dashboard() {
             {mtgSubmitted ? (
               <div className="rounded-2xl border border-[#0071e3]/20 bg-[#0071e3]/8 p-5 text-center">
                 <p className="text-sm font-semibold">Meeting request sent!</p>
-                <p className="mt-1 text-sm text-[#1d1d1f]/60 dark:text-[#e8eef7]/55">I&apos;ll confirm the time as soon as I can.</p>
+                <p className="mt-1 text-sm text-[#1d1d1f]/60">I&apos;ll confirm the time as soon as I can.</p>
                 <button onClick={() => setMtgSubmitted(false)} className="mt-3 text-xs text-[#0071e3]">Book another</button>
               </div>
             ) : (
@@ -686,7 +686,7 @@ export default function Dashboard() {
 
                 <div className="grid gap-3 sm:grid-cols-2">
                   <label className="grid gap-1 text-sm">
-                    <span className="font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">Date</span>
+                    <span className="font-medium text-[#1d1d1f]/75">Date</span>
                     <div className="overflow-hidden rounded-3xl">
                       <input required type="date" name="date" className={`${INPUT} rounded-none`}
                         value={mtgDate} onChange={(e) => setMtgDate(e.target.value)}
@@ -695,7 +695,7 @@ export default function Dashboard() {
                     </div>
                   </label>
                   <label className="grid gap-1 text-sm">
-                    <span className="font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">Time</span>
+                    <span className="font-medium text-[#1d1d1f]/75">Time</span>
                     <select
                       required name="time" value={mtgTime}
                       onChange={(e) => setMtgTime(e.target.value)}
@@ -711,12 +711,12 @@ export default function Dashboard() {
                 </div>
 
                 <div className="grid gap-1 text-sm">
-                  <span className="font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">Where / how</span>
+                  <span className="font-medium text-[#1d1d1f]/75">Where / how</span>
                   <PillGroup options={['Zoom', 'WhatsApp']} value={mtgPlatform} onChange={setMtgPlatform} name="platform" />
                 </div>
 
                 <div className="grid gap-1 text-sm">
-                  <span className="font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">Topic</span>
+                  <span className="font-medium text-[#1d1d1f]/75">Topic</span>
                   <select
                     name="topic" value={mtgTopic} onChange={(e) => setMtgTopic(e.target.value)}
                     className="h-12 w-full appearance-none rounded-3xl border border-white/30 bg-white/20 px-5 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
@@ -729,7 +729,7 @@ export default function Dashboard() {
                 </div>
 
                 <label className="grid gap-1 text-sm">
-                  <span className="font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">Notes <span className="font-normal text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">(optional)</span></span>
+                  <span className="font-medium text-[#1d1d1f]/75">Notes <span className="font-normal text-[#1d1d1f]/40">(optional)</span></span>
                   <textarea name="notes" rows={3} className={TEXTAREA}
                     placeholder="Anything I should know beforehand…"
                     value={mtgNotes} onChange={(e) => setMtgNotes(e.target.value)}
@@ -751,7 +751,7 @@ export default function Dashboard() {
           <div>
             <div className="mb-5">
               <h2 className="text-base font-semibold tracking-tight">Client Intake</h2>
-              <p className="mt-0.5 text-sm text-[#1d1d1f]/55 dark:text-[#e8eef7]/50">
+              <p className="mt-0.5 text-sm text-[#1d1d1f]/55">
                 Share your church's details so we can build exactly what you need.
               </p>
             </div>
@@ -767,10 +767,10 @@ export default function Dashboard() {
             <div className="rounded-2xl p-5" style={{ background: 'var(--info-bg)', border: '1px solid var(--info-border)' }}>
               <div className="flex items-center gap-2 mb-2">
                 <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0071e3] text-[10px] font-bold text-white">1</span>
-                <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">Due Now — Down Payment</p>
+                <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40">Due Now — Down Payment</p>
               </div>
               <p className="text-lg font-semibold tracking-tight mb-0.5">$100 — To Get Started</p>
-              <p className="text-sm text-[#1d1d1f]/55 dark:text-[#e8eef7]/50 mb-4">Secures your spot and kicks off the project. Work begins as soon as this is received.</p>
+              <p className="text-sm text-[#1d1d1f]/55 mb-4">Secures your spot and kicks off the project. Work begins as soon as this is received.</p>
               <button
                 onClick={() => setWiseModal({ label: 'Down Payment', amount: '$100', description: 'Down payment to get started. Work begins as soon as this is received.', type: 'one-time' })}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0071e3] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-95"
@@ -783,10 +783,10 @@ export default function Dashboard() {
             <div className="rounded-2xl p-5" style={{ background: 'var(--info-bg)', border: '1px solid var(--info-border)' }}>
               <div className="flex items-center gap-2 mb-2">
                 <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0071e3] text-[10px] font-bold text-white">2</span>
-                <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">Upon Completion — Final Balance</p>
+                <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40">Upon Completion — Final Balance</p>
               </div>
               <p className="text-lg font-semibold tracking-tight mb-0.5">$400 — Site Delivered</p>
-              <p className="text-sm text-[#1d1d1f]/55 dark:text-[#e8eef7]/50 mb-4">Remaining balance due when your site is ready and approved. Full ownership transferred on payment.</p>
+              <p className="text-sm text-[#1d1d1f]/55 mb-4">Remaining balance due when your site is ready and approved. Full ownership transferred on payment.</p>
               <button
                 onClick={() => setWiseModal({ label: 'Final Balance', amount: '$400', description: 'Remaining balance due upon completion. Full ownership transferred on payment.', type: 'one-time' })}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-[#0071e3] px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-95"
@@ -799,10 +799,10 @@ export default function Dashboard() {
             <div className="rounded-2xl p-5" style={{ background: 'var(--info-bg)', border: '1px solid var(--info-border)' }}>
               <div className="flex items-center gap-2 mb-2">
                 <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#0071e3] text-[10px] font-bold text-white">3</span>
-                <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">Upon Completion — Monthly</p>
+                <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40">Upon Completion — Monthly</p>
               </div>
               <p className="text-lg font-semibold tracking-tight mb-0.5">$50/mo — Hosting & Maintenance</p>
-              <p className="text-sm text-[#1d1d1f]/55 dark:text-[#e8eef7]/50 mb-4">Unlimited updates, hosting, and support. Set up when your site is complete — first payment due 30 days later. Cancel any time.</p>
+              <p className="text-sm text-[#1d1d1f]/55 mb-4">Unlimited updates, hosting, and support. Set up when your site is complete — first payment due 30 days later. Cancel any time.</p>
               <button
                 onClick={() => setWiseModal({ label: 'Hosting & Maintenance', amount: '$50/mo', description: 'Monthly hosting and maintenance. First payment due 30 days after setup. Cancel any time.', type: 'monthly' })}
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-[#0071e3] px-5 py-2.5 text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
@@ -811,7 +811,7 @@ export default function Dashboard() {
               </button>
             </div>
 
-            <p className="text-xs text-center text-[#1d1d1f]/35 dark:text-[#e8eef7]/30">Payments go directly to Thomas via Wise.</p>
+            <p className="text-xs text-center text-[#1d1d1f]/35">Payments go directly to Thomas via Wise.</p>
           </div>
         )}
 
@@ -834,13 +834,13 @@ export default function Dashboard() {
             >
               <div className="mb-5 flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40 dark:text-[#e8eef7]/35 mb-1">Pay via Wise</p>
+                  <p className="text-xs font-medium uppercase tracking-widest text-[#1d1d1f]/40 mb-1">Pay via Wise</p>
                   <p className="text-xl font-semibold tracking-tight">{wiseModal.amount}</p>
-                  <p className="text-sm text-[#1d1d1f]/55 dark:text-[#e8eef7]/50">{wiseModal.label}</p>
+                  <p className="text-sm text-[#1d1d1f]/55">{wiseModal.label}</p>
                 </div>
                 <button
                   onClick={() => setWiseModal(null)}
-                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/8 dark:border-white/10 bg-black/5 dark:bg-white/8 text-[#1d1d1f]/50 dark:text-[#e8eef7]/45 transition hover:bg-black/10 dark:hover:bg-white/15"
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-black/8 bg-black/5 text-[#1d1d1f]/50 transition hover:bg-black/10"
                 >
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
@@ -849,14 +849,14 @@ export default function Dashboard() {
               </div>
 
               <div className="mb-4 rounded-2xl px-4 py-3 text-sm leading-relaxed" style={{ background: 'var(--info-bg)', border: '1px solid var(--info-border)' }}>
-                <p className="text-[#1d1d1f]/65 dark:text-[#e8eef7]/60">{wiseModal.description}</p>
-                <p className="mt-2 text-[#1d1d1f]/65 dark:text-[#e8eef7]/60">Click below to open Wise and send <strong>{wiseModal.amount}</strong> in USD directly to Thomas&apos;s account.</p>
+                <p className="text-[#1d1d1f]/65">{wiseModal.description}</p>
+                <p className="mt-2 text-[#1d1d1f]/65">Click below to open Wise and send <strong>{wiseModal.amount}</strong> in USD directly to Thomas&apos;s account.</p>
               </div>
 
               {wiseModal.type === 'one-time' && (
                 <div className="mb-4 rounded-2xl px-4 py-3 text-sm leading-relaxed" style={{ background: 'var(--info-bg)', border: '1px solid var(--info-border)' }}>
-                  <p className="font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70 mb-1">Don&apos;t have a Wise account?</p>
-                  <p className="mb-2 text-[#1d1d1f]/65 dark:text-[#e8eef7]/60">Setting up Wise is like any other payment account — similar to PayPal or Venmo, but designed for international payments. Simple and easy.</p>
+                  <p className="font-medium text-[#1d1d1f]/75 mb-1">Don&apos;t have a Wise account?</p>
+                  <p className="mb-2 text-[#1d1d1f]/65">Setting up Wise is like any other payment account — similar to PayPal or Venmo, but designed for international payments. Simple and easy.</p>
                   <a
                     href="https://wise.com/register"
                     target="_blank"
@@ -870,8 +870,8 @@ export default function Dashboard() {
 
               {wiseModal.type === 'monthly' && (
                 <div className="mb-4 rounded-2xl px-4 py-3 text-sm leading-relaxed" style={{ background: 'var(--info-bg)', border: '1px solid var(--info-border)' }}>
-                  <p className="font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70 mb-1">How to set up recurring payments</p>
-                  <p className="mb-2 text-[#1d1d1f]/65 dark:text-[#e8eef7]/60">Watch this short video to learn how to set up automatic monthly payments through Wise.</p>
+                  <p className="font-medium text-[#1d1d1f]/75 mb-1">How to set up recurring payments</p>
+                  <p className="mb-2 text-[#1d1d1f]/65">Watch this short video to learn how to set up automatic monthly payments through Wise.</p>
                   <a
                     href="https://www.youtube.com/watch?v=9-8aKYAAMj8"
                     target="_blank"
@@ -883,9 +883,9 @@ export default function Dashboard() {
                 </div>
               )}
 
-              <div className="mb-4 rounded-2xl border border-amber-200 dark:border-amber-800/40 bg-amber-50/80 dark:bg-amber-900/20 px-4 py-3 text-sm leading-relaxed">
-                <p className="text-[#1d1d1f]/65 dark:text-[#e8eef7]/60">After setting up your account, send money to: <span className="font-semibold text-[#1d1d1f]/80 dark:text-[#e8eef7]/75">@thomasbrucek3</span></p>
-                <p className="mt-1.5 text-[#1d1d1f]/65 dark:text-[#e8eef7]/60">Need help? <button onClick={() => { setWiseModal(null); setTab('Messages') }} className="text-[#0071e3] underline font-medium">Contact me</button> and I&apos;ll walk you through it.</p>
+              <div className="mb-4 rounded-2xl border border-amber-200 bg-amber-50/80 px-4 py-3 text-sm leading-relaxed">
+                <p className="text-[#1d1d1f]/65">After setting up your account, send money to: <span className="font-semibold text-[#1d1d1f]/80">@thomasbrucek3</span></p>
+                <p className="mt-1.5 text-[#1d1d1f]/65">Need help? <button onClick={() => { setWiseModal(null); setTab('Messages') }} className="text-[#0071e3] underline font-medium">Contact me</button> and I&apos;ll walk you through it.</p>
               </div>
 
               <a
@@ -896,7 +896,7 @@ export default function Dashboard() {
               >
                 Open Wise — Pay {wiseModal.amount}
               </a>
-              <p className="mt-3 text-center text-xs text-[#1d1d1f]/35 dark:text-[#e8eef7]/30">Opens wise.com in a new tab. USD supported worldwide.</p>
+              <p className="mt-3 text-center text-xs text-[#1d1d1f]/35">Opens wise.com in a new tab. USD supported worldwide.</p>
             </div>
           </div>
         )}

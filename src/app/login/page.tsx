@@ -46,25 +46,25 @@ export default function Login() {
       <div className="w-full">
         <div className="rounded-3xl p-8" style={CARD_STYLE}>
           <div className="mb-6 text-center">
-            <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70 backdrop-blur-sm">
+            <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-medium text-[#1d1d1f]/75 backdrop-blur-sm">
               <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
               Client portal
             </p>
             <h1 className="text-2xl font-semibold tracking-tight">Let&apos;s Build Your Site</h1>
-            <p className="mt-2 text-sm text-[#1d1d1f]/60 dark:text-[#e8eef7]/55">I&apos;m ready to build your site — drop in your email below to get started.</p>
+            <p className="mt-2 text-sm text-[#1d1d1f]/60">I&apos;m ready to build your site — drop in your email below to get started.</p>
           </div>
 
           {sent ? (
             <div className="rounded-2xl border border-[#0071e3]/20 bg-[#0071e3]/8 p-5 text-center">
               <p className="text-sm font-semibold">Check your inbox</p>
-              <p className="mt-1 text-sm text-[#1d1d1f]/60 dark:text-[#e8eef7]/55">
+              <p className="mt-1 text-sm text-[#1d1d1f]/60">
                 A sign-in link was sent to <span className="font-medium">{email}</span>.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="grid gap-3">
               <label className="grid gap-1 text-sm">
-                <span className="font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">Email</span>
+                <span className="font-medium text-[#1d1d1f]/75">Email</span>
                 <input
                   ref={inputRef}
                   type="email"
@@ -73,11 +73,11 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
-                  className="h-11 rounded-2xl border border-white/30 bg-white/20 px-4 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 dark:border-white/15 dark:bg-white/8 dark:placeholder:text-white/30 dark:focus:bg-white/12"
+                  className="h-11 rounded-2xl border border-white/30 bg-white/20 px-4 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
                 />
               </label>
 
-              {error && <p className="text-sm text-red-500 dark:text-red-400">{error}</p>}
+              {error && <p className="text-sm text-red-500">{error}</p>}
 
               <button
                 type="submit"

@@ -76,9 +76,9 @@ const GLASS: React.CSSProperties = {
   border:               '1px solid var(--glass-border)',
   boxShadow:            'var(--glass-shadow)',
 }
-const INPUT    = 'h-12 w-full rounded-3xl border border-white/30 bg-white/20 px-5 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 placeholder:text-[#1d1d1f]/35 dark:placeholder:text-[#e8eef7]/30'
-const TEXTAREA = 'w-full resize-none rounded-2xl border border-white/30 bg-white/20 px-4 py-3 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 placeholder:text-[#1d1d1f]/35 dark:placeholder:text-[#e8eef7]/30'
-const LABEL    = 'text-sm font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70'
+const INPUT    = 'h-12 w-full rounded-3xl border border-white/30 bg-white/20 px-5 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 placeholder:text-[#1d1d1f]/35'
+const TEXTAREA = 'w-full resize-none rounded-2xl border border-white/30 bg-white/20 px-4 py-3 text-sm backdrop-blur-sm outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 placeholder:text-[#1d1d1f]/35'
+const LABEL    = 'text-sm font-medium text-[#1d1d1f]/75'
 const ERR      = 'mt-1 text-xs text-red-500'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -226,7 +226,7 @@ export default function IntakeForm({ user }: { user: User }) {
   // ── Loading ──────────────────────────────────────────────────────────────────
   if (loadingExisting) {
     return (
-      <div className="rounded-3xl p-8 text-center text-sm text-[#1d1d1f]/45 dark:text-[#e8eef7]/40" style={GLASS}>
+      <div className="rounded-3xl p-8 text-center text-sm text-[#1d1d1f]/45" style={GLASS}>
         Loading…
       </div>
     )
@@ -281,11 +281,11 @@ export default function IntakeForm({ user }: { user: User }) {
               Submitted
             </div>
             <h2 className="text-base font-semibold tracking-tight">Your intake form</h2>
-            <p className="mt-0.5 text-xs text-[#1d1d1f]/45 dark:text-[#e8eef7]/40">Review your responses below.</p>
+            <p className="mt-0.5 text-xs text-[#1d1d1f]/45">Review your responses below.</p>
           </div>
           <button
             onClick={() => { setEditing(true); setStep(0); setErrors({}) }}
-            className="shrink-0 rounded-full border border-white/30 bg-white/20 px-4 py-2 text-xs font-medium text-[#1d1d1f]/60 dark:text-[#e8eef7]/55 backdrop-blur-sm transition hover:bg-white/35"
+            className="shrink-0 rounded-full border border-white/30 bg-white/20 px-4 py-2 text-xs font-medium text-[#1d1d1f]/60 backdrop-blur-sm transition hover:bg-white/35"
           >
             Edit
           </button>
@@ -294,15 +294,15 @@ export default function IntakeForm({ user }: { user: User }) {
         <div className="grid gap-5">
           {sections.map(({ heading, rows }) => (
             <div key={heading}>
-              <p className="mb-2 text-[0.68rem] font-semibold uppercase tracking-widest text-[#1d1d1f]/35 dark:text-[#e8eef7]/30">
+              <p className="mb-2 text-[0.68rem] font-semibold uppercase tracking-widest text-[#1d1d1f]/35">
                 {heading}
               </p>
               <div className="rounded-2xl border border-white/20 bg-white/10 px-4 py-3">
                 <dl className="grid gap-2.5">
                   {rows.map(([label, value]) => (
                     <div key={label} className="grid grid-cols-[7rem_1fr] gap-2 text-sm">
-                      <dt className="text-[#1d1d1f]/40 dark:text-[#e8eef7]/35 shrink-0">{label}</dt>
-                      <dd className="break-words text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">{value}</dd>
+                      <dt className="text-[#1d1d1f]/40 shrink-0">{label}</dt>
+                      <dd className="break-words text-[#1d1d1f]/75">{value}</dd>
                     </div>
                   ))}
                 </dl>
@@ -319,7 +319,7 @@ export default function IntakeForm({ user }: { user: User }) {
     return (
       <div className="rounded-3xl p-6 sm:p-8" style={GLASS}>
         <h2 className="mb-1 text-base font-semibold tracking-tight">Who are you?</h2>
-        <p className="mb-6 text-sm text-[#1d1d1f]/60 dark:text-[#e8eef7]/65">Pick the option that best fits your organization — the form will adapt accordingly.</p>
+        <p className="mb-6 text-sm text-[#1d1d1f]/60">Pick the option that best fits your organization — the form will adapt accordingly.</p>
         <div className="grid gap-3 sm:grid-cols-2">
           {([
             {
@@ -352,7 +352,7 @@ export default function IntakeForm({ user }: { user: User }) {
               <span className="text-[#0071e3]">{icon}</span>
               <span>
                 <span className="block text-sm font-semibold tracking-tight">{label}</span>
-                <span className="mt-1 block text-xs leading-relaxed text-[#1d1d1f]/60 dark:text-[#e8eef7]/60">{desc}</span>
+                <span className="mt-1 block text-xs leading-relaxed text-[#1d1d1f]/60">{desc}</span>
               </span>
             </button>
           ))}
@@ -372,11 +372,11 @@ export default function IntakeForm({ user }: { user: User }) {
 
       {/* Progress bar */}
       <div className="mb-7">
-        <div className="mb-1.5 flex items-center justify-between text-xs text-[#1d1d1f]/50 dark:text-[#e8eef7]/45">
+        <div className="mb-1.5 flex items-center justify-between text-xs text-[#1d1d1f]/50">
           <button
             type="button"
             onClick={() => { if (step === 0 && !editing) set('org_type', ''); else back() }}
-            className="flex items-center gap-1 text-[#1d1d1f]/40 dark:text-[#e8eef7]/40 hover:text-[#1d1d1f]/70 dark:hover:text-[#e8eef7]/70 transition"
+            className="flex items-center gap-1 text-[#1d1d1f]/40 hover:text-[#1d1d1f]/70 transition"
           >
             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M8 2L4 6l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
             {step === 0 && !editing ? 'Change type' : 'Back'}
@@ -389,7 +389,7 @@ export default function IntakeForm({ user }: { user: User }) {
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="mt-2 text-[0.70rem] text-[#1d1d1f]/40 dark:text-[#e8eef7]/40">{STEPS[step].subtitle}</p>
+        <p className="mt-2 text-[0.70rem] text-[#1d1d1f]/40">{STEPS[step].subtitle}</p>
       </div>
 
       {/* ── Step 1: Org Info ── */}
@@ -434,7 +434,7 @@ export default function IntakeForm({ user }: { user: User }) {
             <label className="grid gap-1.5">
               <span className={LABEL}>
                 Denomination{' '}
-                <span className="font-normal text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">(optional)</span>
+                <span className="font-normal text-[#1d1d1f]/40">(optional)</span>
               </span>
               <input
                 type="text" className={INPUT} placeholder="Baptist, Non-denominational, etc."
@@ -453,7 +453,7 @@ export default function IntakeForm({ user }: { user: User }) {
           <label className="grid gap-1.5">
             <span className={LABEL}>
               Logo URL{' '}
-              <span className="font-normal text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">(Google Drive, Dropbox, etc.)</span>
+              <span className="font-normal text-[#1d1d1f]/40">(Google Drive, Dropbox, etc.)</span>
             </span>
             <input
               type="url" className={INPUT} placeholder="https://drive.google.com/…"
@@ -487,7 +487,7 @@ export default function IntakeForm({ user }: { user: User }) {
           <label className="grid gap-1.5">
             <span className={LABEL}>
               Color Preferences{' '}
-              <span className="font-normal text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">(optional)</span>
+              <span className="font-normal text-[#1d1d1f]/40">(optional)</span>
             </span>
             <input
               type="text" className={INPUT} placeholder="Navy blue, gold, white"
@@ -500,7 +500,7 @@ export default function IntakeForm({ user }: { user: User }) {
           <label className="grid gap-1.5">
             <span className={LABEL}>
               Design / Style{' '}
-              <span className="font-normal text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">(optional)</span>
+              <span className="font-normal text-[#1d1d1f]/40">(optional)</span>
             </span>
             <textarea
               rows={3} className={TEXTAREA}
@@ -514,7 +514,7 @@ export default function IntakeForm({ user }: { user: User }) {
           <label className="grid gap-1.5">
             <span className={LABEL}>
               Media Asset Links{' '}
-              <span className="font-normal text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">(photos, videos — optional)</span>
+              <span className="font-normal text-[#1d1d1f]/40">(photos, videos — optional)</span>
             </span>
             <input
               type="text" className={INPUT} placeholder="Dropbox / Drive folder link"
@@ -532,7 +532,7 @@ export default function IntakeForm({ user }: { user: User }) {
           <label className="grid gap-1.5">
             <span className={LABEL}>
               Current Website URL{' '}
-              <span className="font-normal text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">(if any)</span>
+              <span className="font-normal text-[#1d1d1f]/40">(if any)</span>
             </span>
             <input
               type="url" className={INPUT}
@@ -547,7 +547,7 @@ export default function IntakeForm({ user }: { user: User }) {
           <label className="grid gap-1.5">
             <span className={LABEL}>
               Domain Registrar / Hosting Info{' '}
-              <span className="font-normal text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">(optional)</span>
+              <span className="font-normal text-[#1d1d1f]/40">(optional)</span>
             </span>
             <textarea
               rows={3} className={TEXTAREA}
@@ -556,7 +556,7 @@ export default function IntakeForm({ user }: { user: User }) {
               value={data.domain_info}
               onChange={e => set('domain_info', e.target.value)}
             />
-            <p className="text-[0.68rem] text-[#1d1d1f]/38 dark:text-[#e8eef7]/35">
+            <p className="text-[0.68rem] text-[#1d1d1f]/38">
               Never share passwords here — we will arrange secure access separately.
             </p>
           </label>
@@ -564,7 +564,7 @@ export default function IntakeForm({ user }: { user: User }) {
           <label className="grid gap-1.5">
             <span className={LABEL}>
               {isBusiness ? 'About Your Business' : 'Mission Statement'}{' '}
-              <span className="font-normal text-[#1d1d1f]/40 dark:text-[#e8eef7]/35">(optional)</span>
+              <span className="font-normal text-[#1d1d1f]/40">(optional)</span>
             </span>
             <textarea
               rows={4} className={TEXTAREA}
@@ -584,7 +584,7 @@ export default function IntakeForm({ user }: { user: User }) {
       {/* ── Step 4: Features ── */}
       {step === 3 && (
         <div className="grid gap-4">
-          <p className="text-sm text-[#1d1d1f]/55 dark:text-[#e8eef7]/55">
+          <p className="text-sm text-[#1d1d1f]/55">
             Select the features you want on your site. You can always adjust later.
           </p>
           <div className="grid grid-cols-2 gap-2">
@@ -600,12 +600,12 @@ export default function IntakeForm({ user }: { user: User }) {
                   } ${
                     on
                       ? 'border-[#0071e3]/30 bg-[#0071e3]/10 text-[#0071e3]'
-                      : 'border-white/30 bg-white/15 text-[#1d1d1f]/60 dark:text-[#e8eef7]/60 hover:bg-white/25'
+                      : 'border-white/30 bg-white/15 text-[#1d1d1f]/60 hover:bg-white/25'
                   }`}
                 >
                   <span
                     className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border transition ${
-                      on ? 'border-[#0071e3] bg-[#0071e3]' : 'border-[#1d1d1f]/25 dark:border-[#e8eef7]/25'
+                      on ? 'border-[#0071e3] bg-[#0071e3]' : 'border-[#1d1d1f]/25'
                     }`}
                   >
                     {on && (
@@ -622,7 +622,7 @@ export default function IntakeForm({ user }: { user: User }) {
 
           {data.requested_features.includes('other') && (
             <label className="grid gap-1.5">
-              <span className="text-sm font-medium text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">
+              <span className="text-sm font-medium text-[#1d1d1f]/75">
                 Describe the feature(s) you have in mind
               </span>
               <textarea
@@ -644,7 +644,7 @@ export default function IntakeForm({ user }: { user: User }) {
         {step > 0 && (
           <button
             type="button" onClick={back}
-            className="h-11 flex-1 rounded-full border border-white/30 bg-white/20 text-sm font-medium text-[#1d1d1f]/60 dark:text-[#e8eef7]/55 backdrop-blur-sm transition hover:bg-white/35"
+            className="h-11 flex-1 rounded-full border border-white/30 bg-white/20 text-sm font-medium text-[#1d1d1f]/60 backdrop-blur-sm transition hover:bg-white/35"
           >
             Back
           </button>
