@@ -1,10 +1,26 @@
 @import "tailwindcss";
 
+:root {
+  --glass-bg:     rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(0, 0, 0, 0.06);
+  --glass-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+
+  --modal-bg:     rgba(255, 255, 255, 0.88);
+  --modal-border: rgba(255, 255, 255, 0.40);
+
+  --info-bg:      rgba(255, 255, 255, 0.60);
+  --info-border:  rgba(0, 0, 0, 0.06);
+}
+
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
+  overflow-x: hidden;
+  max-width: 100%;
   font-family: Inter, sans-serif;
   background:
     radial-gradient(ellipse 120% 75% at 5%   0%,  rgba(0, 113, 227, 0.18) 0%, transparent 52%),
@@ -16,6 +32,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 @media (max-width: 768px) {
   body {
     background-attachment: scroll;
@@ -23,11 +40,11 @@ body {
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--glass-bg);
   backdrop-filter: blur(16px) saturate(140%);
   -webkit-backdrop-filter: blur(16px) saturate(140%);
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
 }
 
 .reveal-card {
@@ -39,3 +56,10 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+
+.shine-once {
+  text-shadow: 0 0 22px rgba(165, 195, 215, 0.55), 0 1px 5px rgba(210, 230, 242, 0.35);
+  transition: text-shadow .01s ease-out;
+}
+

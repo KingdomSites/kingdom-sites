@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { withSentryConfig } from "@sentry/nextjs";
 
 const supabaseUrl = 'https://giuopcvpvbkutnteuems.supabase.co'
 const supabaseWs  = 'wss://giuopcvpvbkutnteuems.supabase.co'
@@ -9,7 +10,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
-  `connect-src 'self' ${supabaseUrl} ${supabaseWs}`,
+  `connect-src 'self' ${supabaseUrl} ${supabaseWs} https://*.ingest.us.sentry.io https://*.ingest.sentry.io`,
   "form-action 'self' https://formsubmit.co",
   "frame-src 'none'",
   "base-uri 'self'",
@@ -25,6 +26,7 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ['192.168.1.102'],
   images: {
     formats: ['image/avif', 'image/webp'],
     qualities: [75, 95],
@@ -39,4 +41,11 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig;
+export default withSentryConfig(nextConfig, {
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  silent: !process.env.CI,
+  widenClientFileUpload: true,
+  sourcemaps: { deleteSourcemapsAfterUpload: true },
+})

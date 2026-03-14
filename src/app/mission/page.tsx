@@ -28,18 +28,18 @@ export default function Mission() {
         </div>
 
         <div className="lg:col-span-7">
-          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-medium text-[#1d1d1f]/80">
+          <p className="mb-4 inline-flex items-center gap-2 rounded-full border border-black/10 dark:border-white/10 bg-white dark:bg-white/10 px-3 py-1 text-xs font-medium text-[#1d1d1f]/80 dark:text-[#e8eef7]/75">
             <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
             Our mission work
           </p>
           <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
             Mission work around the world.
           </h1>
-          <p className="mt-5 text-pretty text-base leading-relaxed text-[#1d1d1f]/75 sm:text-lg">
+          <p className="mt-5 text-pretty text-base leading-relaxed text-[#1d1d1f]/75 dark:text-[#e8eef7]/70 sm:text-lg">
             In South Asia, 1.8 billion people have never heard the gospel. Our desire is to see Jesus glorified throughout South Asia. For security reasons I can&apos;t share specific details, but please reach out if you have any questions.
           </p>
 
-          <div className="mt-6 space-y-4 text-sm leading-relaxed text-[#1d1d1f]/75">
+          <div className="mt-6 space-y-4 text-sm leading-relaxed text-[#1d1d1f]/75 dark:text-[#e8eef7]/70">
             <p>
               We collaborate with Christians toward seeing movements of Christ among Muslim-majority people groups in South Asia, using approaches from No Place Left.
             </p>

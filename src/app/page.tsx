@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import heroImage from '../../public/Photos/hero.jpeg'
@@ -55,21 +55,21 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div className="overflow-x-hidden w-full">
       <section className="mx-auto max-w-6xl px-4 pb-14 pt-14 sm:px-6 sm:pb-20 sm:pt-20">
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
             <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
               Professional Websites that support mission work around the world.
             </h1>
-            <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[#1d1d1f]/75 sm:text-lg">
+            <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[#1d1d1f]/75 dark:text-[#e8eef7]/70 sm:text-lg">
               American-standard development at unbeatable prices.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href="/login"
-                className="inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:border-[#0071e3] hover:bg-[#f5f5f7] hover:text-[#0071e3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3]"
+                className="inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:border-[#0071e3] hover:bg-[#f5f5f7] hover:text-[#0071e3] dark:hover:bg-[#0071e3]/20 dark:hover:border-[#0071e3] dark:hover:text-[#0071e3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3]"
               >
                 Build Now
               </Link>
@@ -100,7 +100,7 @@ export default function Home() {
               <div className="mt-4 text-center">
                 <Link
                   href="/about"
-                  className="inline-flex items-center justify-center rounded-full border border-white/40 bg-white/25 px-5 py-2.5 text-sm font-medium text-[#1d1d1f]/80 backdrop-blur-sm transition hover:bg-white/40"
+                  className="inline-flex items-center justify-center rounded-full border border-white/40 bg-white/25 px-5 py-2.5 text-sm font-medium text-[#1d1d1f]/80 dark:text-[#e8eef7]/80 backdrop-blur-sm transition hover:bg-white/40"
                 >
                   About Us
                 </Link>
@@ -110,14 +110,28 @@ export default function Home() {
         </div>
       </section>
 
+      <div
+        data-dark-section
+        className="dark"
+        style={{
+          background:
+            'radial-gradient(ellipse 130% 80% at 5% 0%, rgba(0,80,200,0.22) 0%, transparent 55%),' +
+            'radial-gradient(ellipse 90% 70% at 98% 5%, rgba(30,80,180,0.14) 0%, transparent 55%),' +
+            '#0b1a32',
+          color: '#e8eef7',
+        }}
+      >
       <section id="value" aria-label="Value proposition">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+            <h2
+              id="built-premium"
+              className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl shine-once"
+            >
               Built premium.
             </h2>
-            <p className="mt-4 text-pretty text-base leading-relaxed text-[#1d1d1f]/70 sm:text-lg">
-              American website level quality with unbeatable prices. Direct
+            <p className="mt-4 text-pretty text-base leading-relaxed text-[#1d1d1f]/70 dark:text-[#e8eef7]/65 sm:text-lg">
+              American quality websites with unbeatable prices. Direct
               impact to mission work.
             </p>
           </div>
@@ -143,20 +157,40 @@ export default function Home() {
             ].map((item) => (
               <div key={item.title} className="glass rounded-3xl p-6">
                 <h3 className="text-sm font-semibold tracking-tight">{item.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/70">{item.desc}</p>
+                <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* Business callout — still inside dark block */}
+      <section aria-label="Also serving businesses" className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
+        <div className="glass rounded-3xl p-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-1">Not a church?</p>
+            <h3 className="text-sm font-semibold tracking-tight">We also build for small businesses.</h3>
+            <p className="mt-1 text-sm leading-relaxed text-[#1d1d1f]/65 dark:text-[#e8eef7]/60">
+              Same quality, same pricing. If you&apos;re a small business owner who appreciates what we&apos;re about, we&apos;d love to work with you.
+            </p>
+          </div>
+          <button
+            onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
+            className="mt-4 sm:mt-0 sm:ml-8 shrink-0 inline-flex cursor-pointer items-center justify-center rounded-full border border-[#0071e3] px-5 py-2.5 text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
+          >
+            Get in touch
+          </button>
+        </div>
+      </section>
+      </div>
+
       {/* Pricing */}
-      <section aria-label="Pricing" className="mx-auto max-w-6xl px-4 pb-14 sm:px-6 sm:pb-20">
+      <section aria-label="Pricing" className="mx-auto max-w-6xl px-4 pb-14 pt-8 sm:px-6 sm:pb-20 sm:pt-10">
         <div className="mx-auto max-w-3xl text-center mb-10">
           <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             Simple, honest pricing.
           </h2>
-          <p className="mt-4 text-pretty text-base leading-relaxed text-[#1d1d1f]/65">
+          <p className="mt-4 text-pretty text-base leading-relaxed text-[#1d1d1f]/65 dark:text-[#e8eef7]/60">
             One flat rate to build it right. One low monthly rate to keep it that way.
           </p>
         </div>
@@ -175,7 +209,7 @@ export default function Home() {
                 'Fully handed off — you own it',
                 'Direct personal communication throughout',
               ].map(f => (
-                <li key={f} className="flex items-start gap-2 text-sm text-[#1d1d1f]/60">
+                <li key={f} className="flex items-start gap-2 text-sm text-[#1d1d1f]/60 dark:text-[#e8eef7]/55">
                   <span className="mt-0.5 shrink-0 text-[#0071e3] font-medium">✓</span>
                   {f}
                 </li>
@@ -190,13 +224,13 @@ export default function Home() {
           </div>
 
           <div className="glass rounded-3xl p-7 flex flex-col relative overflow-hidden">
-            <div className="absolute top-4 right-4 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-medium text-[#1d1d1f]/60">
+            <div className="absolute top-4 right-4 rounded-full border border-black/10 dark:border-white/15 bg-white/70 dark:bg-white/10 px-3 py-1 text-[10px] font-medium text-[#1d1d1f]/60 dark:text-[#e8eef7]/55">
               First month free
             </div>
             <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-3">Monthly</p>
             <div className="flex items-end gap-1 mb-1">
               <span className="text-4xl font-semibold tracking-tight">$50</span>
-              <span className="text-sm text-[#1d1d1f]/55 mb-1">/month</span>
+              <span className="text-sm text-[#1d1d1f]/55 dark:text-[#e8eef7]/50 mb-1">/month</span>
             </div>
             <p className="text-sm font-medium mb-4">Hosting &amp; Maintenance</p>
             <ul className="grid gap-2 mb-6 flex-1">
@@ -206,7 +240,7 @@ export default function Home() {
                 'Your personal website IT support',
                 'Cancel any time',
               ].map(f => (
-                <li key={f} className="flex items-start gap-2 text-sm text-[#1d1d1f]/60">
+                <li key={f} className="flex items-start gap-2 text-sm text-[#1d1d1f]/60 dark:text-[#e8eef7]/55">
                   <span className="mt-0.5 shrink-0 text-[#0071e3] font-medium">✓</span>
                   {f}
                 </li>
@@ -228,7 +262,7 @@ export default function Home() {
             <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               Let&apos;s build your site.
             </h2>
-            <p className="mt-4 text-pretty text-base leading-relaxed text-[#1d1d1f]/70 sm:text-lg">
+            <p className="mt-4 text-pretty text-base leading-relaxed text-[#1d1d1f]/70 dark:text-[#e8eef7]/65 sm:text-lg">
               Drop your details below and I&apos;ll be in touch.
             </p>
           </div>
@@ -237,7 +271,7 @@ export default function Home() {
             {submitted ? (
               <div className="py-6 text-center">
                 <p className="text-sm font-semibold tracking-tight">Message sent!</p>
-                <p className="mt-2 text-sm text-[#1d1d1f]/70">
+                <p className="mt-2 text-sm text-[#1d1d1f]/70 dark:text-[#e8eef7]/65">
                   Thanks—I&apos;ll reply as soon as I can.
                 </p>
                 <button onClick={() => setSubmitted(false)} className="mt-3 text-xs text-[#0071e3]">Send another</button>
@@ -247,14 +281,14 @@ export default function Home() {
 
                 <div className="grid gap-2 sm:grid-cols-2">
                   <label className="grid gap-1 text-sm">
-                    <span className="font-medium text-[#1d1d1f]/80">Name</span>
+                    <span className="font-medium text-[#1d1d1f]/80 dark:text-[#e8eef7]/75">Name</span>
                     <input
                       required
                       name="name"
                       type="text"
                       placeholder="Your name"
                       maxLength={100}
-                      className="h-11 rounded-2xl border border-white/30 bg-white/20 px-4 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
+                      className="h-11 rounded-2xl border border-white/30 bg-white/20 px-4 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 dark:border-white/15 dark:bg-white/8 dark:placeholder:text-white/30 dark:focus:bg-white/12"
                       style={{ maxWidth: '100%', overflowWrap: 'break-word' }}
                     />
                     {errors.name && (
@@ -262,14 +296,14 @@ export default function Home() {
                     )}
                   </label>
                   <label className="grid gap-1 text-sm">
-                    <span className="font-medium text-[#1d1d1f]/80">Email</span>
+                    <span className="font-medium text-[#1d1d1f]/80 dark:text-[#e8eef7]/75">Email</span>
                     <input
                       required
                       name="email"
                       type="email"
                       placeholder="you@example.com"
                       maxLength={255}
-                      className="h-11 rounded-2xl border border-white/30 bg-white/20 px-4 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
+                      className="h-11 rounded-2xl border border-white/30 bg-white/20 px-4 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 dark:border-white/15 dark:bg-white/8 dark:placeholder:text-white/30 dark:focus:bg-white/12"
                       style={{ maxWidth: '100%', overflowWrap: 'break-word' }}
                     />
                     {errors.email && (
@@ -279,14 +313,14 @@ export default function Home() {
                 </div>
 
                 <label className="grid gap-1 text-sm">
-                  <span className="font-medium text-[#1d1d1f]/80">What do you need built?</span>
+                  <span className="font-medium text-[#1d1d1f]/80 dark:text-[#e8eef7]/75">What do you need built?</span>
                   <textarea
                     required
                     name="message"
                     rows={4}
                     placeholder="One-page landing, multi-page site, redesign, etc."
                     maxLength={2000}
-                    className="resize-none rounded-2xl border border-white/30 bg-white/20 px-4 py-3 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4"
+                    className="resize-none rounded-2xl border border-white/30 bg-white/20 px-4 py-3 text-sm backdrop-blur outline-none ring-[#0071e3]/20 transition focus:bg-white/35 focus:ring-4 dark:border-white/15 dark:bg-white/8 dark:placeholder:text-white/30 dark:focus:bg-white/12"
                     style={{ maxWidth: '100%', overflowWrap: 'break-word' }}
                   />
                   {errors.message && (
@@ -299,11 +333,11 @@ export default function Home() {
                 )}
 
                 <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <p className="text-xs text-[#1d1d1f]/55">I&apos;ll reply as soon as possible.</p>
+                  <p className="text-xs text-[#1d1d1f]/55 dark:text-[#e8eef7]/45">I&apos;ll reply as soon as possible.</p>
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:border-[#0071e3] hover:bg-[#f5f5f7] hover:text-[#0071e3] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:border-[#0071e3] hover:bg-[#f5f5f7] hover:text-[#0071e3] dark:hover:bg-[#0071e3]/20 dark:hover:border-[#0071e3] dark:hover:text-[#0071e3] disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {submitting ? 'Sending…' : 'Send'}
                   </button>
