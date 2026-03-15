@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { createClient } from '@supabase/supabase-js'
 import { Resend } from 'resend'
 import { rateLimit, getIP } from '@/lib/rateLimit'
+import * as Sentry from '@sentry/nextjs'
 
 const contactSchema = z.object({
   website: z.string().max(100).optional(), // honeypot
@@ -37,7 +38,8 @@ export async function POST(req: NextRequest) {
   let body: unknown
   try {
     body = await req.json()
-  } catch {
+  } catch (err) {
+    Sentry.captureException(err)
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
   }
 
@@ -78,7 +80,7 @@ export async function POST(req: NextRequest) {
   ])
 
   if (error) {
-    console.error('Supabase insert error:', error.message)
+    Sentry.captureException(error, { extra: { formBody: body } })
     return NextResponse.json(
       { error: 'Failed to submit. Please try again.' },
       { status: 500 }

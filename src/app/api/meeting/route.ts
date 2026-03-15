@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { Resend } from 'resend'
 import { rateLimit, getIP } from '@/lib/rateLimit'
+import * as Sentry from '@sentry/nextjs'
 
 const schema = z.object({
   clientEmail: z.string().email().max(255).transform(s => s.trim().toLowerCase()),
@@ -19,7 +20,8 @@ export async function POST(req: NextRequest) {
   }
 
   let body: unknown
-  try { body = await req.json() } catch {
+  try { body = await req.json() } catch (err) {
+    Sentry.captureException(err)
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
   }
 
