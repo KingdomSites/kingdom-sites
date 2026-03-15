@@ -2,8 +2,10 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@supabase/supabase-js'
 import { Resend } from 'resend'
+import { rateLimit, getIP } from '@/lib/rateLimit'
 
 const contactSchema = z.object({
+  website: z.string().max(100).optional(), // honeypot
   name: z
     .string()
     .min(1, 'Name is required')
@@ -27,6 +29,11 @@ const contactSchema = z.object({
 })
 
 export async function POST(req: NextRequest) {
+  const { allowed } = rateLimit(getIP(req))
+  if (!allowed) {
+    return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
+  }
+
   let body: unknown
   try {
     body = await req.json()
@@ -42,7 +49,10 @@ export async function POST(req: NextRequest) {
     )
   }
 
-  const { name, email, message, topic } = result.data
+  const { website, name, email, message, topic } = result.data
+  if (website) {
+    return NextResponse.json({ success: true }) // silently reject bots
+  }
 
   const supabase = createClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,

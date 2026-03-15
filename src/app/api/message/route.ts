@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { Resend } from 'resend'
+import { rateLimit, getIP } from '@/lib/rateLimit'
 
 const schema = z.object({
   clientEmail: z.string().email().max(255).transform(s => s.trim().toLowerCase()),
@@ -8,6 +9,11 @@ const schema = z.object({
 })
 
 export async function POST(req: NextRequest) {
+  const { allowed } = rateLimit(getIP(req))
+  if (!allowed) {
+    return NextResponse.json({ error: 'Too many requests. Please try again later.' }, { status: 429 })
+  }
+
   let body: unknown
   try { body = await req.json() } catch {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })

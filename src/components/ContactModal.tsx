@@ -25,6 +25,7 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
 
     const data = new FormData(e.currentTarget)
     const body = {
+      website: data.get('website') as string, // honeypot
       name:    data.get('name') as string,
       email:   data.get('email') as string,
       message: data.get('message') as string,
@@ -90,6 +91,8 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="grid gap-4" style={{ maxWidth: '100%' }}>
+              {/* Honeypot — hidden from humans, bots fill it */}
+              <input name="website" type="text" tabIndex={-1} autoComplete="off" style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }} />
 
               <div className="grid gap-1.5">
                 <span className="text-xs font-medium uppercase tracking-widest text-white/40">Topic</span>

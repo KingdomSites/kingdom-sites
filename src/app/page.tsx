@@ -25,6 +25,7 @@ export default function Home() {
 
     const data = new FormData(e.currentTarget)
     const body = {
+      website: data.get('website') as string, // honeypot
       name:    data.get('name') as string,
       email:   data.get('email') as string,
       message: data.get('message') as string,
@@ -278,6 +279,8 @@ export default function Home() {
               </div>
             ) : (
               <form className="grid gap-4" onSubmit={handleSubmit} style={{ maxWidth: '100%' }}>
+                {/* Honeypot — hidden from humans, bots fill it */}
+                <input name="website" type="text" tabIndex={-1} autoComplete="off" style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }} />
 
                 <div className="grid gap-2 sm:grid-cols-2">
                   <label className="grid gap-1 text-sm">
