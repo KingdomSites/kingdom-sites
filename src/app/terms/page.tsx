@@ -44,7 +44,7 @@ export default function TermsPage() {
             </p>
             <p>
               <span className="font-medium text-[#1d1d1f]">Final Payment:</span> The remaining
-              balance ($399 for Premium / $899 for Advanced) is due upon project completion or 30
+              balance ($499 for Premium / $899 for Advanced) is due upon project completion or 30
               days after the start date, whichever comes first.
             </p>
             <p>
@@ -115,6 +115,10 @@ export default function TermsPage() {
               <span className="font-medium text-[#1d1d1f]">Technical Access:</span> If Kingdom Sites
               host (preferred) Kingdom Sites retains administrative access to the Vercel/Supabase
               environment to perform the mandatory maintenance and security updates.
+            </p>
+             <p>
+              <span className="font-medium text-[#1d1d1f]">Subject to Change</span> Kingdom Sites reserves the right to adjust the terms of service at any time. 
+              Kingdom Sites must notify all clients / agencies upon change. 
             </p>
             <p>
               <span className="font-medium text-[#1d1d1f]">White Label Clause (If Applicable):</span> For

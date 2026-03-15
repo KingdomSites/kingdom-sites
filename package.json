@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "security": "snyk test"
+    "security": "snyk test",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@sentry/nextjs": "^10.43.0",
@@ -28,6 +29,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "husky": "^8.0.0"
   }
 }

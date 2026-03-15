@@ -36,7 +36,7 @@ export default function Mission() {
             Mission work around the world.
           </h1>
           <p className="mt-5 text-pretty text-base leading-relaxed text-[#1d1d1f]/75 sm:text-lg">
-            In South Asia, 1.8 billion people have never heard the gospel. Our desire is to see Jesus glorified throughout South Asia. For security reasons I can&apos;t share specific details, but please reach out if you have any questions.
+            {"In South Asia, 1.8 billion people have never heard the gospel. Our desire is to see Jesus glorified throughout South Asia. For security reasons I can't share specific details, but please reach out if you have any questions."}
           </p>
 
           <div className="mt-6 space-y-4 text-sm leading-relaxed text-[#1d1d1f]/75">

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import heroImage from '../../public/Photos/hero.jpeg'
@@ -144,12 +144,12 @@ export default function Home() {
                 desc: 'We believe our work is a way to glorify God and serve others. We\'d love to help your ministry achieve its tech goals.',
               },
               {
-                title: '$499 flat rate build — or overhaul',
+                title: '$599 builds',
                 desc: 'South Asia costs of living mean American-standard development at a price your budget can handle — no surprises.',
               },
               {
-                title: '$50 / month — your personal IT support',
-                desc: 'Event coming up? Need a page updated or a new feature? Just message me. Unlimited updates and maintenance for $50/month.',
+                title: '$49 / month — your personal IT support',
+                desc: 'Event coming up? Need a page updated or a new feature? Just message me. Small updates and maintenance for $50/month.',
               },
               {
                 title: 'Direct mission impact',
@@ -172,7 +172,7 @@ export default function Home() {
             <p className="text-xs font-medium uppercase tracking-widest text-[#4d8cff] mb-1">Not a church?</p>
             <h3 className="text-sm font-semibold tracking-tight text-white">We also build for small businesses.</h3>
             <p className="mt-1 text-sm leading-relaxed text-[#e8eef7]/60">
-              Same quality, same pricing. If you&apos;re a small business owner who appreciates what we&apos;re about, we&apos;d love to work with you.
+              {"Same quality, same pricing. If you're a small business owner who appreciates what we're about, we'd love to work with you."}
             </p>
           </div>
           <button
@@ -196,11 +196,11 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 max-w-2xl mx-auto">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
           <div className="glass rounded-3xl p-7 flex flex-col">
             <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-3">One-time</p>
             <div className="flex items-end gap-1 mb-1">
-              <span className="text-4xl font-semibold tracking-tight">$499</span>
+              <span className="text-4xl font-semibold tracking-tight">$599</span>
             </div>
             <p className="text-sm font-medium mb-4">Website Build</p>
             <ul className="grid gap-2 mb-6 flex-1">
@@ -220,7 +220,34 @@ export default function Home() {
               onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
               className="w-full cursor-pointer rounded-full bg-[#0071e3] py-3 text-center text-sm font-semibold text-white shadow-sm transition hover:brightness-95"
             >
-              Get started — $499
+              Get started — $599
+            </button>
+          </div>
+
+          <div className="glass rounded-3xl p-7 flex flex-col">
+            <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-3">One-time</p>
+            <div className="flex items-end gap-1 mb-1">
+              <span className="text-4xl font-semibold tracking-tight">$999</span>
+            </div>
+            <p className="text-sm font-medium mb-4">Advanced Website Build</p>
+            <ul className="grid gap-2 mb-6 flex-1">
+              {[
+                'Everything in the standard build',
+                'Login & Admin Dashboards',
+                'Up to 20 pages',
+                'App-like features',
+              ].map(f => (
+                <li key={f} className="flex items-start gap-2 text-sm text-[#1d1d1f]/60">
+                  <span className="mt-0.5 shrink-0 text-[#0071e3] font-medium">✓</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
+              className="w-full cursor-pointer rounded-full bg-[#0071e3] py-3 text-center text-sm font-semibold text-white shadow-sm transition hover:brightness-95"
+            >
+              Get started — $999
             </button>
           </div>
 
@@ -230,14 +257,13 @@ export default function Home() {
             </div>
             <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-3">Monthly</p>
             <div className="flex items-end gap-1 mb-1">
-              <span className="text-4xl font-semibold tracking-tight">$50</span>
+              <span className="text-4xl font-semibold tracking-tight">$49</span>
               <span className="text-sm text-[#1d1d1f]/55 mb-1">/month</span>
             </div>
-            <p className="text-sm font-medium mb-4">Hosting &amp; Maintenance</p>
+            <p className="text-sm font-medium mb-4">Hosting & Maintenance</p>
             <ul className="grid gap-2 mb-6 flex-1">
               {[
-                'Unlimited updates — just message me',
-                'Events, new pages, copy changes',
+                'Includes hosting and security updates',
                 'Your personal website IT support',
                 'Cancel any time',
               ].map(f => (
@@ -251,7 +277,38 @@ export default function Home() {
               onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
               className="w-full cursor-pointer rounded-full border border-[#0071e3] py-3 text-center text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
             >
-              Start free — then $50/mo
+              Start free — then $49/mo
+            </button>
+          </div>
+
+          <div className="glass rounded-3xl p-7 flex flex-col relative overflow-hidden">
+            <div className="absolute top-4 right-4 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-medium text-[#1d1d1f]/60">
+              First month free
+            </div>
+            <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-3">Monthly</p>
+            <div className="flex items-end gap-1 mb-1">
+              <span className="text-4xl font-semibold tracking-tight">$199</span>
+              <span className="text-sm text-[#1d1d1f]/55 mb-1">/month</span>
+            </div>
+            <p className="text-sm font-medium mb-4">SEO & Growth Plan</p>
+            <ul className="grid gap-2 mb-6 flex-1">
+              {[
+                'Everything in hosting & maintenance',
+                'Monthly SEO optimization',
+                'Google ranking improvements',
+                'Priority support & faster turnaround',
+              ].map(f => (
+                <li key={f} className="flex items-start gap-2 text-sm text-[#1d1d1f]/60">
+                  <span className="mt-0.5 shrink-0 text-[#0071e3] font-medium">✓</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
+              className="w-full cursor-pointer rounded-full border border-[#0071e3] py-3 text-center text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
+            >
+              Get started — $199/mo
             </button>
           </div>
         </div>
@@ -261,10 +318,10 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-              Let&apos;s build your site.
+              {"Let's build your site."}
             </h2>
             <p className="mt-4 text-pretty text-base leading-relaxed text-[#1d1d1f]/70 sm:text-lg">
-              Drop your details below and I&apos;ll be in touch.
+              {"Drop your details below and I'll be in touch."}
             </p>
           </div>
 
@@ -273,7 +330,7 @@ export default function Home() {
               <div className="py-6 text-center">
                 <p className="text-sm font-semibold tracking-tight">Message sent!</p>
                 <p className="mt-2 text-sm text-[#1d1d1f]/70">
-                  Thanks—I&apos;ll reply as soon as I can.
+                  {"Thanks—I'll reply as soon as I can."}
                 </p>
                 <button onClick={() => setSubmitted(false)} className="mt-3 text-xs text-[#0071e3]">Send another</button>
               </div>

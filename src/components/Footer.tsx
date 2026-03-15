@@ -21,7 +21,7 @@ export default function Footer() {
       }}
     >
       <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-10 text-center text-xs text-[#1d1d1f]/55 sm:px-6">
-        <p>Kingdom Sites — premium sites with mission impact.</p>
+        <p>Kingdom Sites — premium sites with mission impact. All prices subject to applicable tax fees of 15%.</p>
 
         {/* Page links — desktop only */}
         <div className="hidden sm:flex flex-wrap justify-center gap-x-5 gap-y-1">
@@ -31,6 +31,7 @@ export default function Footer() {
             </Link>
           ))}
         </div>
+        
 
         {/* Sign in — always visible */}
         <div className="flex justify-center">

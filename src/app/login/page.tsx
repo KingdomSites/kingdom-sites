@@ -50,8 +50,8 @@ export default function Login() {
               <span className="h-1.5 w-1.5 rounded-full bg-[#0071e3]" />
               Client portal
             </p>
-            <h1 className="text-2xl font-semibold tracking-tight">Let&apos;s Build Your Site</h1>
-            <p className="mt-2 text-sm text-[#1d1d1f]/60">I&apos;m ready to build your site — drop in your email below to get started.</p>
+            <h1 className="text-2xl font-semibold tracking-tight">{"Let's Build Your Site"}</h1>
+            <p className="mt-2 text-sm text-[#1d1d1f]/60">{"I'm ready to build your site — drop in your email below to get started."}</p>
           </div>
 
           {sent ? (

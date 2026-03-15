@@ -106,8 +106,7 @@ export default function WhyUs() {
             Why a quality website matters for your church or organization.
           </h2>
           <p className="mb-3 text-base font-medium leading-relaxed text-[#1d1d1f]/70">
-            Most church and ministry websites were built years ago, load slowly, and look dated on mobile.
-            That matters — most visitors decide whether to show up based on your statement of faith, location, and service times. When I've searched for a church while traveling, if a site wasn't clear on those basics, I'd look elsewhere.
+            {"Most church and ministry websites were built years ago, load slowly, and look dated on mobile. That matters — most visitors decide whether to show up based on your statement of faith, location, and service times. When I've searched for a church while traveling, if a site wasn't clear on those basics, I'd look elsewhere."}
           </p>
           <p className="text-base font-medium leading-relaxed text-[#1d1d1f]/70">
             A well-built site communicates that your church or organization is alive, organized, and welcoming.

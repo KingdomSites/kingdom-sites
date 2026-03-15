@@ -50,9 +50,9 @@ export default function About() {
             </div>
 
             <div className="glass rounded-3xl p-6">
-              <h2 className="text-sm font-semibold tracking-tight">Why &quot;Kingdom Sites&quot;</h2>
+              <h2 className="text-sm font-semibold tracking-tight">{'Why "Kingdom Sites"'}</h2>
               <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/70">
-                You&apos;re not just getting a website — you&apos;re getting a partner in your ministry. We want to see churches and organizations thrive and reach people for Christ. Technology can accelerate the spread of the gospel, and we want to be part of that.
+                {"You're not just getting a website — you're getting a partner in your ministry. We want to see churches and organizations thrive and reach people for Christ. Technology can accelerate the spread of the gospel, and we want to be part of that."}
               </p>
             </div>
 

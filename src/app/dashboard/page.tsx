@@ -90,6 +90,7 @@ type ProjectRow = {
   description?: string
   drive_link?: string
   created_at: string
+  client_email?: string
 }
 
 const STATUSES = [
@@ -120,7 +121,7 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
       ])
       const merged = ((profiles ?? []) as ClientRow[]).map((p) => ({
         ...p,
-        project: ((projects ?? []) as ProjectRow[]).find((pr: any) => pr.client_email === p.email) ?? null,
+        project: ((projects ?? []) as ProjectRow[]).find((pr) => pr.client_email === p.email) ?? null,
       }))
       setClients(merged)
       setLoading(false)
@@ -417,7 +418,7 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
 export default function Dashboard() {
   const [user, setUser]               = useState<User | null>(null)
   const [project, setProject]         = useState<ProjectRow | null>(null)
-  const [profile, setProfile]         = useState<any>(null)
+  const [profile, setProfile]         = useState<Record<string, unknown> | null>(null)
   const [showOnboarding, setShowOnboarding] = useState(false)
   const [loading, setLoading]         = useState(true)
   const [tab, setTab]                 = useState('Project')
@@ -752,7 +753,7 @@ export default function Dashboard() {
             <div className="mb-5">
               <h2 className="text-base font-semibold tracking-tight">Client Intake</h2>
               <p className="mt-0.5 text-sm text-[#1d1d1f]/55">
-                Share your church's details so we can build exactly what you need.
+                {"Share your church's details so we can build exactly what you need."}
               </p>
             </div>
             <IntakeForm user={user} />
