@@ -59,9 +59,23 @@ export async function POST(req: NextRequest) {
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   )
 
-  const { error } = await supabase
-    .from('inquiries')
-    .insert({ name, email, message, topic: topic ?? null })
+  const resendKey = process.env.RESEND_API_KEY
+  const fromEmail = process.env.RESEND_FROM_EMAIL
+  const toEmail   = process.env.RESEND_TO_EMAIL
+
+  const emailPromise = resendKey && fromEmail && toEmail
+    ? new Resend(resendKey).emails.send({
+        from: `Kingdom Sites <${fromEmail}>`,
+        to: toEmail,
+        subject: `New inquiry from ${name}${topic ? ` — ${topic}` : ''}`,
+        text: `Name: ${name}\nEmail: ${email}${topic ? `\nTopic: ${topic}` : ''}\n\nMessage:\n${message}`,
+      })
+    : Promise.resolve()
+
+  const [{ error }] = await Promise.all([
+    supabase.from('inquiries').insert({ name, email, message, topic: topic ?? null }),
+    emailPromise,
+  ])
 
   if (error) {
     console.error('Supabase insert error:', error.message)
@@ -69,21 +83,6 @@ export async function POST(req: NextRequest) {
       { error: 'Failed to submit. Please try again.' },
       { status: 500 }
     )
-  }
-
-  // Send email notification via Resend (plug in domain + API key when ready)
-  const resendKey = process.env.RESEND_API_KEY
-  const fromEmail = process.env.RESEND_FROM_EMAIL
-  const toEmail   = process.env.RESEND_TO_EMAIL
-
-  if (resendKey && fromEmail && toEmail) {
-    const resend = new Resend(resendKey)
-    await resend.emails.send({
-      from: `Kingdom Sites <${fromEmail}>`,
-      to: toEmail,
-      subject: `New inquiry from ${name}${topic ? ` — ${topic}` : ''}`,
-      text: `Name: ${name}\nEmail: ${email}${topic ? `\nTopic: ${topic}` : ''}\n\nMessage:\n${message}`,
-    })
   }
 
   return NextResponse.json({ success: true })
