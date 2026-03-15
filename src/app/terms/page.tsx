@@ -50,7 +50,7 @@ export default function TermsPage() {
             <p>
               <span className="font-medium text-[#1d1d1f]">Mandatory Service Integration:</span>{' '}
               To ensure ongoing security and high-performance hosting, all projects require enrollment
-              in the $50/month Maintenance &amp; Hosting Plan (or the $199/month Managed Growth Plan)
+              in the $49/month Maintenance &amp; Hosting Plan (or the $199/month Managed Growth Plan)
               as a condition of service.
             </p>
             <p>
@@ -83,7 +83,7 @@ export default function TermsPage() {
             <p>
               <span className="font-medium text-[#1d1d1f]">Revisions:</span> Includes three rounds
               of revisions on the &ldquo;Beta&rdquo; version. Post-launch requests or changes
-              exceeding the initial scope will result in a $50 fee per update.
+              exceeding the initial scope will result in a $50 per hour billing fee. 
             </p>
             <p>
               <span className="font-medium text-[#1d1d1f]">Stability Period:</span> A 30-day

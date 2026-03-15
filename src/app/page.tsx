@@ -149,7 +149,7 @@ export default function Home() {
               },
               {
                 title: '$49 / month — your personal IT support',
-                desc: 'Event coming up? Need a page updated or a new feature? Just message me. Small updates and maintenance for $50/month.',
+                desc: 'Event coming up? Need a page updated or a new feature? Just message me. Small updates and maintenance for $49/month.',
               },
               {
                 title: 'Direct mission impact',
@@ -170,7 +170,7 @@ export default function Home() {
         <div className="rounded-3xl p-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between" style={{ background: 'rgba(10,25,60,0.55)', border: '1px solid rgba(100,150,255,0.12)', backdropFilter: 'blur(16px)' }}>
           <div>
             <p className="text-xs font-medium uppercase tracking-widest text-[#4d8cff] mb-1">Not a church?</p>
-            <h3 className="text-sm font-semibold tracking-tight text-white">We also build for small businesses.</h3>
+            <h3 className="text-sm font-semibold tracking-tight text-white">We also build for small businesses and white label dev.</h3>
             <p className="mt-1 text-sm leading-relaxed text-[#e8eef7]/60">
               {"Same quality, same pricing. If you're a small business owner who appreciates what we're about, we'd love to work with you."}
             </p>
