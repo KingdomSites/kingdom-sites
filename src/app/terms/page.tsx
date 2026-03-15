@@ -63,10 +63,10 @@ export default function TermsPage() {
         </div>
 
         <div>
-          <h2 className="mb-3 text-base font-semibold text-[#1d1d1f]">3. The &ldquo;Content Deadline&rdquo; Clause</h2>
+          <h2 className="mb-3 text-base font-semibold text-[#1d1d1f]">3. The Content Deadline </h2>
           <div className="space-y-3">
             <p>
-              The client must provide all text, branding assets, and photography within 14 days
+              The client or agency must provide all text, branding assets, and photography within 14 days
               of the project start.
             </p>
             <p>
@@ -127,12 +127,12 @@ export default function TermsPage() {
         <div>
           <h2 className="mb-3 text-base font-semibold text-[#1d1d1f]">Contact</h2>
           <p>
-            Please reach out if you have any questions or need practical examples of these terms.{' '}
+            Please reach out if you have any questions: {' '}
             <a
               href="mailto:thomas@kingdom-sites.com"
               className="underline underline-offset-2 hover:text-[#1d1d1f]"
             >
-              thomas@kingdom-sites.com
+              thomas@kingdom-sites.com 
             </a>
           </p>
         </div>
