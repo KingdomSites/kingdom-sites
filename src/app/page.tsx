@@ -25,7 +25,7 @@ export default function Home() {
 
     const data = new FormData(e.currentTarget)
     const body = {
-      website: data.get('website') as string, // honeypot
+      website: data.get('website')?.toString() || '', // honeypot
       name:    data.get('name') as string,
       email:   data.get('email') as string,
       message: data.get('message') as string,
