@@ -335,8 +335,7 @@ export default function Home() {
                   <p className="text-xs text-red-500">{serverError}</p>
                 )}
 
-                <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <p className="text-xs text-[#1d1d1f]/55">I&apos;ll reply as soon as possible.</p>
+                <div className="mt-2 flex items-center justify-end">
                   <button
                     type="submit"
                     disabled={submitting}
