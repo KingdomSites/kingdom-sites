@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-const TOPICS = ['Website / App', 'More info on South Asia', 'Other']
+const TOPICS = ['Website / App', 'Custom Software', 'Other']
 
 type FieldErrors = {
   name?: string[]

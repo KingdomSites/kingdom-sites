@@ -336,7 +336,7 @@ function AdminView({ onSignOut }: { onSignOut: () => void }) {
                   <label className="grid gap-1 text-sm">
                     <span className="font-medium text-[#1d1d1f]/70">Project name *</span>
                     <input type="text" value={projName} onChange={e => setProjName(e.target.value)}
-                      placeholder="Grace Community Church Website" maxLength={150} className={INPUT} />
+                      placeholder="My Website Project" maxLength={150} className={INPUT} />
                   </label>
                   <label className="grid gap-1 text-sm">
                     <span className="font-medium text-[#1d1d1f]/70">Status</span>
@@ -753,7 +753,7 @@ export default function Dashboard() {
             <div className="mb-5">
               <h2 className="text-base font-semibold tracking-tight">Client Intake</h2>
               <p className="mt-0.5 text-sm text-[#1d1d1f]/55">
-                {"Share your church's details so we can build exactly what you need."}
+                {"Share your project details so we can build exactly what you need."}
               </p>
             </div>
             <IntakeForm user={user} />

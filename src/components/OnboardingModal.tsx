@@ -79,11 +79,11 @@ export default function OnboardingModal({ user, onComplete }: { user: User; onCo
               style={{ backgroundImage: CHEVRON, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1.25rem center' }}
             >
               <option value="" disabled>Select your role</option>
-              <option>Pastor</option>
-              <option>Church Administrator</option>
-              <option>Ministry Leader</option>
+              <option>Business Owner</option>
+              <option>Startup Founder</option>
+              <option>Project Manager</option>
               <option>Individual</option>
-              <option>Business Leader</option>
+              <option>Agency</option>
               <option>Other</option>
             </select>
           </label>

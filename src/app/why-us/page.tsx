@@ -81,21 +81,20 @@ export default function WhyUs() {
             Why Kingdom Sites
           </p>
           <h1 className="max-w-3xl text-balance text-3xl font-semibold tracking-tight sm:text-4xl lg:text-6xl">
-            Your ministry deserves a website that works as hard as you do.
+            Your business deserves software that works as hard as you do.
           </h1>
           <p className="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-[#1d1d1f]/55 sm:mt-5 sm:text-base">
-            First impressions happen online. A clear, fast, functional website helps seekers find you and learn more about your org.
+            Whether it is a website, app, or custom platform — we scope every project individually and quote based on what you actually need.
           </p>
         </div>
       </section>
 
       {/* Stats */}
       <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 sm:pb-16 lg:pb-20">
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-          <StatCard value="81%"  label="of people research a church online before their first visit"  delay={0}   />
-          <StatCard value="$499" label="flat rate build — or overhaul. No surprises."         delay={80}  />
-          <StatCard value="$50"  label="per month — unlimited updates, hosting & maintenance" delay={160} />
-          <StatCard value="100%" label="focused on keeping donors and visitors informed"          delay={240} />
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 max-w-4xl mx-auto">
+          <StatCard value="Custom" label="every project scoped and quoted to your needs"         delay={0}  />
+          <StatCard value="Full stack" label="websites, apps, platforms, APIs and more" delay={80} />
+          <StatCard value="100%" label="focused on building solutions that drive real results"          delay={160} />
         </div>
       </section>
 
@@ -103,14 +102,14 @@ export default function WhyUs() {
       <section className="mx-auto max-w-6xl px-4 pb-10 sm:px-6 sm:pb-16 lg:pb-20">
         <RevealCard>
           <h2 className="mb-3 text-xl font-semibold tracking-tight sm:mb-4 sm:text-2xl lg:text-3xl">
-            Why a quality website matters for your church or organization.
+            Why quality software matters for your business.
           </h2>
           <p className="mb-3 text-base font-medium leading-relaxed text-[#1d1d1f]/70">
-            {"Most church and ministry websites were built years ago, load slowly, and look dated on mobile. That matters — most visitors decide whether to show up based on your statement of faith, location, and service times. When I've searched for a church while traveling, if a site wasn't clear on those basics, I'd look elsewhere."}
+            {"Most business websites and tools were built years ago, load slowly, and look dated on mobile. That matters — potential customers judge your credibility in seconds. If your site doesn't clearly communicate what you do and how to work with you, they'll move on."}
           </p>
           <p className="text-base font-medium leading-relaxed text-[#1d1d1f]/70">
-            A well-built site communicates that your church or organization is alive, organized, and welcoming.
-            It removes friction for first-time visitors, makes key info instantly findable, and keeps donors and guests informed.
+            Well-built software communicates that your business is professional, organized, and ready to serve.
+            It removes friction for potential customers, makes key info instantly findable, and drives real results.
           </p>
         </RevealCard>
       </section>
@@ -120,13 +119,13 @@ export default function WhyUs() {
         <RevealCard delay={0}>
           <p className="mb-2 text-xs font-medium uppercase tracking-widest text-[#0071e3]/70">The Kingdom Sites difference</p>
           <h3 className="mb-3 text-lg font-semibold tracking-tight sm:text-xl">
-            South Asia costs. American quality.
+            A true development partner, not a vendor.
           </h3>
           <p className="text-base font-medium leading-relaxed text-[#1d1d1f]/70">
-            We live and serve in South Asia, where the cost of living is a
-            fraction of the US — which means I can offer premium, American-standard
-            development at a price your budget can actually handle — without
-            cutting any corners.
+            We take the time to understand your goals and scope every
+            project individually. You get a custom quote based on exactly
+            what you need — no bloated packages, no surprises, just
+            thoughtful software built to serve your goals.
           </p>
         </RevealCard>
       </section>
@@ -136,26 +135,26 @@ export default function WhyUs() {
         <div className="mb-6 text-center">
           <h2 className="text-xl font-semibold tracking-tight sm:text-2xl lg:text-3xl">Who we work with.</h2>
           <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/55 sm:mt-3">
-            We collaborate with churches, ministries, and small businesses.
+            We partner with businesses and organizations of all sizes.
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           {[
             {
-              title: 'Bible-believing churches',
-              desc: 'We hold the Scriptures as the fully inspired, inerrant, and authoritative Word of God — the only rule for faith and practice.',
-            },
-            {
-              title: 'All evangelical traditions',
-              desc: "Baptist, Reformed, Anglican, non-denominational — if you love the gospel and the local church, we'd be honored to work with you.",
-            },
-            {
-              title: 'Mission-minded ministries',
-              desc: 'We especially love serving churches and organizations reaching the lost for Christ.',
-            },
-            {
               title: 'Small businesses',
-              desc: "Not a ministry? No problem. If you're a small business owner who likes what we're about, we'd love to build something great for you — same quality, same pricing.",
+              desc: 'From local shops to growing startups — we build software that helps you operate more efficiently and reach more customers.',
+            },
+            {
+              title: 'Agencies',
+              desc: "Need a trusted dev partner for client work? We offer white label development with the same quality and process as our direct projects.",
+            },
+            {
+              title: 'Non-profits and organizations',
+              desc: 'We love working with mission-driven organizations that need reliable, well-built software on a realistic budget.',
+            },
+            {
+              title: 'Growing teams',
+              desc: "If you need custom tools, dashboards, or platforms to scale your operations, we'd love to build something great for you.",
             },
           ].map((item, i) => (
             <RevealCard key={item.title} delay={i * 90}>

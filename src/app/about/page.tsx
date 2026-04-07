@@ -5,7 +5,7 @@ import aboutImage from '../../../public/Photos/about.jpg'
 
 export const metadata: Metadata = {
   title: 'About — Kingdom Sites',
-  description: 'Meet Thomas Klein and Monisha — the people behind Kingdom Sites.',
+  description: 'Meet Thomas Klein — the developer behind Kingdom Sites.',
 }
 
 export default function About() {
@@ -37,22 +37,22 @@ export default function About() {
             A little bit about us.
           </h1>
           <p className="mt-5 text-pretty text-base leading-relaxed text-[#1d1d1f]/75 sm:text-lg">
-            My name is Thomas Klein — a web developer and devoted Christian. My soon to be fiancée Monisha and I are passionate about seeing Jesus glorified throughout the world.
-            This business is an extension of our ministry, and we love building relationships with believers everywhere — whether or not we end up building your website.
+            My name is Thomas Klein — a software developer passionate about building great products for great people.
+            I love working directly with clients to understand their needs and deliver solutions that actually move the needle.
           </p>
 
           <div className="mt-8 grid gap-4">
             <div className="glass rounded-3xl p-6">
               <h2 className="text-sm font-semibold tracking-tight">What I focus on</h2>
               <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/70">
-                I focus on building websites and apps that are fast, clean, mobile-friendly, and easy to maintain.
+                I focus on building custom software solutions — websites, apps, and platforms — that are fast, clean, and built to solve real problems.
               </p>
             </div>
 
             <div className="glass rounded-3xl p-6">
               <h2 className="text-sm font-semibold tracking-tight">{'Why "Kingdom Sites"'}</h2>
               <p className="mt-2 text-sm leading-relaxed text-[#1d1d1f]/70">
-                {"You're not just getting a website — you're getting a partner in your ministry. We want to see churches and organizations thrive and reach people for Christ. Technology can accelerate the spread of the gospel, and we want to be part of that."}
+                {"You're not just getting a product — you're getting a development partner who's invested in your success. I want to see your business thrive, and I believe great software can be the difference maker."}
               </p>
             </div>
 

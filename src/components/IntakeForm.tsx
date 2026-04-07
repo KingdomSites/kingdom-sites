@@ -30,14 +30,13 @@ const step3Schema = z.object({
 })
 
 // ── Feature lists ──────────────────────────────────────────────────────────────
-const CHURCH_FEATURES = [
-  'Sermon Archive (YouTube embed)',
-  'Online Giving',
+const ORG_FEATURES = [
   'Events Calendar',
-  'Staff Bios',
-  'Prayer Request feature (+$300)',
+  'Staff / Team Bios',
   'Newsletter Signup',
-  'Blog / Devotionals',
+  'Blog / Articles',
+  'Online Store / Payments',
+  'Contact Forms',
   'Live Stream',
   'other',
 ] as const
@@ -48,17 +47,18 @@ const BUSINESS_FEATURES = [
   'Newsletter Signup',
   'Blog / Articles',
   'Online Store / Payments',
+  'Contact Forms',
   'Live Stream',
   'other',
 ] as const
 
-type OrgType = 'church' | 'business'
+type OrgType = 'organization' | 'business'
 
-const CHURCH_STEPS = [
-  { title: 'Church Info',    subtitle: 'Basic details about your organization.' },
-  { title: 'Vibe & Design',  subtitle: "Help us capture your church's identity." },
-  { title: 'Tech Access',    subtitle: 'Domain and current website information.' },
-  { title: 'Features',       subtitle: 'Select everything you need on your new site.' },
+const ORG_STEPS = [
+  { title: 'Organization Info', subtitle: 'Basic details about your organization.' },
+  { title: 'Vibe & Design',    subtitle: "Help us capture your brand identity." },
+  { title: 'Tech Access',      subtitle: 'Domain and current website information.' },
+  { title: 'Features',         subtitle: 'Select everything you need on your new site.' },
 ]
 
 const BUSINESS_STEPS = [
@@ -134,12 +134,12 @@ export default function IntakeForm({ user }: { user: User }) {
         if (row) {
           const features = (row.requested_features ?? []) as string[]
           const otherEntry = features.find((f: string) => f.startsWith('Other: '))
-          const allFeatureValues = [...CHURCH_FEATURES, ...BUSINESS_FEATURES] as string[]
+          const allFeatureValues = [...ORG_FEATURES, ...BUSINESS_FEATURES] as string[]
           const knownFeatures = features.filter((f: string) => allFeatureValues.includes(f))
           const hasOther = Boolean(otherEntry)
 
           setData({
-            org_type:             (row.org_type as OrgType) || 'church',
+            org_type:             (row.org_type as OrgType) || 'organization',
             org_name:             row.org_name             ?? '',
             primary_contact_name: row.primary_contact_name ?? '',
             address:              row.address              ?? '',
@@ -238,12 +238,11 @@ export default function IntakeForm({ user }: { user: User }) {
     const isBusiness = data.org_type === 'business'
     const sections: { heading: string; rows: [string, string][] }[] = [
       {
-        heading: isBusiness ? 'Business Info' : 'Church Info',
+        heading: isBusiness ? 'Business Info' : 'Organization Info',
         rows: [
           ['Organization', data.org_name],
           ['Contact',      data.primary_contact_name],
           ['Address',      data.address],
-          ...(!isBusiness ? [['Denomination', data.denomination || '—'] as [string, string]] : []),
         ],
       },
       {
@@ -261,7 +260,7 @@ export default function IntakeForm({ user }: { user: User }) {
         rows: [
           ['Current site',                        data.current_site_url || '—'],
           ['Domain info',                         data.domain_info      || '—'],
-          [isBusiness ? 'About / Description' : 'Mission', data.mission_summary || '—'],
+          [isBusiness ? 'About / Description' : 'About', data.mission_summary || '—'],
         ],
       },
       {
@@ -323,19 +322,19 @@ export default function IntakeForm({ user }: { user: User }) {
         <div className="grid gap-3 sm:grid-cols-2">
           {([
             {
-              type: 'church' as OrgType,
-              label: 'Church or Ministry',
-              desc: 'A local church, para-church ministry, mission organization, or non-profit.',
+              type: 'organization' as OrgType,
+              label: 'Organization / Non-profit',
+              desc: 'A non-profit, community organization, or other group.',
               icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2L2 7v15h20V7L12 2z" /><path d="M12 2v5M9 7h6" /><rect x="9" y="14" width="6" height="8" />
+                  <path d="M12 2L2 7v15h20V7L12 2z" /><rect x="9" y="14" width="6" height="8" />
                 </svg>
               ),
             },
             {
               type: 'business' as OrgType,
               label: 'Small Business',
-              desc: 'A business or professional service that wants a clean, effective website.',
+              desc: 'A business or professional service that needs custom software.',
               icon: (
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="2" y="7" width="20" height="14" rx="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" /><line x1="12" y1="12" x2="12" y2="16" /><line x1="10" y1="14" x2="14" y2="14" />
@@ -363,8 +362,8 @@ export default function IntakeForm({ user }: { user: User }) {
 
   // ── Multi-step form ──────────────────────────────────────────────────────────
   const isBusiness = data.org_type === 'business'
-  const STEPS = isBusiness ? BUSINESS_STEPS : CHURCH_STEPS
-  const FEATURES = isBusiness ? BUSINESS_FEATURES : CHURCH_FEATURES
+  const STEPS = isBusiness ? BUSINESS_STEPS : ORG_STEPS
+  const FEATURES = isBusiness ? BUSINESS_FEATURES : ORG_FEATURES
   const progress = ((step + 1) / STEPS.length) * 100
 
   return (
@@ -399,7 +398,7 @@ export default function IntakeForm({ user }: { user: User }) {
             <span className={LABEL}>{isBusiness ? 'Business Name' : 'Legal Organization Name'}<Req /></span>
             <input
               required type="text" className={INPUT}
-              placeholder={isBusiness ? 'Acme Design Co.' : 'Grace Community Church'}
+              placeholder={isBusiness ? 'Acme Design Co.' : 'My Organization'}
               maxLength={150}
               value={data.org_name}
               onChange={e => { set('org_name', e.target.value); clearErr('org_name') }}
@@ -411,7 +410,7 @@ export default function IntakeForm({ user }: { user: User }) {
             <span className={LABEL}>Primary Point of Contact<Req /></span>
             <input
               required type="text" className={INPUT}
-              placeholder={isBusiness ? 'Jane Smith' : 'Pastor John Smith'}
+              placeholder="Jane Smith"
               maxLength={100}
               value={data.primary_contact_name}
               onChange={e => { set('primary_contact_name', e.target.value); clearErr('primary_contact_name') }}
@@ -420,7 +419,7 @@ export default function IntakeForm({ user }: { user: User }) {
           </label>
 
           <label className="grid gap-1.5">
-            <span className={LABEL}>{isBusiness ? 'Business Address' : 'Church Address'}<Req /></span>
+            <span className={LABEL}>{isBusiness ? 'Business Address' : 'Organization Address'}<Req /></span>
             <input
               required type="text" className={INPUT} placeholder="123 Main St, City, State 00000"
               maxLength={300}
@@ -430,20 +429,6 @@ export default function IntakeForm({ user }: { user: User }) {
             {errors.address && <p className={ERR}>{errors.address}</p>}
           </label>
 
-          {!isBusiness && (
-            <label className="grid gap-1.5">
-              <span className={LABEL}>
-                Denomination{' '}
-                <span className="font-normal text-[#1d1d1f]/40">(optional)</span>
-              </span>
-              <input
-                type="text" className={INPUT} placeholder="Baptist, Non-denominational, etc."
-                maxLength={100}
-                value={data.denomination}
-                onChange={e => set('denomination', e.target.value)}
-              />
-            </label>
-          )}
         </div>
       )}
 
@@ -466,7 +451,7 @@ export default function IntakeForm({ user }: { user: User }) {
 
           <div className="grid gap-1.5">
             <span className={LABEL}>
-              3 Words That Describe Your {isBusiness ? 'Brand' : 'Church'}<Req />
+              3 Words That Describe Your Brand<Req />
             </span>
             <div className="grid grid-cols-3 gap-2">
               {(['vibe_word1', 'vibe_word2', 'vibe_word3'] as const).map((k, i) => (
@@ -536,7 +521,7 @@ export default function IntakeForm({ user }: { user: User }) {
             </span>
             <input
               type="url" className={INPUT}
-              placeholder={isBusiness ? 'https://mycompany.com' : 'https://gracechurch.org'}
+              placeholder="https://yoursite.com"
               maxLength={500}
               value={data.current_site_url}
               onChange={e => { set('current_site_url', e.target.value); clearErr('current_site_url') }}
@@ -563,7 +548,7 @@ export default function IntakeForm({ user }: { user: User }) {
 
           <label className="grid gap-1.5">
             <span className={LABEL}>
-              {isBusiness ? 'About Your Business' : 'Mission Statement'}{' '}
+              {isBusiness ? 'About Your Business' : 'About Your Organization'}{' '}
               <span className="font-normal text-[#1d1d1f]/40">(optional)</span>
             </span>
             <textarea
@@ -571,7 +556,7 @@ export default function IntakeForm({ user }: { user: User }) {
               placeholder={
                 isBusiness
                   ? 'Tell us what your business does and who you serve…'
-                  : "Share your church's mission or vision in your own words…"
+                  : "Tell us about your organization and what you do…"
               }
               maxLength={2000}
               value={data.mission_summary}

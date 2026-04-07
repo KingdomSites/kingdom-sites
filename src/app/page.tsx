@@ -61,24 +61,24 @@ export default function Home() {
         <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-7">
             <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-              Professional Websites that support mission work around the world.
+              Custom software solutions scoped and quoted to your needs.
             </h1>
             <p className="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[#1d1d1f]/75 sm:text-lg">
-              American-standard development at unbeatable prices.
+              Websites, apps, platforms and more — every engagement is quoted individually based on what you actually need.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link
-                href="/login"
+              <a
+                href="#contact"
                 className="inline-flex cursor-pointer items-center justify-center rounded-full border border-transparent bg-[#0071e3] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-colors hover:border-[#0071e3] hover:bg-[#f5f5f7] hover:text-[#0071e3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3]"
               >
-                Build Now
-              </Link>
+                Get a Quote
+              </a>
               <a
                 href="#value"
                 className="inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3]"
               >
-                What You Get
+                What We Build
               </a>
             </div>
           </div>
@@ -129,31 +129,30 @@ export default function Home() {
               id="built-premium"
               className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl shine-once"
             >
-              Built premium.
+              We build software solutions, not cookie-cutter sites.
             </h2>
             <p className="mt-4 text-pretty text-base leading-relaxed text-[#e8eef7]/65 sm:text-lg">
-              American quality websites with unbeatable prices. Direct
-              impact to mission work.
+              Every project is scoped, quoted, and built around your specific goals.
             </p>
           </div>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-5">
             {[
               {
-                title: 'Built for Christians, by Christians',
-                desc: 'We believe our work is a way to glorify God and serve others. We\'d love to help your ministry achieve its tech goals.',
+                title: 'Built with purpose',
+                desc: 'We care about the work we do and the people we serve. Every project gets our full attention and best effort.',
               },
               {
-                title: '$599 builds',
-                desc: 'South Asia costs of living mean American-standard development at a price your budget can handle — no surprises.',
+                title: 'Quoted to your project',
+                desc: 'No templates or fixed packages. Every engagement is scoped and quoted individually — from a simple site to a full custom platform.',
               },
               {
-                title: '$49 / month — your personal IT support',
-                desc: 'Event coming up? Need a page updated or a new feature? Just message me. Small updates and maintenance for $49/month.',
+                title: 'Ongoing partnership',
+                desc: 'Need updates, new features, or ongoing support? We stick around after launch. This is a relationship, not a transaction.',
               },
               {
-                title: 'Direct mission impact',
-                desc: "Your project funds our ministry work in South Asia. You're not just getting a great website — you're investing in something that has an eternal impact.",
+                title: 'Long-term partnership',
+                desc: "We're not just building and disappearing. Your success is our success — we stay invested in your project long after launch.",
               },
             ].map((item) => (
               <div key={item.title} className="rounded-3xl p-6" style={{ background: 'rgba(10,25,60,0.55)', border: '1px solid rgba(100,150,255,0.12)', backdropFilter: 'blur(16px)' }}>
@@ -165,152 +164,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Business callout — still inside dark block */}
-      <section aria-label="Also serving businesses" className="mx-auto max-w-6xl px-4 pb-14 sm:px-6">
-        <div className="rounded-3xl p-6 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between" style={{ background: 'rgba(10,25,60,0.55)', border: '1px solid rgba(100,150,255,0.12)', backdropFilter: 'blur(16px)' }}>
-          <div>
-            <p className="text-xs font-medium uppercase tracking-widest text-[#4d8cff] mb-1">Not a church?</p>
-            <h3 className="text-sm font-semibold tracking-tight text-white">We also build for small businesses and white label dev.</h3>
-            <p className="mt-1 text-sm leading-relaxed text-[#e8eef7]/60">
-              {"Same quality, same pricing. If you're a small business owner who appreciates what we're about, we'd love to work with you."}
-            </p>
-          </div>
-          <button
-            onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
-            className="mt-4 sm:mt-0 sm:ml-8 shrink-0 inline-flex cursor-pointer items-center justify-center rounded-full border border-[#0071e3] px-5 py-2.5 text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
-          >
-            Get in touch
-          </button>
-        </div>
-      </section>
       </div>
 
       {/* Pricing */}
       <section aria-label="Pricing" className="mx-auto max-w-6xl px-4 pb-14 pt-8 sm:px-6 sm:pb-20 sm:pt-10">
         <div className="mx-auto max-w-3xl text-center mb-10">
           <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-            Simple, honest pricing.
+            Every project quoted individually.
           </h2>
           <p className="mt-4 text-pretty text-base leading-relaxed text-[#1d1d1f]/65">
-            One flat rate to build it right. One low monthly rate to keep it that way.
+            No fixed packages. Tell me what you need and I will scope it out and put together a custom quote.
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 max-w-6xl mx-auto">
-          <div className="glass rounded-3xl p-7 flex flex-col">
-            <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-3">One-time</p>
-            <div className="flex items-end gap-1 mb-1">
-              <span className="text-4xl font-semibold tracking-tight">$599</span>
-            </div>
-            <p className="text-sm font-medium mb-4">Website Build</p>
-            <ul className="grid gap-2 mb-6 flex-1">
-              {[
-                'Custom-designed',
-                'Fast performance, built from scratch',
-                'Fully handed off — you own it',
-                'Direct personal communication throughout',
-              ].map(f => (
-                <li key={f} className="flex items-start gap-2 text-sm text-[#1d1d1f]/60">
-                  <span className="mt-0.5 shrink-0 text-[#0071e3] font-medium">✓</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
-              className="w-full cursor-pointer rounded-full bg-[#0071e3] py-3 text-center text-sm font-semibold text-white shadow-sm transition hover:brightness-95"
-            >
-              Get started — $599
-            </button>
-          </div>
-
-          <div className="glass rounded-3xl p-7 flex flex-col">
-            <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-3">One-time</p>
-            <div className="flex items-end gap-1 mb-1">
-              <span className="text-4xl font-semibold tracking-tight">$999</span>
-            </div>
-            <p className="text-sm font-medium mb-4">Advanced Website Build</p>
-            <ul className="grid gap-2 mb-6 flex-1">
-              {[
-                'Everything in the standard build',
-                'Login & Admin Dashboards',
-                'Up to 20 pages',
-                'App-like features',
-              ].map(f => (
-                <li key={f} className="flex items-start gap-2 text-sm text-[#1d1d1f]/60">
-                  <span className="mt-0.5 shrink-0 text-[#0071e3] font-medium">✓</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
-              className="w-full cursor-pointer rounded-full bg-[#0071e3] py-3 text-center text-sm font-semibold text-white shadow-sm transition hover:brightness-95"
-            >
-              Get started — $999
-            </button>
-          </div>
-
-          <div className="glass rounded-3xl p-7 flex flex-col relative overflow-hidden">
-            <div className="absolute top-4 right-4 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-medium text-[#1d1d1f]/60">
-              First month free
-            </div>
-            <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-3">Monthly</p>
-            <div className="flex items-end gap-1 mb-1">
-              <span className="text-4xl font-semibold tracking-tight">$49</span>
-              <span className="text-sm text-[#1d1d1f]/55 mb-1">/month</span>
-            </div>
-            <p className="text-sm font-medium mb-4">Hosting & Maintenance</p>
-            <ul className="grid gap-2 mb-6 flex-1">
-              {[
-                'Includes hosting and security updates',
-                'Your personal website IT support',
-                'Cancel any time',
-              ].map(f => (
-                <li key={f} className="flex items-start gap-2 text-sm text-[#1d1d1f]/60">
-                  <span className="mt-0.5 shrink-0 text-[#0071e3] font-medium">✓</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
-              className="w-full cursor-pointer rounded-full border border-[#0071e3] py-3 text-center text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
-            >
-              Start free — then $49/mo
-            </button>
-          </div>
-
-          <div className="glass rounded-3xl p-7 flex flex-col relative overflow-hidden">
-            <div className="absolute top-4 right-4 rounded-full border border-black/10 bg-white/70 px-3 py-1 text-[10px] font-medium text-[#1d1d1f]/60">
-              First month free
-            </div>
-            <p className="text-xs font-medium uppercase tracking-widest text-[#0071e3]/80 mb-3">Monthly</p>
-            <div className="flex items-end gap-1 mb-1">
-              <span className="text-4xl font-semibold tracking-tight">$199</span>
-              <span className="text-sm text-[#1d1d1f]/55 mb-1">/month</span>
-            </div>
-            <p className="text-sm font-medium mb-4">SEO & Growth Plan</p>
-            <ul className="grid gap-2 mb-6 flex-1">
-              {[
-                'Everything in hosting & maintenance',
-                'Monthly SEO optimization',
-                'Google ranking improvements',
-                'Priority support & faster turnaround',
-              ].map(f => (
-                <li key={f} className="flex items-start gap-2 text-sm text-[#1d1d1f]/60">
-                  <span className="mt-0.5 shrink-0 text-[#0071e3] font-medium">✓</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
-              className="w-full cursor-pointer rounded-full border border-[#0071e3] py-3 text-center text-sm font-semibold text-[#0071e3] transition hover:bg-[#0071e3] hover:text-white"
-            >
-              Get started — $199/mo
-            </button>
-          </div>
+        <div className="glass rounded-3xl p-8 sm:p-12 max-w-3xl mx-auto flex flex-col items-center text-center gap-6">
+          <ul className="grid gap-3 sm:grid-cols-2 text-left w-full max-w-xl">
+            {[
+              'Websites and landing pages',
+              'Custom web and mobile applications',
+              'Login portals and admin dashboards',
+              'APIs and backend systems',
+              'Ongoing retainer and support',
+              'White label development',
+            ].map(f => (
+              <li key={f} className="flex items-start gap-2 text-sm text-[#1d1d1f]/65">
+                <span className="mt-0.5 shrink-0 text-[#0071e3] font-medium">✓</span>
+                {f}
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
+            className="inline-flex cursor-pointer items-center justify-center rounded-full bg-[#0071e3] px-8 py-3 text-sm font-semibold text-white shadow-sm transition hover:brightness-95"
+          >
+            Request a Quote
+          </button>
         </div>
       </section>
 
@@ -318,10 +206,10 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-              {"Let's build your site."}
+              {"Let's talk about your project."}
             </h2>
             <p className="mt-4 text-pretty text-base leading-relaxed text-[#1d1d1f]/70 sm:text-lg">
-              {"Drop your details below and I'll be in touch."}
+              {"Tell me what you're building and I'll put together a quote."}
             </p>
           </div>
 
