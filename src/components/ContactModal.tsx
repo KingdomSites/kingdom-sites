@@ -65,9 +65,11 @@ export default function ContactModal({ onClose }: { onClose: () => void }) {
         className="flex w-full max-w-md flex-col rounded-2xl"
         style={{
           maxHeight: '90dvh',
-          background: '#1a1f2e',
-          border: '1px solid rgba(255,255,255,0.08)',
-          boxShadow: '0 24px 64px rgba(0,0,0,0.40)',
+          background: 'rgba(29, 29, 31, 0.72)',
+          backdropFilter: 'blur(32px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(32px) saturate(180%)',
+          border: '1px solid rgba(255,255,255,0.14)',
+          boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 24px 64px rgba(0,0,0,0.55)',
         }}
       >
         <div className="flex shrink-0 items-center justify-between border-b border-white/8 px-6 py-4">

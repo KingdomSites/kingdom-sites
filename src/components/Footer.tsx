@@ -4,41 +4,34 @@ const PAGE_LINKS = [
   { href: '/',        label: 'Home' },
   { href: '/about',   label: 'About' },
   { href: '/why-us',  label: 'Why Kingdom Sites' },
+  { href: '/mission', label: 'Mission' },
   { href: '/privacy', label: 'Privacy Policy' },
   { href: '/terms',   label: 'Terms' },
 ]
 
 export default function Footer() {
   return (
-    <footer
-      className="border-t border-white/30"
-      style={{
-        background: 'rgba(200, 220, 248, 0.30)',
-        backdropFilter: 'blur(16px) saturate(160%)',
-        WebkitBackdropFilter: 'blur(16px) saturate(160%)',
-      }}
-    >
-      <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-10 text-center text-xs text-[#1d1d1f]/55 sm:px-6">
-        <p>Kingdom Sites — custom software solutions, quoted to your needs.</p>
+    <footer className="border-t border-white/10 bg-[#161617]">
+      <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6">
+        <p className="text-xs leading-relaxed text-[#86868b]">
+          Kingdom Sites — websites, mobile apps, and custom software. Competitive pricing, every project individually quoted.
+        </p>
 
-        {/* Page links — desktop only */}
-        <div className="hidden sm:flex flex-wrap justify-center gap-x-5 gap-y-1">
+        <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 border-t border-white/10 pt-5">
           {PAGE_LINKS.map(({ href, label }) => (
-            <Link key={href} href={href} className="hover:text-[#1d1d1f] transition-colors">
+            <Link
+              key={href}
+              href={href}
+              className="text-xs text-[#86868b] transition-colors hover:text-[#f5f5f7]"
+            >
               {label}
             </Link>
           ))}
         </div>
-        
 
-        {/* Sign in — always visible */}
-        <div className="flex justify-center">
-          <Link href="/login" className="hover:text-[#1d1d1f] transition-colors">
-            Sign In
-          </Link>
-        </div>
-
-        <p>© {new Date().getFullYear()}</p>
+        <p className="mt-5 text-xs text-[#86868b]/70">
+          Copyright © {new Date().getFullYear()} Kingdom Sites. All rights reserved.
+        </p>
       </div>
     </footer>
   )
