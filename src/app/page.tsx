@@ -1,8 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
-import heroImage from '../../public/Photos/hero.jpeg'
 
 type FieldErrors = {
   name?: string[]
@@ -139,24 +137,6 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="relative mx-auto mt-14 max-w-3xl">
-          <div
-            className="absolute -inset-8 -z-10 rounded-[40px] blur-3xl"
-            style={{ background: 'linear-gradient(108deg, rgba(8,148,255,0.25), rgba(201,89,221,0.18), rgba(255,46,84,0.14))' }}
-          />
-          <div className="tile-elevated">
-            <Image
-              src={heroImage}
-              alt="Custom software, designed and built by Kingdom Sites"
-              quality={75}
-              placeholder="blur"
-              className="w-full object-cover"
-              priority
-              fetchPriority="high"
-              sizes="(max-width: 768px) 100vw, 768px"
-            />
-          </div>
-        </div>
       </section>
 
       {/* Services */}
