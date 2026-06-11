@@ -73,7 +73,7 @@ export default function WhyUs() {
             Software that works <span className="text-gradient">as hard as you do.</span>
           </h1>
           <p className="mt-4 max-w-2xl text-pretty text-sm leading-relaxed text-[#86868b] sm:mt-5 sm:text-base">
-            Whether it is a website, mobile app, or custom platform — we scope every project individually and quote based on what you actually need.
+            Whether it is a website, mobile app, or custom platform — I scope every project individually and quote based on what you actually need.
           </p>
         </div>
       </section>
@@ -111,7 +111,7 @@ export default function WhyUs() {
             A true development partner, not a vendor.
           </h3>
           <p className="text-base leading-relaxed text-[#86868b]">
-            We take the time to understand your goals and scope every project individually.
+            I take the time to understand your goals and scope every project individually.
             You get a competitive custom quote based on exactly what you need — no bloated
             packages, no inflated agency rates, no surprises. Just thoughtful software built
             to serve your goals.
@@ -122,28 +122,28 @@ export default function WhyUs() {
       {/* Who we work with */}
       <section className="mx-auto max-w-5xl px-4 pb-20 sm:px-6 sm:pb-24 lg:pb-28">
         <div className="mb-6 text-center">
-          <h2 className="text-xl font-semibold tracking-tight text-[#f5f5f7] sm:text-2xl lg:text-3xl">Who we work with.</h2>
+          <h2 className="text-xl font-semibold tracking-tight text-[#f5f5f7] sm:text-2xl lg:text-3xl">Who I work with.</h2>
           <p className="mt-2 text-sm leading-relaxed text-[#86868b] sm:mt-3">
-            We partner with businesses and organizations of all sizes — on any project.
+            I partner with businesses and organizations of all sizes — on any project.
           </p>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           {[
             {
               title: 'Small businesses',
-              desc: 'From local shops to growing startups — we build software that helps you operate more efficiently and reach more customers.',
+              desc: 'From local shops to growing startups — I build software that helps you operate more efficiently and reach more customers.',
             },
             {
               title: 'Agencies',
-              desc: 'Need a trusted dev partner for client work? We offer white label development with the same quality and process as our direct projects.',
+              desc: 'Need a trusted dev partner for client work? I offer white label development with the same quality and process as my direct projects.',
             },
             {
               title: 'Non-profits and organizations',
-              desc: 'We love working with mission-driven organizations that need reliable, well-built software at a fair, competitive rate.',
+              desc: 'I love working with mission-driven organizations that need reliable, well-built software at a fair, competitive rate.',
             },
             {
               title: 'Growing teams',
-              desc: "If you need custom tools, mobile apps, dashboards, or platforms to scale your operations, we'd love to build something great for you.",
+              desc: "If you need custom tools, mobile apps, dashboards, or platforms to scale your operations, I'd love to build something great for you.",
             },
           ].map((item, i) => (
             <RevealCard key={item.title} delay={i * 90}>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 type FieldErrors = {
   name?: string[]
@@ -8,16 +9,18 @@ type FieldErrors = {
   message?: string[]
 }
 
+const STACK = ['Next.js', 'React', 'TypeScript', 'React Native', 'Node.js', 'Supabase', 'PostgreSQL', 'AWS', 'Vercel']
+
 const SERVICES = [
   {
     eyebrow: 'Websites',
-    title: 'Fast. Beautiful. Built to convert.',
-    desc: 'Landing pages, marketing sites, and full multi-page builds — designed to load instantly and turn visitors into customers.',
+    title: 'Fast, beautiful, built to convert.',
+    desc: 'Landing pages, marketing sites, and full multi-page builds that load instantly and turn visitors into customers.',
   },
   {
     eyebrow: 'Mobile Apps',
-    title: 'iOS and Android. Done right.',
-    desc: 'Native-quality mobile apps for your customers or your team — from idea to the App Store.',
+    title: 'iOS and Android, done right.',
+    desc: 'Mobile apps for your customers or your team — from first idea to the App Store.',
   },
   {
     eyebrow: 'Platforms & Dashboards',
@@ -31,34 +34,42 @@ const SERVICES = [
   },
 ]
 
-const VALUES = [
+const PROCESS = [
   {
-    title: 'Built with purpose',
-    desc: 'We care about the work we do and the people we serve. Every project gets our full attention and best effort.',
+    step: '01',
+    title: 'Tell me about your project',
+    desc: 'A short message is enough. We hop on a call or keep it async — whatever works for you.',
   },
   {
-    title: 'Quoted to your project',
-    desc: 'No templates or fixed packages. Every engagement is scoped and quoted individually — from a simple site to a full custom platform.',
+    step: '02',
+    title: 'Get a scoped quote',
+    desc: 'I scope the work and send you a clear, competitive quote. Free, no obligation, no inflated agency rates.',
   },
   {
-    title: 'Competitive pricing',
-    desc: "We're not the cheapest, and we don't try to be. We deliver serious quality at a competitive rate — and you always know the price up front.",
+    step: '03',
+    title: 'I design and build',
+    desc: 'One developer, end to end — no handoffs, no telephone game. You get regular updates and working previews.',
   },
   {
-    title: 'A partner, not a vendor',
-    desc: "We stick around after launch — updates, new features, ongoing support. Your success is our success.",
+    step: '04',
+    title: 'Launch and beyond',
+    desc: 'I stick around after launch: updates, new features, support. A partner, not a one-off transaction.',
   },
 ]
 
-const QUOTE_ITEMS = [
-  'Websites and landing pages',
-  'Mobile apps for iOS and Android',
-  'Custom web applications',
-  'Portals and admin dashboards',
-  'APIs and backend systems',
-  'Ongoing retainer and support',
-  'White label development',
-  'Redesigns and rebuilds',
+const WHY = [
+  {
+    title: 'One developer, end to end',
+    desc: 'You talk directly to the person building your software. Decisions are fast, context never gets lost, and quality stays consistent from design to deployment.',
+  },
+  {
+    title: 'Competitive quotes, no packages',
+    desc: "I'm not the cheapest, and I don't try to be. Every project is scoped individually and priced competitively — you pay for exactly what you need, and you know the price up front.",
+  },
+  {
+    title: 'Built to last',
+    desc: 'Modern stack, clean code, real performance. Software you can build on for years — not a template you outgrow in six months.',
+  },
 ]
 
 function openContact() {
@@ -114,45 +125,51 @@ export default function Home() {
   return (
     <div className="w-full overflow-x-hidden">
       {/* Hero */}
-      <section className="px-4 pb-16 pt-16 text-center sm:px-6 sm:pb-24 sm:pt-24">
-        <p className="text-sm font-semibold text-[#86868b]">Kingdom Sites</p>
-        <h1 className="mx-auto mt-3 max-w-4xl text-balance text-5xl font-semibold tracking-tight text-[#f5f5f7] sm:text-6xl lg:text-7xl">
-          Custom software.
+      <section className="px-4 pb-20 pt-20 text-center sm:px-6 sm:pb-28 sm:pt-32">
+        <p className="text-sm font-semibold text-[#86868b]">Kingdom Sites · Custom Software</p>
+        <h1 className="mx-auto mt-4 max-w-4xl text-balance text-5xl font-semibold tracking-tight text-[#f5f5f7] sm:text-6xl lg:text-7xl">
+          Software that moves
           <br />
-          <span className="text-gradient">Built around you.</span>
+          <span className="text-gradient">your business forward.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-[#86868b] sm:text-lg">
-          Websites, mobile apps, and platforms for any project — competitively priced, every engagement individually quoted.
+          {"I'm Thomas — a full-stack developer building websites, mobile apps, and platforms for any project. Designed, built, and supported by one person who cares. Competitive pricing, every project quoted individually."}
         </p>
 
-        <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <button
             onClick={openContact}
-            className="inline-flex cursor-pointer items-center justify-center rounded-full bg-[#0071e3] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
+            className="inline-flex cursor-pointer items-center justify-center rounded-full bg-[#0071e3] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
           >
             Get a Quote
           </button>
-          <a href="#services" className="link-apple text-sm">
-            See what we build <span aria-hidden="true">›</span>
+          <a href="#process" className="link-apple text-sm">
+            How it works <span aria-hidden="true">›</span>
           </a>
         </div>
 
+        {/* Stack strip */}
+        <div className="mx-auto mt-16 flex max-w-3xl flex-wrap items-center justify-center gap-x-6 gap-y-2">
+          {STACK.map((t) => (
+            <span key={t} className="text-xs font-medium tracking-wide text-[#86868b]/70">{t}</span>
+          ))}
+        </div>
       </section>
 
       {/* Services */}
-      <section id="services" aria-label="What we build" className="px-4 py-16 sm:px-6 sm:py-24">
+      <section id="services" aria-label="What I build" className="border-t border-white/10 px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-balance text-3xl font-semibold tracking-tight text-[#f5f5f7] sm:text-5xl">
-            What we build.
+            What I build.
             <br />
             <span className="text-[#86868b]">Whatever your project needs.</span>
           </h2>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-5">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 sm:gap-5">
             {SERVICES.map((s) => (
               <div key={s.eyebrow} className="tile flex flex-col p-8 sm:p-10">
                 <p className="text-xs font-semibold uppercase tracking-widest text-[#86868b]">{s.eyebrow}</p>
-                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[#f5f5f7] sm:text-3xl">
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight text-[#f5f5f7]">
                   {s.title}
                 </h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-[#86868b] sm:text-base">{s.desc}</p>
@@ -165,22 +182,38 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Values */}
-      <section aria-label="Value proposition" className="px-4 py-16 sm:px-6 sm:py-24">
+      {/* Process */}
+      <section id="process" aria-label="How it works" className="border-t border-white/10 px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-5xl">
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-balance text-3xl font-semibold tracking-tight text-[#f5f5f7] sm:text-5xl">
-              Not cookie-cutter. <span className="text-gradient-blue">Crafted.</span>
-            </h2>
-            <p className="mt-4 text-pretty text-base leading-relaxed text-[#86868b] sm:text-lg">
-              Every project is scoped, quoted, and built around your specific goals.
-            </p>
-          </div>
+          <h2 className="text-balance text-3xl font-semibold tracking-tight text-[#f5f5f7] sm:text-5xl">
+            How it works.
+            <br />
+            <span className="text-[#86868b]">Simple, from first message to launch.</span>
+          </h2>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-5">
-            {VALUES.map((item) => (
-              <div key={item.title} className="tile p-6">
-                <h3 className="text-sm font-semibold tracking-tight text-[#f5f5f7]">{item.title}</h3>
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 sm:gap-5">
+            {PROCESS.map((p) => (
+              <div key={p.step} className="tile p-7">
+                <p className="text-gradient-blue text-2xl font-bold tracking-tight">{p.step}</p>
+                <h3 className="mt-3 text-base font-semibold tracking-tight text-[#f5f5f7]">{p.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#86868b]">{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why me */}
+      <section aria-label="Why Kingdom Sites" className="border-t border-white/10 px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-5xl">
+          <h2 className="text-balance text-3xl font-semibold tracking-tight text-[#f5f5f7] sm:text-5xl">
+            Why work with me.
+          </h2>
+
+          <div className="mt-12 grid gap-4 sm:grid-cols-3 sm:gap-5">
+            {WHY.map((item) => (
+              <div key={item.title} className="tile p-7">
+                <h3 className="text-base font-semibold tracking-tight text-[#f5f5f7]">{item.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-[#86868b]">{item.desc}</p>
               </div>
             ))}
@@ -188,48 +221,37 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Pricing */}
-      <section aria-label="Pricing" className="px-4 py-16 sm:px-6 sm:py-24">
-        <div className="mx-auto max-w-5xl">
-          <div className="mx-auto mb-10 max-w-3xl text-center">
-            <h2 className="text-balance text-3xl font-semibold tracking-tight text-[#f5f5f7] sm:text-5xl">
-              Competitive pricing.
-              <br />
-              <span className="text-[#86868b]">Every project quoted.</span>
-            </h2>
-            <p className="mt-5 text-pretty text-base leading-relaxed text-[#86868b]">
-              No fixed packages and no inflated agency rates. Tell us what you need — we scope it and put together a competitive quote based on exactly what you&apos;re building.
-            </p>
-          </div>
-
-          <div className="tile-elevated mx-auto flex max-w-3xl flex-col items-center gap-8 p-8 text-center sm:p-12">
-            <ul className="grid w-full max-w-xl gap-3 text-left sm:grid-cols-2">
-              {QUOTE_ITEMS.map((f) => (
-                <li key={f} className="flex items-start gap-2 text-sm text-[#86868b]">
-                  <span className="mt-0.5 shrink-0 font-medium text-[#2997ff]">✓</span>
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <button
-              onClick={openContact}
-              className="inline-flex cursor-pointer items-center justify-center rounded-full bg-[#0071e3] px-8 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
-            >
-              Request a Quote
-            </button>
+      {/* Purpose */}
+      <section aria-label="Built with purpose" className="border-t border-white/10 px-4 py-20 sm:px-6 sm:py-28">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="text-balance text-3xl font-semibold tracking-tight text-[#f5f5f7] sm:text-4xl">
+            Built with <span className="text-gradient-blue">purpose.</span>
+          </h2>
+          <p className="mx-auto mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[#86868b]">
+            Kingdom Sites is more than a business. Every project also helps support the long-term
+            mission work my wife and I are part of. You get great software — and your project
+            becomes part of a bigger story.
+          </p>
+          <div className="mt-6 flex items-center justify-center gap-6">
+            <Link href="/about" className="link-apple text-sm">
+              About us <span aria-hidden="true">›</span>
+            </Link>
+            <Link href="/mission" className="link-apple text-sm">
+              Our mission <span aria-hidden="true">›</span>
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Contact */}
-      <section id="contact" aria-label="Contact" className="px-4 py-16 sm:px-6 sm:py-24">
+      <section id="contact" aria-label="Contact" className="border-t border-white/10 px-4 py-20 sm:px-6 sm:py-28">
         <div className="mx-auto max-w-5xl">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-balance text-3xl font-semibold tracking-tight text-[#f5f5f7] sm:text-5xl">
               {"Let's talk about your project."}
             </h2>
             <p className="mt-4 text-pretty text-base leading-relaxed text-[#86868b] sm:text-lg">
-              {"Tell me what you're building and I'll put together a quote."}
+              {"Tell me what you're building and I'll put together a quote. Free, fast, no obligation."}
             </p>
           </div>
 
