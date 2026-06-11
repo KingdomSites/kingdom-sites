@@ -13,7 +13,7 @@ export default function About() {
     <div className="mx-auto max-w-5xl px-4 pb-16 pt-16 sm:px-6 sm:pb-24 sm:pt-24">
       <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
-          <div className="relative mx-auto w-full max-w-56">
+          <div className="relative mx-auto w-full max-w-md">
             <div
               className="absolute -inset-6 -z-10 rounded-[36px] blur-3xl"
               style={{ background: 'linear-gradient(140deg, rgba(8,148,255,0.22), rgba(201,89,221,0.16))' }}
