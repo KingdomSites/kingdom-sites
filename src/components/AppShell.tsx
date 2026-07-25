@@ -15,9 +15,9 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
     window.scrollTo(0, 0)
   }, [pathname])
 
-  // The Tap to Tick product pages keep the app's own light branding, so they
-  // render without the dark Kingdom Sites header and footer.
-  const standalone = pathname?.startsWith('/tap-to-tick')
+  // App product pages keep each app's own branding, so they render without the
+  // Kingdom Sites header and footer.
+  const standalone = ['/tap-to-tick', '/jam-with-latin'].some((p) => pathname?.startsWith(p))
 
   // No overflow clipping here — it would make this element the scroll container
   // and stop the product page's sticky nav from sticking.

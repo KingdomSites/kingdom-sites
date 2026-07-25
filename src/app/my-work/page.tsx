@@ -3,6 +3,8 @@ import Link from 'next/link'
 import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/contact'
 import shotOverview from '../../../public/tap-to-tick/overview.png'
 import shotLog from '../../../public/tap-to-tick/log.png'
+import jwlHome from '../../../public/jam-with-latin/home.jpg'
+import jwlMap from '../../../public/jam-with-latin/map.jpg'
 
 const TTT_STACK = ['Swift', 'SwiftUI', 'WidgetKit', 'watchOS', 'CloudKit', 'StoreKit', 'Cloudflare Workers', 'Claude API']
 
@@ -25,6 +27,27 @@ const TTT_HIGHLIGHTS = [
   },
 ]
 
+const JWL_STACK = ['React Native', 'Expo', 'Expo Router', 'TypeScript', 'Supabase', 'PostgreSQL', 'EAS']
+
+const JWL_HIGHLIGHTS = [
+  {
+    title: 'A curriculum, not a word list',
+    desc: 'Twelve stops teach declensions, then verbs, then sentences — the order classical teachers use — with camp-outs along the way that review everything so far.',
+  },
+  {
+    title: 'Wrong answers that still teach',
+    desc: 'Every distractor is a real, correctly-declined Latin form rather than nonsense, and macrons are correct throughout. A student who guesses still sees true grammar.',
+  },
+  {
+    title: 'Sign-up a parent will accept',
+    desc: 'A username and a six-digit PIN — no email address, no ads, no in-app purchases, no tracking, and account deletion built into the app.',
+  },
+  {
+    title: 'A reason to come back',
+    desc: 'XP, ranks, and a global arena leaderboard turn solitary vocabulary drilling into a friendly contest, with progress synced across devices.',
+  },
+]
+
 const SITE_STACK = ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Vercel']
 
 export default function MyWork() {
@@ -37,8 +60,9 @@ export default function MyWork() {
           Things I&apos;ve designed, built, and <span className="text-accent">shipped.</span>
         </h1>
         <p className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-body sm:text-lg">
-          Every project here was scoped, designed, built, and launched by me — front to back. Client work
-          stays private unless I&apos;m asked to show it, so what follows is my own.
+          Each of these was scoped, designed, built, and shipped by me — front to back. Some are my own
+          products, some were built for clients; most client work stays private unless I&apos;m asked to
+          show it.
         </p>
       </section>
 
@@ -93,6 +117,58 @@ export default function MyWork() {
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
             {TTT_HIGHLIGHTS.map((h) => (
+              <div key={h.title} className="tile p-7">
+                <h3 className="text-base font-semibold tracking-tight text-ink">{h.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-body">{h.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured project — Jam with Latin */}
+      <section aria-label="Jam with Latin" className="border-t border-line px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="tile-elevated grid gap-10 p-7 sm:p-10 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-14">
+            {/* Screens */}
+            <div className="flex items-end justify-center gap-4 sm:gap-6 lg:order-2">
+              <div className="w-[44%] max-w-[180px] translate-y-4 overflow-hidden rounded-[26px] border border-line shadow-[0_18px_44px_rgba(16,23,37,0.16)]">
+                <Image src={jwlMap} alt="The Jam with Latin campaign map of Italy" sizes="180px" className="h-auto w-full" />
+              </div>
+              <div className="w-[50%] max-w-[210px] overflow-hidden rounded-[30px] border border-line shadow-[0_24px_56px_rgba(16,23,37,0.2)]">
+                <Image src={jwlHome} alt="The Jam with Latin home screen" sizes="210px" className="h-auto w-full" />
+              </div>
+            </div>
+
+            <div className="lg:order-1">
+              <p className="eyebrow eyebrow-blue">iPhone &amp; iPad · Client project</p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+                Jam with Latin
+              </h2>
+              <p className="mt-2 text-base text-ink/80">
+                First-year classical Latin as a Roman-legion quest.
+              </p>
+              <p className="mt-4 text-[15px] leading-relaxed text-body">
+                Built for the Jam with Latin brand: homeschool and classical students march north from
+                Rōma to Gaul, learning real vocabulary, verb endings, and sentences at every stop. A
+                curriculum wrapped in a game, with a leaderboard that keeps students drilling on their
+                own initiative.
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
+                {JWL_STACK.map((t) => (
+                  <span key={t} className="text-xs font-medium tracking-wide text-muted">{t}</span>
+                ))}
+              </div>
+
+              <div className="mt-7">
+                <Link href="/jam-with-latin" className="btn-primary">See the product page</Link>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 sm:gap-5">
+            {JWL_HIGHLIGHTS.map((h) => (
               <div key={h.title} className="tile p-7">
                 <h3 className="text-base font-semibold tracking-tight text-ink">{h.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-body">{h.desc}</p>
