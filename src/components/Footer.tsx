@@ -2,6 +2,7 @@ import Link from 'next/link'
 
 const PAGE_LINKS = [
   { href: '/',        label: 'Home' },
+  { href: '/my-work', label: 'My Work' },
   { href: '/about',   label: 'About' },
   { href: '/why-us',  label: 'Why Kingdom Sites' },
   { href: '/mission', label: 'Mission' },

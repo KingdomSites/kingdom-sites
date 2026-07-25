@@ -5,8 +5,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const NAV_LINKS = [
-  { to: '/about',  label: 'About' },
-  { to: '/why-us', label: 'Why Kingdom Sites' },
+  { to: '/my-work', label: 'My Work' },
+  { to: '/about',   label: 'About' },
+  { to: '/why-us',  label: 'Why Kingdom Sites' },
 ]
 
 function MenuIcon() {
