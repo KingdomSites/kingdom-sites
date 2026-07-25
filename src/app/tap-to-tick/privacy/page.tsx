@@ -76,11 +76,10 @@ export default function TapToTickPrivacy() {
         </li>
       </ul>
       <p>
-        Requests go over HTTPS to a small relay service operated by Tap to Tick on Cloudflare Workers, which
-        adds the API credential and forwards the request to Anthropic&apos;s API. The relay exists so the API
-        key is never shipped inside the app. It does not log or store your questions or your budget figures —
-        the only thing it keeps is a running count of requests per day, used to cap costs and abuse. It does
-        not receive your name, email address, Apple ID, device identifier, or location.
+        Requests go over HTTPS to a small service operated by Tap to Tick on Cloudflare Workers, which
+        forwards them to Anthropic&apos;s API. It does not log or store your questions or your budget
+        figures — the only thing it keeps is a running count of requests per day, used to limit abuse. It
+        does not receive your name, email address, Apple ID, device identifier, or location.
       </p>
       <p>
         Anthropic processes the request to generate the reply under its commercial API terms, which do not
@@ -109,7 +108,7 @@ export default function TapToTickPrivacy() {
       </p>
       <ul>
         <li>Location is used only for this optional place-on-purchase feature.</li>
-        <li>Location is never sent to the Ask relay or to Anthropic. When iCloud sync is on, place fields sync with the entry inside your iCloud budget like other entry fields.</li>
+        <li>Location is never sent to Anthropic or to the service that forwards Ask requests. When iCloud sync is on, place fields sync with the entry inside your iCloud budget like other entry fields.</li>
         <li>If you deny location permission, or a fix is unavailable or slow, logging a purchase still works; the entry is simply saved without a place.</li>
         <li>Lock Screen widget and Apple Watch log paths do not require location for success.</li>
       </ul>
@@ -118,7 +117,7 @@ export default function TapToTickPrivacy() {
       <p>
         Tap to Tick does not use third-party analytics SDKs, crash reporters, or ad networks. Sync uses Apple
         CloudKit. Maps shown for purchase places use Apple MapKit. Subscriptions are processed by Apple. The
-        Ask feature uses Cloudflare Workers (relay hosting) and Anthropic (the AI model), and only for the
+        Ask feature uses Cloudflare Workers (which forwards the request) and Anthropic (the AI model), and only for the
         data described in the Ask section above.
       </p>
 

@@ -19,7 +19,7 @@ const TTT_HIGHLIGHTS = [
   },
   {
     title: 'An AI coach on real numbers',
-    desc: 'The assistant answers questions from your actual entries and budgets, not generic advice — built on Claude behind a cost-capped relay so the API key never ships in the app.',
+    desc: 'Ask a question in plain English and get an answer built from your own entries, budgets and balances — the specific thing worth changing this month, not generic advice.',
   },
   {
     title: 'Free tier plus a subscription',
@@ -36,7 +36,7 @@ const JWL_HIGHLIGHTS = [
   },
   {
     title: 'Wrong answers that still teach',
-    desc: 'Every distractor is a real, correctly-declined Latin form rather than nonsense, and macrons are correct throughout. A student who guesses still sees true grammar.',
+    desc: 'Every wrong option is a real, correctly-declined Latin form rather than nonsense, and macrons are correct throughout. A student who guesses still sees true grammar.',
   },
   {
     title: 'Sign-up a parent will accept',
