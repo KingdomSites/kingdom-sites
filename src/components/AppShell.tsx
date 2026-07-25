@@ -26,7 +26,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <div className="min-h-screen min-h-dvh w-full overflow-x-hidden text-[#f5f5f7]">
+    <div className="min-h-screen min-h-dvh w-full overflow-x-hidden text-ink">
       <Header />
       <main>{children}</main>
       <Footer />

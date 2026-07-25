@@ -14,10 +14,6 @@ export default function About() {
       <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-12">
         <div className="lg:col-span-5">
           <div className="relative mx-auto w-full max-w-md">
-            <div
-              className="absolute -inset-6 -z-10 rounded-[36px] blur-3xl"
-              style={{ background: 'linear-gradient(140deg, rgba(8,148,255,0.22), rgba(201,89,221,0.16))' }}
-            />
             <div className="tile-elevated">
               <Image
                 src={aboutImage}
@@ -32,26 +28,26 @@ export default function About() {
         </div>
 
         <div className="lg:col-span-7">
-          <p className="text-sm font-semibold text-[#86868b]">About</p>
-          <h1 className="mt-3 text-balance text-4xl font-semibold tracking-tight text-[#f5f5f7] sm:text-5xl">
-            A little bit <span className="text-gradient-blue">about us.</span>
+          <p className="eyebrow">About</p>
+          <h1 className="mt-4 text-balance text-4xl font-semibold leading-[1.06] tracking-tight text-ink sm:text-5xl">
+            A little bit <span className="text-accent">about us.</span>
           </h1>
-          <p className="mt-5 text-pretty text-base leading-relaxed text-[#86868b] sm:text-lg">
+          <p className="mt-5 text-pretty text-base leading-relaxed text-body sm:text-lg">
             My name is Thomas Klein — a software developer passionate about building great products for great people.
             My wife Monisha and I love working directly with clients to understand their needs and deliver solutions that actually move the needle.
           </p>
 
           <div className="mt-8 grid gap-4">
             <div className="tile p-6">
-              <h2 className="text-sm font-semibold tracking-tight text-[#f5f5f7]">What I focus on</h2>
-              <p className="mt-2 text-sm leading-relaxed text-[#86868b]">
+              <h2 className="text-sm font-semibold tracking-tight text-ink">What I focus on</h2>
+              <p className="mt-2 text-sm leading-relaxed text-body">
                 Custom software for any project — websites, mobile apps, platforms, and everything in between. Fast, clean, and built to solve real problems, at competitive pricing with every engagement individually quoted.
               </p>
             </div>
 
             <div className="tile p-6">
-              <h2 className="text-sm font-semibold tracking-tight text-[#f5f5f7]">{'Why "Kingdom Sites"'}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-[#86868b]">
+              <h2 className="text-sm font-semibold tracking-tight text-ink">{'Why "Kingdom Sites"'}</h2>
+              <p className="mt-2 text-sm leading-relaxed text-body">
                 {"You're not just getting a product — you're getting a development partner who's invested in your success. I want to see your business thrive, and I believe great software can be the difference maker."}
               </p>
             </div>

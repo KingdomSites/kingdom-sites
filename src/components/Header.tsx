@@ -9,12 +9,13 @@ const NAV_LINKS = [
   { to: '/my-work', label: 'My Work' },
   { to: '/about',   label: 'About' },
   { to: '/why-us',  label: 'Why Kingdom Sites' },
+  { to: '/mission', label: 'Mission' },
 ]
 
 function MenuIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-      <path d="M3 7h16M3 15h16" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <path d="M3 7h16M3 15h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }
@@ -22,7 +23,7 @@ function MenuIcon() {
 function CloseIcon() {
   return (
     <svg width="20" height="20" viewBox="0 0 22 22" fill="none" aria-hidden="true">
-      <path d="M5 5l12 12M17 5L5 17" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
+      <path d="M5 5l12 12M17 5L5 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )
 }
@@ -46,23 +47,30 @@ export default function Header() {
       <div
         className="transition-all duration-300"
         style={{
-          background: scrolled || menuOpen ? 'rgba(22, 22, 23, 0.8)' : 'transparent',
-          backdropFilter: scrolled || menuOpen ? 'blur(20px) saturate(180%)' : 'none',
-          WebkitBackdropFilter: scrolled || menuOpen ? 'blur(20px) saturate(180%)' : 'none',
-          borderBottom: scrolled ? '0.5px solid rgba(255,255,255,0.10)' : '0.5px solid transparent',
+          background: scrolled || menuOpen ? 'rgba(255, 255, 255, 0.82)' : 'transparent',
+          backdropFilter: scrolled || menuOpen ? 'saturate(180%) blur(20px)' : 'none',
+          WebkitBackdropFilter: scrolled || menuOpen ? 'saturate(180%) blur(20px)' : 'none',
+          borderBottom: scrolled ? '1px solid rgba(21,24,29,0.09)' : '1px solid transparent',
         }}
       >
-        <div className="mx-auto flex h-12 max-w-5xl items-center justify-between px-4 sm:px-6">
-          <div className="flex items-center gap-7">
-            <Link href="/" className="text-sm font-semibold tracking-tight text-[#f5f5f7]">
+        <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:px-8">
+          <div className="flex items-center gap-8">
+            <Link href="/" className="flex items-center gap-2.5 text-[15px] font-semibold tracking-tight text-ink">
+              <span
+                className="grid h-6 w-6 place-items-center rounded-[7px] text-[13px] font-bold text-white"
+                style={{ background: 'var(--color-accent)' }}
+                aria-hidden="true"
+              >
+                K
+              </span>
               Kingdom Sites
             </Link>
-            <nav className="hidden sm:flex items-center gap-6">
+            <nav className="hidden items-center gap-7 md:flex">
               {NAV_LINKS.map(({ to, label }) => (
                 <Link
                   key={to} href={to}
-                  className={`text-xs font-normal transition-colors duration-200 ${
-                    isActive(to) ? 'text-[#f5f5f7]' : 'text-[#f5f5f7]/65 hover:text-[#f5f5f7]'
+                  className={`text-[13.5px] transition-colors duration-200 ${
+                    isActive(to) ? 'font-medium text-ink' : 'text-body hover:text-ink'
                   }`}
                 >
                   {label}
@@ -71,17 +79,12 @@ export default function Header() {
             </nav>
           </div>
 
-          <div className="hidden sm:flex items-center">
-            <a
-              href={CONTACT_MAILTO}
-              className="rounded-full bg-[#0071e3] px-3.5 py-1.5 text-xs font-medium text-white transition hover:bg-[#0077ed]"
-            >
-              Email me
-            </a>
+          <div className="hidden md:flex items-center">
+            <a href={CONTACT_MAILTO} className="btn-sm">Email me</a>
           </div>
 
           <button
-            className="sm:hidden flex h-9 w-9 items-center justify-center text-[#f5f5f7]/80"
+            className="flex h-10 w-10 items-center justify-center text-ink md:hidden"
             onClick={() => setMenuOpen((o) => !o)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           >
@@ -92,24 +95,24 @@ export default function Header() {
 
       {menuOpen && (
         <div
-          className="sm:hidden"
+          className="md:hidden"
           style={{
-            background: 'rgba(22, 22, 23, 0.95)',
-            backdropFilter: 'blur(20px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-            boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+            background: 'rgba(255, 255, 255, 0.97)',
+            backdropFilter: 'saturate(180%) blur(20px)',
+            WebkitBackdropFilter: 'saturate(180%) blur(20px)',
+            boxShadow: '0 12px 28px rgba(16,23,37,0.10)',
           }}
         >
-          <div className="mx-auto max-w-5xl px-4 pb-5 pt-2 sm:px-6">
+          <div className="mx-auto max-w-6xl px-5 pb-5 pt-2 sm:px-8">
             <nav className="flex flex-col gap-1">
               {NAV_LINKS.map(({ to, label }) => (
                 <Link
                   key={to} href={to}
                   onClick={() => setMenuOpen(false)}
-                  className={`rounded-xl px-4 py-3 text-sm transition ${
+                  className={`rounded-xl px-4 py-3 text-[15px] transition ${
                     isActive(to)
-                      ? 'bg-white/10 text-[#f5f5f7]'
-                      : 'text-[#f5f5f7]/65 hover:bg-white/5 hover:text-[#f5f5f7]'
+                      ? 'bg-surface-2 font-medium text-ink'
+                      : 'text-body hover:bg-surface-2 hover:text-ink'
                   }`}
                 >
                   {label}
@@ -117,15 +120,15 @@ export default function Header() {
               ))}
             </nav>
 
-            <div className="mt-3 border-t border-white/10 pt-3">
+            <div className="mt-3 border-t border-line pt-4">
               <a
                 href={CONTACT_MAILTO}
                 onClick={() => setMenuOpen(false)}
-                className="block w-full rounded-xl bg-[#0071e3] px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-[#0077ed]"
+                className="btn-primary w-full"
               >
                 Email me
               </a>
-              <p className="mt-3 text-center text-xs text-[#86868b]">{CONTACT_EMAIL}</p>
+              <p className="mt-3 text-center text-xs text-muted">{CONTACT_EMAIL}</p>
             </div>
           </div>
         </div>

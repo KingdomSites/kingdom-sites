@@ -31,34 +31,30 @@ export default function MyWork() {
   return (
     <div className="w-full overflow-x-hidden">
       {/* Hero */}
-      <section className="px-4 pb-16 pt-20 text-center sm:px-6 sm:pb-20 sm:pt-28">
-        <p className="text-sm font-semibold text-[#86868b]">My work</p>
-        <h1 className="mx-auto mt-4 max-w-4xl text-balance text-4xl font-semibold tracking-tight text-[#f5f5f7] sm:text-6xl">
-          Things I&apos;ve designed,
-          <br />
-          <span className="text-gradient">built, and shipped.</span>
+      <section className="hero-wash px-5 pb-16 pt-16 text-center sm:px-8 sm:pb-20 sm:pt-24">
+        <p className="eyebrow">My work</p>
+        <h1 className="mx-auto mt-5 max-w-3xl text-balance text-4xl font-semibold leading-[1.06] tracking-tight text-ink sm:text-5xl">
+          Things I&apos;ve designed, built, and <span className="text-accent">shipped.</span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-[#86868b] sm:text-lg">
+        <p className="mx-auto mt-6 max-w-2xl text-pretty text-base leading-relaxed text-body sm:text-lg">
           Every project here was scoped, designed, built, and launched by me — front to back. Client work
           stays private unless I&apos;m asked to show it, so what follows is my own.
         </p>
       </section>
 
       {/* Featured project — Tap to Tick */}
-      <section aria-label="Tap to Tick" className="border-t border-white/10 px-4 py-16 sm:px-6 sm:py-24">
-        <div className="mx-auto max-w-5xl">
-          <div className="tile-elevated grid gap-8 p-7 sm:p-10 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-12">
+      <section aria-label="Tap to Tick" className="band-dark px-5 py-16 sm:px-8 sm:py-24">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center lg:gap-14">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-[#2997ff]">
-                iPhone · Apple Watch · Widgets
-              </p>
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight text-[#f5f5f7] sm:text-4xl">
+              <p className="eyebrow">iPhone · Apple Watch · Widgets</p>
+              <h2 className="mt-4 text-3xl font-semibold tracking-tight text-white sm:text-4xl">
                 Tap to Tick
               </h2>
-              <p className="mt-2 text-base text-[#f5f5f7]/80">
+              <p className="mt-2 text-base text-white/80">
                 A budgeting app you can actually keep up with.
               </p>
-              <p className="mt-4 text-sm leading-relaxed text-[#86868b] sm:text-base">
+              <p className="mt-4 text-[15px] leading-relaxed text-white/65">
                 Most budgeting apps fail for the same reason: logging a purchase is more work than making
                 one. Tap to Tick puts the whole thing on your Lock Screen, your wrist, and your Apple Pay —
                 and then explains your own numbers back to you with an AI money coach.
@@ -66,40 +62,40 @@ export default function MyWork() {
 
               <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
                 {TTT_STACK.map((t) => (
-                  <span key={t} className="text-xs font-medium tracking-wide text-[#86868b]/70">{t}</span>
+                  <span key={t} className="text-xs font-medium tracking-wide text-white/45">{t}</span>
                 ))}
               </div>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <Link
-                  href="/tap-to-tick"
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#0071e3] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
-                >
-                  See the product page
-                </Link>
-                <Link href="/tap-to-tick/privacy" className="link-apple text-sm sm:ml-2">
-                  Privacy policy <span aria-hidden="true">›</span>
+                <Link href="/tap-to-tick" className="btn-primary">See the product page</Link>
+                <Link href="/tap-to-tick/privacy" className="text-sm text-white/70 underline underline-offset-4 hover:text-white sm:ml-2">
+                  Privacy policy
                 </Link>
               </div>
             </div>
 
             {/* Screens */}
             <div className="flex items-end justify-center gap-4 sm:gap-6">
-              <div className="w-[42%] max-w-[180px] translate-y-4 overflow-hidden rounded-[22px] border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+              <div className="w-[42%] max-w-[180px] translate-y-4 overflow-hidden rounded-[26px] border border-white/12 shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
                 <Image src={shotLog} alt="Logging a purchase in Tap to Tick" sizes="180px" className="h-auto w-full" />
               </div>
-              <div className="w-[48%] max-w-[210px] overflow-hidden rounded-[26px] border border-white/10 shadow-[0_24px_60px_rgba(0,0,0,0.55)]">
+              <div className="w-[48%] max-w-[210px] overflow-hidden rounded-[30px] border border-white/12 shadow-[0_28px_64px_rgba(0,0,0,0.5)]">
                 <Image src={shotOverview} alt="The Tap to Tick overview screen" sizes="210px" className="h-auto w-full" priority />
               </div>
             </div>
           </div>
 
-          {/* What makes it work */}
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 sm:gap-5">
+        </div>
+      </section>
+
+      {/* What makes it work */}
+      <section aria-label="How Tap to Tick works" className="px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-4 sm:grid-cols-2 sm:gap-5">
             {TTT_HIGHLIGHTS.map((h) => (
               <div key={h.title} className="tile p-7">
-                <h3 className="text-base font-semibold tracking-tight text-[#f5f5f7]">{h.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#86868b]">{h.desc}</p>
+                <h3 className="text-base font-semibold tracking-tight text-ink">{h.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-body">{h.desc}</p>
               </div>
             ))}
           </div>
@@ -107,20 +103,20 @@ export default function MyWork() {
       </section>
 
       {/* This site */}
-      <section aria-label="Kingdom Sites" className="border-t border-white/10 px-4 py-16 sm:px-6 sm:py-24">
+      <section aria-label="Kingdom Sites" className="border-t border-line px-5 py-16 sm:px-8 sm:py-20">
         <div className="mx-auto max-w-5xl">
           <div className="tile p-7 sm:p-10">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[#2997ff]">Website</p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-[#f5f5f7] sm:text-3xl">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent">Website</p>
+            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
               kingdom-sites.com
             </h2>
-            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[#86868b] sm:text-base">
+            <p className="mt-4 max-w-3xl text-sm leading-relaxed text-body sm:text-base">
               This site. Server-rendered for speed, scored on real visitor performance, deliberately kept
               to static pages with no database behind it. The same setup I build client marketing sites on.
             </p>
             <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
               {SITE_STACK.map((t) => (
-                <span key={t} className="text-xs font-medium tracking-wide text-[#86868b]/70">{t}</span>
+                <span key={t} className="text-xs font-medium tracking-wide text-muted">{t}</span>
               ))}
             </div>
           </div>
@@ -128,22 +124,19 @@ export default function MyWork() {
       </section>
 
       {/* CTA */}
-      <section aria-label="Contact" className="border-t border-white/10 px-4 py-16 sm:px-6 sm:py-24">
+      <section aria-label="Contact" className="border-t border-line px-5 py-16 sm:px-8 sm:py-20">
         <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-balance text-3xl font-semibold tracking-tight text-[#f5f5f7] sm:text-4xl">
-            Want something like this <span className="text-gradient-blue">for your business?</span>
+          <h2 className="text-balance text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
+            Want something like this <span className="text-accent">for your business?</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[#86868b]">
+          <p className="mx-auto mt-5 max-w-2xl text-pretty text-base leading-relaxed text-body">
             Tell me what you have in mind and I&apos;ll scope it and send a quote. Free, fast, no obligation.
           </p>
-          <a
-            href={CONTACT_MAILTO}
-            className="mt-8 inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#0071e3] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
-          >
-            Email me
-          </a>
-          <p className="mt-4 text-sm text-[#86868b]">
-            <a href={CONTACT_MAILTO} className="link-apple">{CONTACT_EMAIL}</a>
+          <div className="mt-8">
+            <a href={CONTACT_MAILTO} className="btn-primary">Email me</a>
+          </div>
+          <p className="mt-4 text-sm text-body">
+            <a href={CONTACT_MAILTO} className="link-accent">{CONTACT_EMAIL}</a>
           </p>
         </div>
       </section>
