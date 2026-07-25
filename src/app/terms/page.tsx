@@ -114,8 +114,8 @@ export default function TermsPage() {
             </p>
             <p>
               <span className="font-medium text-[#f5f5f7]">Technical Access:</span> If Kingdom Sites
-              host (preferred) Kingdom Sites retains administrative access to the Vercel/Supabase
-              environment to perform the mandatory maintenance and security updates.
+              host (preferred) Kingdom Sites retains administrative access to the hosting and
+              database environment to perform the mandatory maintenance and security updates.
             </p>
              <p>
               <span className="font-medium text-[#f5f5f7]">Subject to Change</span> Kingdom Sites reserves the right to adjust the terms of service at any time. 

@@ -1,9 +1,8 @@
-'use client'
-
 import Image from 'next/image'
 import Link from 'next/link'
-import shotOverview from '../../../public/tap-to-tick/1-overview.jpg'
-import shotLog from '../../../public/tap-to-tick/2-log-a-purchase.jpg'
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/contact'
+import shotOverview from '../../../public/tap-to-tick/overview.png'
+import shotLog from '../../../public/tap-to-tick/log.png'
 
 const TTT_STACK = ['Swift', 'SwiftUI', 'WidgetKit', 'watchOS', 'CloudKit', 'StoreKit', 'Cloudflare Workers', 'Claude API']
 
@@ -26,11 +25,7 @@ const TTT_HIGHLIGHTS = [
   },
 ]
 
-const SITE_STACK = ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Vercel', 'Supabase', 'Resend']
-
-function openContact() {
-  document.dispatchEvent(new CustomEvent('open-contact-modal'))
-}
+const SITE_STACK = ['Next.js', 'React', 'TypeScript', 'Tailwind', 'Vercel']
 
 export default function MyWork() {
   return (
@@ -120,8 +115,8 @@ export default function MyWork() {
               kingdom-sites.com
             </h2>
             <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[#86868b] sm:text-base">
-              This site. Server-rendered for speed, scored on real visitor performance, with a contact form
-              that is rate-limited and validated end to end. The same setup I build client marketing sites on.
+              This site. Server-rendered for speed, scored on real visitor performance, deliberately kept
+              to static pages with no database behind it. The same setup I build client marketing sites on.
             </p>
             <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
               {SITE_STACK.map((t) => (
@@ -141,12 +136,15 @@ export default function MyWork() {
           <p className="mx-auto mt-5 max-w-2xl text-pretty text-base leading-relaxed text-[#86868b]">
             Tell me what you have in mind and I&apos;ll scope it and send a quote. Free, fast, no obligation.
           </p>
-          <button
-            onClick={openContact}
-            className="mt-8 inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-full bg-[#0071e3] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
+          <a
+            href={CONTACT_MAILTO}
+            className="mt-8 inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#0071e3] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
           >
-            Get a Quote
-          </button>
+            Email me
+          </a>
+          <p className="mt-4 text-sm text-[#86868b]">
+            <a href={CONTACT_MAILTO} className="link-apple">{CONTACT_EMAIL}</a>
+          </p>
         </div>
       </section>
     </div>

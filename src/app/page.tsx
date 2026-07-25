@@ -1,13 +1,5 @@
-'use client'
-
-import { useState } from 'react'
 import Link from 'next/link'
-
-type FieldErrors = {
-  name?: string[]
-  email?: string[]
-  message?: string[]
-}
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/contact'
 
 const STACK = ['Next.js', 'React', 'TypeScript', 'React Native', 'Node.js', 'Supabase', 'PostgreSQL', 'AWS', 'Vercel']
 
@@ -72,56 +64,7 @@ const WHY = [
   },
 ]
 
-function openContact() {
-  document.dispatchEvent(new CustomEvent('open-contact-modal'))
-}
-
 export default function Home() {
-  const [submitted, setSubmitted] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const [errors, setErrors] = useState<FieldErrors>({})
-  const [serverError, setServerError] = useState('')
-
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setSubmitting(true)
-    setErrors({})
-    setServerError('')
-
-    const data = new FormData(e.currentTarget)
-    const body = {
-      website: data.get('website')?.toString() || '', // honeypot
-      name:    data.get('name') as string,
-      email:   data.get('email') as string,
-      message: data.get('message') as string,
-    }
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
-
-      if (res.ok) {
-        setSubmitted(true)
-        ;(e.target as HTMLFormElement).reset()
-      } else if (res.status === 400) {
-        const json = await res.json()
-        setErrors(json.errors ?? {})
-      } else {
-        const json = await res.json()
-        setServerError(json.error ?? 'Something went wrong. Please try again.')
-      }
-    } catch {
-      setServerError('Network error. Please try again.')
-    } finally {
-      setSubmitting(false)
-    }
-  }
-
-  const inputClass = 'input-glass h-12 rounded-xl px-4 text-sm'
-
   return (
     <div className="w-full overflow-x-hidden">
       {/* Hero */}
@@ -137,12 +80,12 @@ export default function Home() {
         </p>
 
         <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <button
-            onClick={openContact}
-            className="inline-flex cursor-pointer items-center justify-center rounded-full bg-[#0071e3] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
+          <a
+            href={CONTACT_MAILTO}
+            className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#0071e3] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
           >
-            Get a Quote
-          </button>
+            Email me
+          </a>
           <a href="#process" className="link-apple text-sm">
             How it works <span aria-hidden="true">›</span>
           </a>
@@ -173,9 +116,9 @@ export default function Home() {
                   {s.title}
                 </h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-[#86868b] sm:text-base">{s.desc}</p>
-                <button onClick={openContact} className="link-apple mt-5 cursor-pointer self-start text-sm">
+                <a href={CONTACT_MAILTO} className="link-apple mt-5 self-start text-sm">
                   Get a quote <span aria-hidden="true">›</span>
-                </button>
+                </a>
               </div>
             ))}
           </div>
@@ -251,87 +194,23 @@ export default function Home() {
               {"Let's talk about your project."}
             </h2>
             <p className="mt-4 text-pretty text-base leading-relaxed text-[#86868b] sm:text-lg">
-              {"Tell me what you're building and I'll put together a quote. Free, fast, no obligation."}
+              {"Email me what you're building and I'll put together a quote. Free, fast, no obligation."}
             </p>
           </div>
 
-          <div className="tile mx-auto mt-10 max-w-2xl p-6 sm:p-8">
-            {submitted ? (
-              <div className="py-6 text-center">
-                <p className="text-sm font-semibold tracking-tight text-[#f5f5f7]">Message sent!</p>
-                <p className="mt-2 text-sm text-[#86868b]">
-                  {"Thanks—I'll reply as soon as I can."}
-                </p>
-                <button onClick={() => setSubmitted(false)} className="link-apple mt-3 cursor-pointer text-xs">
-                  Send another
-                </button>
-              </div>
-            ) : (
-              <form className="grid gap-4" onSubmit={handleSubmit}>
-                {/* Honeypot — hidden from humans, bots fill it */}
-                <input name="website" type="text" tabIndex={-1} autoComplete="off" style={{ position: 'absolute', left: '-9999px', opacity: 0, pointerEvents: 'none' }} />
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <label className="grid gap-1.5 text-sm">
-                    <span className="font-medium text-[#f5f5f7]/80">Name</span>
-                    <input
-                      required
-                      name="name"
-                      type="text"
-                      placeholder="Your name"
-                      maxLength={100}
-                      className={inputClass}
-                    />
-                    {errors.name && (
-                      <span className="text-xs text-red-400">{errors.name[0]}</span>
-                    )}
-                  </label>
-                  <label className="grid gap-1.5 text-sm">
-                    <span className="font-medium text-[#f5f5f7]/80">Email</span>
-                    <input
-                      required
-                      name="email"
-                      type="email"
-                      placeholder="you@example.com"
-                      maxLength={255}
-                      className={inputClass}
-                    />
-                    {errors.email && (
-                      <span className="text-xs text-red-400">{errors.email[0]}</span>
-                    )}
-                  </label>
-                </div>
-
-                <label className="grid gap-1.5 text-sm">
-                  <span className="font-medium text-[#f5f5f7]/80">What do you need built?</span>
-                  <textarea
-                    required
-                    name="message"
-                    rows={4}
-                    placeholder="A website, a mobile app, a customer portal…"
-                    maxLength={2000}
-                    className="input-glass resize-none rounded-xl px-4 py-3 text-sm"
-                  />
-                  {errors.message && (
-                    <span className="text-xs text-red-400">{errors.message[0]}</span>
-                  )}
-                </label>
-
-                {serverError && (
-                  <p className="text-xs text-red-400">{serverError}</p>
-                )}
-
-                <div className="mt-2 flex items-center justify-end">
-                  <button
-                    type="submit"
-                    disabled={submitting}
-                    className="inline-flex cursor-pointer items-center justify-center rounded-full bg-[#0071e3] px-6 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed] disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    {submitting ? 'Sending…' : 'Send'}
-                  </button>
-                </div>
-              </form>
-            )}
+          <div className="tile mx-auto mt-10 max-w-2xl p-8 text-center sm:p-10">
+            <a
+              href={CONTACT_MAILTO}
+              className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#0071e3] px-8 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
+            >
+              Email me
+            </a>
+            <p className="mt-5 text-sm text-[#86868b]">
+              or write to{' '}
+              <a href={CONTACT_MAILTO} className="link-apple">
+                {CONTACT_EMAIL}
+              </a>
+            </p>
           </div>
         </div>
       </section>

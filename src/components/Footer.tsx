@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/contact'
 
 const PAGE_LINKS = [
   { href: '/',        label: 'Home' },
@@ -17,6 +18,18 @@ export default function Footer() {
         <p className="text-xs leading-relaxed text-[#86868b]">
           Kingdom Sites — websites, mobile apps, and custom software. Competitive pricing, every project individually quoted.
         </p>
+
+        <div className="mt-5 flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-5">
+          <a
+            href={CONTACT_MAILTO}
+            className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#0071e3] px-5 py-2.5 text-xs font-medium text-white transition hover:bg-[#0077ed]"
+          >
+            Email me
+          </a>
+          <a href={CONTACT_MAILTO} className="link-apple text-xs">
+            {CONTACT_EMAIL}
+          </a>
+        </div>
 
         <div className="mt-5 flex flex-wrap gap-x-6 gap-y-2 border-t border-white/10 pt-5">
           {PAGE_LINKS.map(({ href, label }) => (

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/contact'
 
 function useReveal() {
   const ref = useRef<HTMLDivElement>(null)
@@ -154,12 +155,15 @@ export default function WhyUs() {
         </div>
 
         <div className="mt-10 text-center">
-          <button
-            onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
-            className="inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-full bg-[#0071e3] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
+          <a
+            href={CONTACT_MAILTO}
+            className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[#0071e3] px-7 py-3 text-sm font-medium text-white transition hover:bg-[#0077ed]"
           >
-            Start a conversation
-          </button>
+            Email me
+          </a>
+          <p className="mt-4 text-sm text-[#86868b]">
+            <a href={CONTACT_MAILTO} className="link-apple">{CONTACT_EMAIL}</a>
+          </p>
         </div>
       </section>
     </div>

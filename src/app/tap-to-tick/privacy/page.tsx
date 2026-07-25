@@ -14,7 +14,7 @@ export default function TapToTickPrivacy() {
     <div className="doc">
       <h1>Privacy Policy</h1>
       <p className="updated">Last updated: July 2026</p>
-      <div className="pill">
+      <div className="banner">
         Your ledger lives in your Apple iCloud account. The only feature that sends anything off your
         device is the optional Ask assistant.
       </div>
@@ -140,11 +140,11 @@ export default function TapToTickPrivacy() {
         Questions about this policy: <a href="mailto:thomas@kingdom-sites.com">thomas@kingdom-sites.com</a>
       </p>
 
-      <footer>
+      <div className="doc-footer">
         <Link href="/tap-to-tick">&larr; Back to Tap to Tick</Link>
         <br />
         <br />© {new Date().getFullYear()} Thomas Klein. All rights reserved.
-      </footer>
+      </div>
     </div>
   )
 }

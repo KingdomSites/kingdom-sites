@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { CONTACT_EMAIL, CONTACT_MAILTO } from '@/lib/contact'
 
 const NAV_LINKS = [
   { to: '/my-work', label: 'My Work' },
@@ -71,12 +72,12 @@ export default function Header() {
           </div>
 
           <div className="hidden sm:flex items-center">
-            <button
-              onClick={() => document.dispatchEvent(new CustomEvent('open-contact-modal'))}
-              className="cursor-pointer rounded-full bg-[#0071e3] px-3.5 py-1.5 text-xs font-medium text-white transition hover:bg-[#0077ed]"
+            <a
+              href={CONTACT_MAILTO}
+              className="rounded-full bg-[#0071e3] px-3.5 py-1.5 text-xs font-medium text-white transition hover:bg-[#0077ed]"
             >
-              Get a Quote
-            </button>
+              Email me
+            </a>
           </div>
 
           <button
@@ -117,12 +118,14 @@ export default function Header() {
             </nav>
 
             <div className="mt-3 border-t border-white/10 pt-3">
-              <button
-                onClick={() => { setMenuOpen(false); document.dispatchEvent(new CustomEvent('open-contact-modal')) }}
-                className="w-full cursor-pointer rounded-xl bg-[#0071e3] px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-[#0077ed]"
+              <a
+                href={CONTACT_MAILTO}
+                onClick={() => setMenuOpen(false)}
+                className="block w-full rounded-xl bg-[#0071e3] px-4 py-3 text-center text-sm font-medium text-white transition hover:bg-[#0077ed]"
               >
-                Get a Quote
-              </button>
+                Email me
+              </a>
+              <p className="mt-3 text-center text-xs text-[#86868b]">{CONTACT_EMAIL}</p>
             </div>
           </div>
         </div>
